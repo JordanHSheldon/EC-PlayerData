@@ -11,12 +11,7 @@ namespace EsportsProfileWebApi.INFRASTRUCTURE
     {
         public static List<PlayerDTO> players = new List<PlayerDTO>
         {
-            new PlayerDTO{Id=0,Lastname="Sheldon",Firstname="Jordan",Alias="Nadroj"},
-            new PlayerDTO{Id=1,Lastname="Sheldon",Firstname="Jordan",Alias="Nadroj"},
-            new PlayerDTO{Id=2,Lastname="Sheldon",Firstname="Jordan",Alias="Nadroj"},
-            new PlayerDTO{Id=3,Lastname="Sheldon",Firstname="Jordan",Alias="Nadroj"},
-            new PlayerDTO{Id=4,Lastname="Sheldon",Firstname="Jordan",Alias="Nadroj"},
-            new PlayerDTO{Id=5,Lastname="Sheldon",Firstname="Jordan",Alias="Nadroj"},
+            new PlayerDTO{Id=0,Lastname="Sheldon",Firstname="Jordan",Alias="Nadroj",Password="password",Email="jordanhsheldon@gmail.com" }
         };
 
         public List<PlayerDTO> getAllPlayers()
@@ -24,15 +19,16 @@ namespace EsportsProfileWebApi.INFRASTRUCTURE
             return players;
         }
 
-        public PlayerDTO getPlayer(int playerId)
+        public PlayerDTO getPlayer(string player)
         {
-            return players.Find(x=>x.Id==playerId) ?? new PlayerDTO();
+            return players.Find(x => x.Alias.ToLower() == player.ToLower());
         }
+
 
         public PlayerDTO AddPlayer(PlayerDTO player)
         {
-            players.Add(player);
-            return getPlayer(player.Id);
+                players.Add(player);
+                return getPlayer(player.Alias);
         }
 
         public bool updatePlayer(PlayerDTO player)
@@ -40,13 +36,18 @@ namespace EsportsProfileWebApi.INFRASTRUCTURE
             return false;
         }
 
-        public bool removePlayer(int id)
+        public PlayerDTO getPlayerByAlias(PlayerDTO player)
         {
-            if (getPlayer(id) == null)
+            return players.Find(x => x.Alias == player.Alias) ?? new PlayerDTO();
+        }
+
+        public bool removePlayer(string player)
+        {
+            if (getPlayer(player) == null)
             {
                 return false;
             }
-            players.Remove(getPlayer(id));
+            players.Remove(getPlayer(player));
             return true;
         }
     }

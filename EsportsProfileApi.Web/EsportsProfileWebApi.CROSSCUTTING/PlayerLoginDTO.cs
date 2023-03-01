@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace EsportsProfileWebApi.CROSSCUTTING
 {
-    public class Intincoming
+    public class PlayerLoginDTO
     {
-        public int Id { get; set; } = 0;
+        public string Alias { get; set; } = string.Empty;
+
+        public string Password { get; set; } = string.Empty;
     }
 }

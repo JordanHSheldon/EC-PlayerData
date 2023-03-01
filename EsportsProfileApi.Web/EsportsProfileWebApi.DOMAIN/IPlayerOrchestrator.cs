@@ -10,13 +10,11 @@ namespace EsportsProfileWebApi.DOMAIN
 {
     public interface IPlayerOrchestrator
     {
-
         public List<PlayerDTO> getAllPlayers();
-
-        public PlayerDTO getPlayer(int playerId);
-
+        public PlayerLoginDTO getPlayer(string alias);
         public bool updatePlayer(PlayerDTO player);
         public PlayerDTO AddPlayer(PlayerCreationDTO player);
-        public bool deletePlayer(int id);
+        public PlayerDTO registerPlayer(PlayerCreationDTO player);
+        public bool deletePlayer(string player);
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EsportsProfileWebApi.CROSSCUTTING;
+﻿using EsportsProfileWebApi.CROSSCUTTING;
 using EsportsProfileWebApi.INFRASTRUCTURE;
 namespace EsportsProfileWebApi.DOMAIN
 {
@@ -16,14 +11,30 @@ namespace EsportsProfileWebApi.DOMAIN
             _playerRepostirory = playerRepository ?? throw new NotImplementedException();
         }
 
+        public PlayerDTO registerPlayer(PlayerCreationDTO player)
+        {
+            List<PlayerDTO> check = getAllPlayers();
+            if (check.Select(x => x).Where(x => x.Alias == player.Alias).Count().Equals(0) && player != null)
+            {
+                return  _playerRepostirory.AddPlayer(
+                    new PlayerDTO() {Id = check.Max(x => x.Id) + 1, Firstname = player.fname, Lastname = player.lname, Alias = player.Alias, Email = player.Email, Password = player.Password });
+                
+            }
+            return null;
+        }
+
+
+
         public PlayerDTO AddPlayer(PlayerCreationDTO player)
         {
             return _playerRepostirory.AddPlayer(
                 new PlayerDTO()
                 {
-                    Firstname= player.Firstname,
-                    Lastname= player.Lastname,
-                    Alias= player.Alias,
+                    Firstname = player.fname,
+                    Lastname = player.lname,
+                    Alias = player.Alias,
+                    Email = player.Email,
+                    Password = player.Password
                 }
                 );
         }
@@ -38,14 +49,15 @@ namespace EsportsProfileWebApi.DOMAIN
             return _playerRepostirory.getAllPlayers();
         }
 
-        public PlayerDTO getPlayer(int playerId)
+        public PlayerLoginDTO getPlayer(string player)
         {
-            return _playerRepostirory.getPlayer(playerId);
+            var playerLogin = _playerRepostirory.getPlayer(player);
+            return new PlayerLoginDTO { Alias = playerLogin.Alias, Password = playerLogin.Password };
         }
 
-        public bool deletePlayer(int id)
+        public bool deletePlayer(string player)
         {
-            return _playerRepostirory.removePlayer(id);
+            return _playerRepostirory.removePlayer(player);
         }
     }
 }

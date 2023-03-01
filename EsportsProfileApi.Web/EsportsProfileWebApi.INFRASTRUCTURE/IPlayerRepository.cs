@@ -10,9 +10,10 @@ namespace EsportsProfileWebApi.INFRASTRUCTURE
     public interface IPlayerRepository
     {
         public List<PlayerDTO> getAllPlayers();
-        public PlayerDTO getPlayer(int playerId);
+        public PlayerDTO getPlayer(string player);
         public PlayerDTO AddPlayer(PlayerDTO player);
-        public bool removePlayer(int id);
+        public bool removePlayer(string player);
         public bool updatePlayer(PlayerDTO player);
+
     }
 }

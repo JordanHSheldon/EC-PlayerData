@@ -17,29 +17,41 @@ namespace EsportsProfileWebApi.Web.Controllers
             _playerOrchestrator = playerOrchestrator ?? throw new NotImplementedException();
         }
 
+        [HttpPost]
+        [Route("Register")]
+        public ActionResult RegisterPlayer(PlayerCreationDTO player)
+        {
+            if (player == null)
+            {
+                return BadRequest("Player data must be valid");
+            }
+            return new JsonResult(_playerOrchestrator.registerPlayer(player));
+        }
 
         [HttpPost]
         [Route("Add")]
         public ActionResult AddPlayer(PlayerCreationDTO player)
         {
+            if (player == null)
+            {
+                return BadRequest("Player data must be valid");
+            }
             return new JsonResult(_playerOrchestrator.AddPlayer(player));
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("Get")]
-        public ActionResult GetPlayer(Intincoming incomingid)
+        public ActionResult GetPlayer(PlayerLoginDTO player)
         {
-
-            int id = incomingid.Id;
-            if (id > 0)
+            if (player!=null)
             {
-
-                return new JsonResult(_playerOrchestrator.getPlayer(id));
+                var x = _playerOrchestrator.getPlayer(player.Alias);
+                return new JsonResult(x);
             }
             return BadRequest();
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("GetAll")]
         public ActionResult GetAllPlayers()
         {
@@ -48,12 +60,11 @@ namespace EsportsProfileWebApi.Web.Controllers
         
         [HttpPost]
         [Route("Delete")]
-        public ActionResult RemovePlayer(Intincoming incomingid)
+        public ActionResult RemovePlayer(string player)
         {
-            int id = incomingid.Id;
-            if (id != null && id > 0)
+            if (player != null)
             {
-                return new JsonResult(_playerOrchestrator.deletePlayer(id));
+                return new JsonResult(_playerOrchestrator.deletePlayer(player));
             }
             return BadRequest();
         }
