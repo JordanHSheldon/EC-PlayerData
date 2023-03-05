@@ -18,17 +18,6 @@ namespace EsportsProfileWebApi.Web.Controllers
         }
 
         [HttpPost]
-        [Route("Register")]
-        public ActionResult RegisterPlayer(PlayerCreationDTO player)
-        {
-            if (player == null)
-            {
-                return BadRequest("Player data must be valid");
-            }
-            return new JsonResult(_playerOrchestrator.registerPlayer(player));
-        }
-
-        [HttpPost]
         [Route("Add")]
         public ActionResult AddPlayer(PlayerCreationDTO player)
         {
@@ -41,11 +30,22 @@ namespace EsportsProfileWebApi.Web.Controllers
 
         [HttpPost]
         [Route("Get")]
-        public ActionResult GetPlayer(PlayerLoginDTO player)
+        public ActionResult GetPlayer(PlayerDTO player)
         {
             if (player!=null)
             {
-                var x = _playerOrchestrator.getPlayer(player.Alias);
+                return new JsonResult(_playerOrchestrator.GetPlayer(player.Alias));
+            }
+            return BadRequest();
+        }
+
+        [HttpPost]
+        [Route("Login")]
+        public ActionResult LoginPlayer(PlayerLoginDTO player)
+        {
+            if (player != null)
+            {
+                var x = _playerOrchestrator.LoginPlayer(player);
                 return new JsonResult(x);
             }
             return BadRequest();
@@ -55,7 +55,7 @@ namespace EsportsProfileWebApi.Web.Controllers
         [Route("GetAll")]
         public ActionResult GetAllPlayers()
         {
-            return new JsonResult(_playerOrchestrator.getAllPlayers().ToArray());
+            return new JsonResult(_playerOrchestrator.GetAllPlayers().ToArray());
         }
         
         [HttpPost]
@@ -64,7 +64,7 @@ namespace EsportsProfileWebApi.Web.Controllers
         {
             if (player != null)
             {
-                return new JsonResult(_playerOrchestrator.deletePlayer(player));
+                return new JsonResult(_playerOrchestrator.DeletePlayer(player));
             }
             return BadRequest();
         }
@@ -75,7 +75,7 @@ namespace EsportsProfileWebApi.Web.Controllers
         {
             if (player != null)
             {
-                return new JsonResult(_playerOrchestrator.updatePlayer(player));
+                return new JsonResult(_playerOrchestrator.UpdatePlayer(player));
             }
             return BadRequest();
         }

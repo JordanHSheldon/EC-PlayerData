@@ -9,6 +9,6 @@ namespace EsportsProfileWebApi.DOMAIN
 {
     public interface ISettingsOrchestrator
     {
-        public SettingsDTO getAllSettingsForPlayer();
+        public SettingsDTO getAllSettingsForPlayer(string playerName);
     }
 }

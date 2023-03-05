@@ -16,9 +16,9 @@ namespace EsportsProfileWebApi.DOMAIN
             _settingsRepository = settingsRepository ?? throw new NotImplementedException();
         }
 
-        public SettingsDTO getAllSettingsForPlayer()
+        public SettingsDTO getAllSettingsForPlayer(string playerName)
         {
-            return _settingsRepository.getAllSettingsForPlayer();
+            return _settingsRepository.getAllSettingsForPlayer(playerName);
         }
     }
 }

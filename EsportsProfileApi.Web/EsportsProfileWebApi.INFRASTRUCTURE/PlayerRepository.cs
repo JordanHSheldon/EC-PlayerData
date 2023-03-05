@@ -1,14 +1,15 @@
 ﻿using EsportsProfileWebApi.CROSSCUTTING;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+//using RestSharp;
+using Dapper;
+using System.Data.SqlClient;
+using System.Diagnostics.Metrics;
 
 namespace EsportsProfileWebApi.INFRASTRUCTURE
 {
     public class PlayerRepository : IPlayerRepository
     {
+        private static readonly HttpClient client = new HttpClient();
+
         public static List<PlayerDTO> players = new List<PlayerDTO>
         {
             new PlayerDTO{Id=0,Lastname="Sheldon",Firstname="Jordan",Alias="Nadroj",Password="password",Email="jordanhsheldon@gmail.com" }
@@ -16,38 +17,77 @@ namespace EsportsProfileWebApi.INFRASTRUCTURE
 
         public List<PlayerDTO> getAllPlayers()
         {
-            return players;
+            var cs = @"Data Source=JORDAN;Initial Catalog=EsportsCompare;Integrated Security=True";
+
+            using var con = new SqlConnection(cs);
+            con.Open();
+
+            var sql = "EXEC Masterinsertupdatedelete 0,'','','','','','Select'";
+            var getEntityResult = con.Query<PlayerDTO>(sql, new PlayerDTO {});
+            return getEntityResult.ToList();
         }
 
-        public PlayerDTO getPlayer(string player)
+        public PlayerDTO GetPlayer(string player)
         {
-            return players.Find(x => x.Alias.ToLower() == player.ToLower());
+            var cs = @"Data Source=JORDAN;Initial Catalog=EsportsCompare;Integrated Security=True";
+
+            using var con = new SqlConnection(cs);
+            con.Open();
+
+            var sql = "EXEC Masterinsertupdatedelete 0,'','','','','','Select'";
+            var getEntityResult = con.Query<PlayerDTO>(sql, new PlayerDTO { });
+            return getEntityResult.FirstOrDefault();
         }
 
-
-        public PlayerDTO AddPlayer(PlayerDTO player)
+        public PlayerDTO LoginPlayer(PlayerDTO player)
         {
-                players.Add(player);
-                return getPlayer(player.Alias);
+            var cs = @"Data Source=JORDAN;Initial Catalog=EsportsCompare;Integrated Security=True";
+
+            using var con = new SqlConnection(cs);
+            con.Open();
+
+            var sql = "EXEC Masterinsertupdatedelete 0,'','','','','','Select'";
+            var getEntityResult = con.Query<PlayerDTO>(sql, new PlayerDTO { });
+            return getEntityResult.FirstOrDefault();
         }
 
-        public bool updatePlayer(PlayerDTO player)
+        public bool AddPlayer(PlayerDTO player)
+        {
+            var cs = @"Data Source=JORDAN;Initial Catalog=EsportsCompare;Integrated Security=True";
+
+            using var con = new SqlConnection(cs);
+            con.Open();
+
+            var sql = "EXEC Masterinsertupdatedelete 0,'"+player.Firstname+"','"+ player.Lastname+ "','"+ player.Alias+ "','"+ player.Email+ "','"+player.Password+ "','Insert'";
+            var getEntityResult = con.Query<PlayerDTO>(sql, new PlayerDTO { });
+
+            return true;
+        }
+
+        public bool UpdatePlayer(PlayerDTO player)
         {
             return false;
         }
 
-        public PlayerDTO getPlayerByAlias(PlayerDTO player)
+        public PlayerDTO GetPlayerByAlias(PlayerDTO player)
         {
-            return players.Find(x => x.Alias == player.Alias) ?? new PlayerDTO();
+            var cs = @"Data Source=JORDAN;Initial Catalog=EsportsCompare;Integrated Security=True";
+
+            using var con = new SqlConnection(cs);
+            con.Open();
+
+            var sql = "EXEC Masterinsertupdatedelete 0,'" + player.Firstname + "','" + player.Lastname + "','" + player.Alias + "','" + player.Email + "','" + player.Password + "','Insert'";
+            var getEntityResult = con.Query<PlayerDTO>(sql, new PlayerDTO { });
+            return getEntityResult.FirstOrDefault();
         }
 
-        public bool removePlayer(string player)
+        public bool RemovePlayer(string player)
         {
-            if (getPlayer(player) == null)
+            if (GetPlayer(player) == null)
             {
                 return false;
             }
-            players.Remove(getPlayer(player));
+            players.Remove(GetPlayer(player));
             return true;
         }
     }

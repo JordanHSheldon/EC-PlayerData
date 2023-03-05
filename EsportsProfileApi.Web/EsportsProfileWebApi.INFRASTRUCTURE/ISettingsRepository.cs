@@ -8,6 +8,6 @@ namespace EsportsProfileWebApi.INFRASTRUCTURE
 {
     public interface ISettingsRepository
     {
-        public SettingsDTO getAllSettingsForPlayer();
+        public SettingsDTO getAllSettingsForPlayer(string playerName);
     }
 }

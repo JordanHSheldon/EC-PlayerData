@@ -21,5 +21,13 @@ namespace EsportsProfileWebApi.Web.Controllers
         {
             return new JsonResult("");
         }
+
+        [HttpPost]
+        [Route("getAll")]
+        public ActionResult getAllSettingsForPlayer(string playerName)
+        {
+            return new JsonResult(_settingsOrchestrator.getAllSettingsForPlayer(playerName));
+        }
+
     }
 }

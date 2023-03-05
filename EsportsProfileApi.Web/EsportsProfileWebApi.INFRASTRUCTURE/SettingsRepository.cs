@@ -10,7 +10,8 @@ namespace EsportsProfileWebApi.INFRASTRUCTURE
     
     public class SettingsRepository : ISettingsRepository
     {
-        public SettingsDTO getAllSettingsForPlayer()
+
+        public SettingsDTO getAllSettingsForPlayer(string playerName)
         {
             return new SettingsDTO(); // implement using db
         }
