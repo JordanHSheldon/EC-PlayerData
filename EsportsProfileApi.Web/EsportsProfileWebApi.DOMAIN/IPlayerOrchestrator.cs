@@ -13,7 +13,7 @@ namespace EsportsProfileWebApi.DOMAIN
         public List<PlayerDTO> GetAllPlayers();
         public bool RegisterPlayer(PlayerCreationDTO player);
         public PlayerDTO GetPlayer(string alias);
-        public PlayerLoginDTO LoginPlayer(PlayerLoginDTO player);
+        public PlayerLoginDTO? LoginPlayer(PlayerLoginDTO player);
         public bool UpdatePlayer(PlayerDTO player);
         public bool AddPlayer(PlayerCreationDTO player);
         public bool DeletePlayer(string player);

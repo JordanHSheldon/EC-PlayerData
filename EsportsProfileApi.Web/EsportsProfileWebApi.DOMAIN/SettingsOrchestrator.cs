@@ -10,7 +10,7 @@ namespace EsportsProfileWebApi.DOMAIN
 {
     public class SettingsOrchestrator : ISettingsOrchestrator
     {
-        private ISettingsRepository _settingsRepository;
+        private readonly ISettingsRepository _settingsRepository;
         public SettingsOrchestrator(ISettingsRepository settingsRepository)
         {
             _settingsRepository = settingsRepository ?? throw new NotImplementedException();

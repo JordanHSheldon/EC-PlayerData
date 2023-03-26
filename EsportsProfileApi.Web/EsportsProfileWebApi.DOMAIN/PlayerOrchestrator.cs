@@ -4,7 +4,7 @@ namespace EsportsProfileWebApi.DOMAIN
 {
     public class PlayerOrchestrator :IPlayerOrchestrator
     {
-        private IPlayerRepository _playerRepostirory;
+        private readonly IPlayerRepository _playerRepostirory;
 
         public PlayerOrchestrator(IPlayerRepository playerRepository)
         {
@@ -22,7 +22,7 @@ namespace EsportsProfileWebApi.DOMAIN
                         Lastname = player.lname,
                         Alias = player.Alias,
                         Email = player.Email,
-                        Password = player.Password 
+                        Pass = player.Password 
                     });
         }
 
@@ -36,7 +36,7 @@ namespace EsportsProfileWebApi.DOMAIN
                     Lastname = player.lname,
                     Alias = player.Alias,
                     Email = player.Email,
-                    Password = player.Password
+                    Pass = player.Password
                 }
                 );
         }
@@ -48,7 +48,7 @@ namespace EsportsProfileWebApi.DOMAIN
 
         public List<PlayerDTO> GetAllPlayers()
         {
-            return _playerRepostirory.getAllPlayers();
+            return _playerRepostirory.GetAllPlayers();
         }
 
         public PlayerDTO GetPlayer(string player)
@@ -56,10 +56,17 @@ namespace EsportsProfileWebApi.DOMAIN
             return _playerRepostirory.GetPlayer(player);
         }
 
-        public PlayerLoginDTO LoginPlayer(PlayerLoginDTO player)
+        public PlayerLoginDTO? LoginPlayer(PlayerLoginDTO player)
         {
             var playerLogin = _playerRepostirory.GetPlayer(player.Alias);
-            return new PlayerLoginDTO { Alias = playerLogin.Alias, Password = playerLogin.Password };
+            if (playerLogin != null && (playerLogin.Pass ==  player.Password))
+            {
+                return player;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public bool DeletePlayer(string player)

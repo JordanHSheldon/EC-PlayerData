@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace EsportsProfileWebApi.CROSSCUTTING
 {
+    using System.Diagnostics.CodeAnalysis;
+    [ExcludeFromCodeCoverage]
     public class PlayerDTO
     {
         public int Id { get; set; }
@@ -15,7 +12,7 @@ namespace EsportsProfileWebApi.CROSSCUTTING
 
         public string? Alias { get; set; } = string.Empty;
 
-        public string? Password { get; set; } = string.Empty;
+        public string? Pass { get; set; } = string.Empty;
 
         public string? Email { get; set; } = string.Empty;
 

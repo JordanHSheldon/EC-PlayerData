@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace EsportsProfileWebApi.CROSSCUTTING
 {
+    using System.ComponentModel.DataAnnotations;
+    using System.Diagnostics.CodeAnalysis;
+
+    [ExcludeFromCodeCoverage]
     public class PlayerCreationDTO
     {
         [Required]

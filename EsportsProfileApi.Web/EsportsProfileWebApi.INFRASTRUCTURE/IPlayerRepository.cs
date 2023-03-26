@@ -9,7 +9,7 @@ namespace EsportsProfileWebApi.INFRASTRUCTURE
 {
     public interface IPlayerRepository
     {
-        public List<PlayerDTO> getAllPlayers();
+        public List<PlayerDTO> GetAllPlayers();
         public PlayerDTO GetPlayer(string player);
         public bool AddPlayer(PlayerDTO player);
         public bool RemovePlayer(string player);

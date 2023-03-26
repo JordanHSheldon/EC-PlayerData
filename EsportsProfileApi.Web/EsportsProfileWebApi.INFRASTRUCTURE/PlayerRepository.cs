@@ -1,21 +1,18 @@
-﻿using EsportsProfileWebApi.CROSSCUTTING;
-//using RestSharp;
-using Dapper;
-using System.Data.SqlClient;
-using System.Diagnostics.Metrics;
-
+﻿
 namespace EsportsProfileWebApi.INFRASTRUCTURE
 {
+    using EsportsProfileWebApi.CROSSCUTTING;
+    using Dapper;
+    using System.Data.SqlClient;
     public class PlayerRepository : IPlayerRepository
     {
-        private static readonly HttpClient client = new HttpClient();
 
         public static List<PlayerDTO> players = new List<PlayerDTO>
         {
-            new PlayerDTO{Id=0,Lastname="Sheldon",Firstname="Jordan",Alias="Nadroj",Password="password",Email="jordanhsheldon@gmail.com" }
+            new PlayerDTO{Id=0,Lastname="Sheldon",Firstname="Jordan",Alias="Nadroj",Pass="password",Email="jordanhsheldon@gmail.com" }
         };
 
-        public List<PlayerDTO> getAllPlayers()
+        public List<PlayerDTO> GetAllPlayers()
         {
             var cs = @"Data Source=JORDAN;Initial Catalog=EsportsCompare;Integrated Security=True";
 
@@ -34,8 +31,8 @@ namespace EsportsProfileWebApi.INFRASTRUCTURE
             using var con = new SqlConnection(cs);
             con.Open();
 
-            var sql = "EXEC Masterinsertupdatedelete 0,'','','','','','Select'";
-            var getEntityResult = con.Query<PlayerDTO>(sql, new PlayerDTO { });
+            var sql = "EXEC Masterinsertupdatedelete 0,'','','" + player + "','','','SelectDistinct'";
+            var getEntityResult = con.Query<PlayerDTO>(sql, new PlayerDTO {});
             return getEntityResult.FirstOrDefault();
         }
 
@@ -46,7 +43,7 @@ namespace EsportsProfileWebApi.INFRASTRUCTURE
             using var con = new SqlConnection(cs);
             con.Open();
 
-            var sql = "EXEC Masterinsertupdatedelete 0,'','','','','','Select'";
+            var sql = "EXEC Masterinsertupdatedelete 0,'','','"+player+"','','','SelectDistinct'";
             var getEntityResult = con.Query<PlayerDTO>(sql, new PlayerDTO { });
             return getEntityResult.FirstOrDefault();
         }
@@ -58,7 +55,7 @@ namespace EsportsProfileWebApi.INFRASTRUCTURE
             using var con = new SqlConnection(cs);
             con.Open();
 
-            var sql = "EXEC Masterinsertupdatedelete 0,'"+player.Firstname+"','"+ player.Lastname+ "','"+ player.Alias+ "','"+ player.Email+ "','"+player.Password+ "','Insert'";
+            var sql = "EXEC Masterinsertupdatedelete 0,'"+player.Firstname+"','"+ player.Lastname+ "','"+ player.Alias+ "','"+ player.Email+ "','"+player.Pass+ "','Insert'";
             var getEntityResult = con.Query<PlayerDTO>(sql, new PlayerDTO { });
 
             return true;
@@ -76,7 +73,7 @@ namespace EsportsProfileWebApi.INFRASTRUCTURE
             using var con = new SqlConnection(cs);
             con.Open();
 
-            var sql = "EXEC Masterinsertupdatedelete 0,'" + player.Firstname + "','" + player.Lastname + "','" + player.Alias + "','" + player.Email + "','" + player.Password + "','Insert'";
+            var sql = "EXEC Masterinsertupdatedelete 0,'" + player.Firstname + "','" + player.Lastname + "','" + player.Alias + "','" + player.Email + "','" + player.Pass + "','Insert'";
             var getEntityResult = con.Query<PlayerDTO>(sql, new PlayerDTO { });
             return getEntityResult.FirstOrDefault();
         }

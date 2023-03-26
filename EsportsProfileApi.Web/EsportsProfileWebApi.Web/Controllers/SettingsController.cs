@@ -1,9 +1,8 @@
-﻿using EsportsProfileWebApi.CROSSCUTTING;
-using EsportsProfileWebApi.DOMAIN;
-using Microsoft.AspNetCore.Mvc;
-
+﻿
 namespace EsportsProfileWebApi.Web.Controllers
 {
+    using EsportsProfileWebApi.DOMAIN;
+    using Microsoft.AspNetCore.Mvc;
 
     [Route("api/[controller]")]
     [ApiController]
@@ -17,17 +16,19 @@ namespace EsportsProfileWebApi.Web.Controllers
         }
         [HttpPost]
         [Route("Add")]
-        public ActionResult addSettingsToPlayer(int playerId)
+        public ActionResult AddSettingsToPlayer(int playerId)
         {
             return new JsonResult("");
         }
 
         [HttpPost]
-        [Route("getAll")]
-        public ActionResult getAllSettingsForPlayer(string playerName)
+        [Route("GetAllSettings")]
+        public ActionResult GetAllSettings(object kevin)
         {
-            return new JsonResult(_settingsOrchestrator.getAllSettingsForPlayer(playerName));
+            return new JsonResult(new { sensitvity = "1",Dpi="800", Resolution = "1920x1080",ResolutionType = "Native" });
+            //return new JsonResult(_settingsOrchestrator.getAllSettingsForPlayer(playerName));
         }
+
 
     }
 }

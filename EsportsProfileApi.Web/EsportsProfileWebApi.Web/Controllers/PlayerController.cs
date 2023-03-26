@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using EsportsProfileWebApi.DOMAIN;
 using EsportsProfileWebApi.CROSSCUTTING;
-using EsportsProfileWebApi.INFRASTRUCTURE;
 
 namespace EsportsProfileWebApi.Web.Controllers
 {
@@ -45,8 +43,7 @@ namespace EsportsProfileWebApi.Web.Controllers
         {
             if (player != null)
             {
-                var x = _playerOrchestrator.LoginPlayer(player);
-                return new JsonResult(x);
+                return new JsonResult(_playerOrchestrator.LoginPlayer(player));
             }
             return BadRequest();
         }

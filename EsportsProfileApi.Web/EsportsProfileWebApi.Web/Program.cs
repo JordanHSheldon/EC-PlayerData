@@ -23,6 +23,8 @@ builder.Services.AddTransient<IPlayerOrchestrator,PlayerOrchestrator>();
 builder.Services.AddTransient<IPlayerRepository,PlayerRepository>();
 builder.Services.AddTransient<ISettingsOrchestrator, SettingsOrchestrator>();
 builder.Services.AddTransient<ISettingsRepository, SettingsRepository>();
+builder.Services.AddTransient<IPeripheralOrchestrator, PeripheralOrchestrator>();
+builder.Services.AddTransient<IPeripheralsRepository, PeripheralsRepository>();
 
 var app = builder.Build();
 
