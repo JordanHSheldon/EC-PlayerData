@@ -1,9 +1,11 @@
-﻿using EsportsProfileWebApi.CROSSCUTTING;
-using EsportsProfileWebApi.CROSSCUTTING.RequestDTOs.PlayerDTOs;
-using EsportsProfileWebApi.DOMAIN.Orchestrators.Players;
-using EsportsProfileWebApi.INFRASTRUCTURE;
+﻿
 namespace EsportsProfileWebApi.DOMAIN
 {
+    using EsportsProfileWebApi.CROSSCUTTING;
+    using EsportsProfileWebApi.CROSSCUTTING.RequestDTOs.PlayerDTOs;
+    using EsportsProfileWebApi.DOMAIN.Orchestrators.Players;
+    using EsportsProfileWebApi.INFRASTRUCTURE.Repository;
+
     public class PlayerOrchestrator :IPlayerOrchestrator
     {
         private readonly IPlayerRepository _playerRepostirory;
@@ -13,13 +15,13 @@ namespace EsportsProfileWebApi.DOMAIN
             _playerRepostirory = playerRepository ?? throw new NotImplementedException();
         }
 
-        public bool RegisterPlayer(PlayerCreationDTO player)
+        public PlayerResponseDTO? RegisterPlayer(PlayerCreationDTO player)
         {
+
+            // fix
             List<PlayerDTO> check = GetAllPlayers();
-           
-            return _playerRepostirory.AddPlayer(
+            return _playerRepostirory.RegisterPlayer(
                     new PlayerDTO() {
-                        Id = check.Max(x => x.Id) + 1,
                         Firstname = player.fname,
                         Lastname = player.lname,
                         Alias = player.Alias,
@@ -30,7 +32,6 @@ namespace EsportsProfileWebApi.DOMAIN
 
         public bool AddPlayer(PlayerCreationDTO player)
         {
-
              return _playerRepostirory.AddPlayer(
                 new PlayerDTO()
                 {

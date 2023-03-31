@@ -1,6 +1,7 @@
 ﻿
 namespace EsportsProfileWebApi.Web.Controllers
 {
+    using EsportsProfileWebApi.CROSSCUTTING;
     using EsportsProfileWebApi.DOMAIN.Orchestrators.Settings;
     using Microsoft.AspNetCore.Mvc;
 
@@ -23,10 +24,9 @@ namespace EsportsProfileWebApi.Web.Controllers
 
         [HttpPost]
         [Route("GetAllSettings")]
-        public ActionResult GetAllSettings(object kevin)
+        public ActionResult GetAllSettings(SettingsRequestDTO settingsRequest)
         {
-            return new JsonResult(new { sensitvity = "1",Dpi="800", Resolution = "1920x1080",ResolutionType = "Native" });
-            //return new JsonResult(_settingsOrchestrator.getAllSettingsForPlayer(playerName));
+            return new JsonResult(_settingsOrchestrator.GetAllSettingsForPlayer(settingsRequest));
         }
 
 

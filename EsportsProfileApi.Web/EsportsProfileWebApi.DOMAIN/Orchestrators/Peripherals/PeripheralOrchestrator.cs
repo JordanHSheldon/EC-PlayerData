@@ -1,7 +1,7 @@
 ﻿using EsportsProfileWebApi.CROSSCUTTING.RequestDTOs.PeripheralDTOs;
 using EsportsProfileWebApi.CROSSCUTTING.Responses.Peripherals;
 using EsportsProfileWebApi.DOMAIN.Orchestrators.Peripherals;
-using EsportsProfileWebApi.INFRASTRUCTURE;
+using EsportsProfileWebApi.INFRASTRUCTURE.Repository;
 
 namespace EsportsProfileWebApi.DOMAIN
 {

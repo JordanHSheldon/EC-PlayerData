@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EsportsProfileWebApi.INFRASTRUCTURE
+namespace EsportsProfileWebApi.INFRASTRUCTURE.Repository
 {
     public interface IPeripheralsRepository
     {

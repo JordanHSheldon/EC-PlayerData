@@ -6,6 +6,7 @@ namespace EsportsProfileWebApi.INFRASTRUCTURE
 
     public interface ISettingsRepository
     {
-        public SettingsResponseDTO getAllSettingsForPlayer(SettingsRequestDTO settingsRequest);
+        public SettingsResponseDTO? GetAllSettingsForPlayer(SettingsRequestDTO settingsRequest);
     }
 }
+

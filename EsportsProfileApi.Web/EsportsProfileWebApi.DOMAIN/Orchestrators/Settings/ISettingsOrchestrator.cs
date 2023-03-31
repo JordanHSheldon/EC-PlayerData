@@ -5,6 +5,6 @@ namespace EsportsProfileWebApi.DOMAIN.Orchestrators.Settings
 {
     public interface ISettingsOrchestrator
     {
-        public SettingsResponseDTO getAllSettingsForPlayer(SettingsRequestDTO settingsRequest);
+        public SettingsResponseDTO? GetAllSettingsForPlayer(SettingsRequestDTO settingsRequest);
     }
 }

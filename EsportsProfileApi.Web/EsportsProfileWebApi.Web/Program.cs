@@ -3,6 +3,7 @@ using EsportsProfileWebApi.DOMAIN.Orchestrators.Peripherals;
 using EsportsProfileWebApi.DOMAIN.Orchestrators.Players;
 using EsportsProfileWebApi.DOMAIN.Orchestrators.Settings;
 using EsportsProfileWebApi.INFRASTRUCTURE;
+using EsportsProfileWebApi.INFRASTRUCTURE.Repository;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);

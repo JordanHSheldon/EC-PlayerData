@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using EsportsProfileWebApi.CROSSCUTTING;
-using EsportsProfileWebApi.CROSSCUTTING.RequestDTOs.PlayerDTOs;
-using EsportsProfileWebApi.DOMAIN.Orchestrators.Players;
-
+﻿
 namespace EsportsProfileWebApi.Web.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+    using EsportsProfileWebApi.CROSSCUTTING;
+    using EsportsProfileWebApi.CROSSCUTTING.RequestDTOs.PlayerDTOs;
+    using EsportsProfileWebApi.DOMAIN.Orchestrators.Players;
+
     [Route("api/[controller]")]
     [ApiController]
     public class PlayerController : Controller
@@ -24,7 +25,18 @@ namespace EsportsProfileWebApi.Web.Controllers
             {
                 return BadRequest("Player data must be valid");
             }
-            return new JsonResult(_playerOrchestrator.AddPlayer(player));
+            return new JsonResult(new PlayerDTO {Alias = player.Alias, Pass = player.Password });
+        }
+
+        [HttpPost]
+        [Route("Register")]
+        public ActionResult RegisterPlayer(PlayerCreationDTO player)
+        {
+            if (player == null)
+            {
+                return BadRequest("Player data must be valid");
+            }
+            return new JsonResult(_playerOrchestrator.RegisterPlayer(player));
         }
 
         [HttpPost]

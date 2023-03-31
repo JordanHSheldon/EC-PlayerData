@@ -1,11 +1,7 @@
 ﻿using EsportsProfileWebApi.CROSSCUTTING;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace EsportsProfileWebApi.INFRASTRUCTURE
+namespace EsportsProfileWebApi.INFRASTRUCTURE.Repository
 {
     public interface IPlayerRepository
     {
@@ -14,6 +10,7 @@ namespace EsportsProfileWebApi.INFRASTRUCTURE
         public bool AddPlayer(PlayerDTO player);
         public bool RemovePlayer(string player);
         public bool UpdatePlayer(PlayerDTO player);
+        public PlayerResponseDTO? RegisterPlayer(PlayerDTO player);
 
     }
 }
