@@ -1,10 +1,9 @@
-﻿
-namespace EsportsProfileWebApi.CROSSCUTTING
+﻿namespace EsportsProfileWebApi.CROSSCUTTING.RequestDTOs.Settings
 {
     using System.Diagnostics.CodeAnalysis;
 
     [ExcludeFromCodeCoverage]
-    public class SettingsDTO
+    public class SettingsResponseDTO
     {
         public decimal Sensitivity { get; set; }
         public int Dpi { get; set; }

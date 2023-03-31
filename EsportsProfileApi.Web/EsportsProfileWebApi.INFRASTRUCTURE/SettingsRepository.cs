@@ -1,19 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.SqlClient;
+using Dapper;
 using EsportsProfileWebApi.CROSSCUTTING;
+using EsportsProfileWebApi.CROSSCUTTING.RequestDTOs.Settings;
 
 namespace EsportsProfileWebApi.INFRASTRUCTURE
 {
-    
+
     public class SettingsRepository : ISettingsRepository
     {
 
-        public SettingsDTO getAllSettingsForPlayer(string playerName)
+        public SettingsResponseDTO getAllSettingsForPlayer(SettingsRequestDTO settingsRequest)
         {
-            return new SettingsDTO(); // implement using db
+            var cs = @"Data Source=JORDAN;Initial Catalog=EsportsCompare;Integrated Security=True";
+
+            using var con = new SqlConnection(cs);
+            con.Open();
+
+            var sql = "EXEC Peripheralinsertupdatedelete " + settingsRequest.Alias + ",'','','','','','Select'";
+            var getEntityResult = con.Query<SettingsResponseDTO>(sql, new SettingsResponseDTO { });
+            return getEntityResult.FirstOrDefault();
         }
     }
 }

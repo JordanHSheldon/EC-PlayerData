@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EsportsProfileWebApi.CROSSCUTTING
+namespace EsportsProfileWebApi.CROSSCUTTING.RequestDTOs.PlayerDTOs
 {
-    public class PlayerLoginDTO
+    public class PlayerLoginRequestDTO
     {
         public string Alias { get; set; } = string.Empty;
 

@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EsportsProfileWebApi.CROSSCUTTING;
+﻿
 namespace EsportsProfileWebApi.INFRASTRUCTURE
 {
+    using EsportsProfileWebApi.CROSSCUTTING;
+    using EsportsProfileWebApi.CROSSCUTTING.RequestDTOs.Settings;
+
     public interface ISettingsRepository
     {
-        public SettingsDTO getAllSettingsForPlayer(string playerName);
+        public SettingsResponseDTO getAllSettingsForPlayer(SettingsRequestDTO settingsRequest);
     }
 }

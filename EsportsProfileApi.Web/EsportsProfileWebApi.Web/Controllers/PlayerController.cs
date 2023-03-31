@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using EsportsProfileWebApi.DOMAIN;
 using EsportsProfileWebApi.CROSSCUTTING;
+using EsportsProfileWebApi.CROSSCUTTING.RequestDTOs.PlayerDTOs;
+using EsportsProfileWebApi.DOMAIN.Orchestrators.Players;
 
 namespace EsportsProfileWebApi.Web.Controllers
 {
@@ -39,7 +40,7 @@ namespace EsportsProfileWebApi.Web.Controllers
 
         [HttpPost]
         [Route("Login")]
-        public ActionResult LoginPlayer(PlayerLoginDTO player)
+        public ActionResult LoginPlayer(PlayerLoginRequestDTO player)
         {
             if (player != null)
             {

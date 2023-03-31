@@ -1,4 +1,6 @@
 ﻿using EsportsProfileWebApi.CROSSCUTTING;
+using EsportsProfileWebApi.CROSSCUTTING.RequestDTOs.PlayerDTOs;
+using EsportsProfileWebApi.DOMAIN.Orchestrators.Players;
 using EsportsProfileWebApi.INFRASTRUCTURE;
 namespace EsportsProfileWebApi.DOMAIN
 {
@@ -56,7 +58,7 @@ namespace EsportsProfileWebApi.DOMAIN
             return _playerRepostirory.GetPlayer(player);
         }
 
-        public PlayerLoginDTO? LoginPlayer(PlayerLoginDTO player)
+        public PlayerLoginRequestDTO? LoginPlayer(PlayerLoginRequestDTO player)
         {
             var playerLogin = _playerRepostirory.GetPlayer(player.Alias);
             if (playerLogin != null && (playerLogin.Pass ==  player.Password))

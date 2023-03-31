@@ -1,4 +1,7 @@
 using EsportsProfileWebApi.DOMAIN;
+using EsportsProfileWebApi.DOMAIN.Orchestrators.Peripherals;
+using EsportsProfileWebApi.DOMAIN.Orchestrators.Players;
+using EsportsProfileWebApi.DOMAIN.Orchestrators.Settings;
 using EsportsProfileWebApi.INFRASTRUCTURE;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";

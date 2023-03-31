@@ -16,6 +16,5 @@ namespace EsportsProfileWebApi.CROSSCUTTING
 
         public string? Email { get; set; } = string.Empty;
 
-        //public List<string> strings { get; set; } = new List<string>();
     }
 }

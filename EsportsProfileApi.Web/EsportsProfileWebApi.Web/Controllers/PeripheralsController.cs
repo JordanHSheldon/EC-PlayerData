@@ -1,8 +1,8 @@
 ﻿
 namespace EsportsProfileWebApi.Web.Controllers
 {
-    using EsportsProfileWebApi.CROSSCUTTING;
-    using EsportsProfileWebApi.DOMAIN;
+    using EsportsProfileWebApi.CROSSCUTTING.RequestDTOs.PeripheralDTOs;
+    using EsportsProfileWebApi.DOMAIN.Orchestrators.Peripherals;
     using Microsoft.AspNetCore.Mvc;
 
     [Route("api/[controller]")]
@@ -25,10 +25,16 @@ namespace EsportsProfileWebApi.Web.Controllers
 
         [HttpPost]
         [Route("GetAllPeripherals")]
-        public ActionResult GetAllPeripherals(object kevin)
+        public ActionResult GetAllPeripherals(PeripheralsRequestDTO peripheralsRequest)
         {
-            return new JsonResult(new PeripheralsDTO{ KeyBoard="G915 TKL", Mouse = "gpro", MousePad="Aqua Control plus", HeadSet="Steel Series Pro Nova", Monitor="Acer" });
-            //return new JsonResult(_settingsOrchestrator.getAllPeripheralsForPlayer(playerName));
+            return new JsonResult(_peripheralOrchestrator.getAllPeripheralsForPlayer(peripheralsRequest));
+        }
+
+        [HttpPost]
+        [Route("AddPeripherals")]
+        public ActionResult AddPeripherals(PeripheralsRequestDTO peripheralsRequest)
+        {
+            return new JsonResult(_peripheralOrchestrator.getAllPeripheralsForPlayer(peripheralsRequest));
         }
 
 

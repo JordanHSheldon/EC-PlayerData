@@ -1,4 +1,6 @@
-﻿using EsportsProfileWebApi.CROSSCUTTING;
+﻿using EsportsProfileWebApi.CROSSCUTTING.RequestDTOs.PeripheralDTOs;
+using EsportsProfileWebApi.CROSSCUTTING.Responses.Peripherals;
+using EsportsProfileWebApi.DOMAIN.Orchestrators.Peripherals;
 using EsportsProfileWebApi.INFRASTRUCTURE;
 
 namespace EsportsProfileWebApi.DOMAIN
@@ -12,9 +14,9 @@ namespace EsportsProfileWebApi.DOMAIN
             _peripheralsRepository = peripheralsRepository ?? throw new NotImplementedException();
         }
 
-        public PeripheralsDTO getAllPeripheralsForPlayer(string playerName)
+        public PeripheralsResponseDTO getAllPeripheralsForPlayer(PeripheralsRequestDTO peripheralsRequest)
         {
-            return _peripheralsRepository.getAllPeripheralsForPlayer(playerName);
+            return _peripheralsRepository.getAllPeripheralsForPlayer(peripheralsRequest);
         }
 
     }

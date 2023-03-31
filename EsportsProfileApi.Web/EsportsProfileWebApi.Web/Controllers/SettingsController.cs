@@ -1,7 +1,7 @@
 ﻿
 namespace EsportsProfileWebApi.Web.Controllers
 {
-    using EsportsProfileWebApi.DOMAIN;
+    using EsportsProfileWebApi.DOMAIN.Orchestrators.Settings;
     using Microsoft.AspNetCore.Mvc;
 
     [Route("api/[controller]")]

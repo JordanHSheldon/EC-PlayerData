@@ -1,10 +1,9 @@
-﻿
-namespace EsportsProfileWebApi.CROSSCUTTING
+﻿namespace EsportsProfileWebApi.CROSSCUTTING.Responses.Peripherals
 {
     using System.Diagnostics.CodeAnalysis;
 
     [ExcludeFromCodeCoverage]
-    public class PeripheralsDTO
+    public class PeripheralsResponseDTO
     {
         public string? Alias { get; set; }
         public string? Mouse { get; set; }

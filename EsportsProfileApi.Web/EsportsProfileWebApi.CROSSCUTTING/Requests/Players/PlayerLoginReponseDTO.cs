@@ -1,5 +1,4 @@
-﻿
-namespace EsportsProfileWebApi.CROSSCUTTING
+﻿namespace EsportsProfileWebApi.CROSSCUTTING.RequestDTOs.PlayerDTOs
 {
     using System.Diagnostics.CodeAnalysis;
     [ExcludeFromCodeCoverage]

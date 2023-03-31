@@ -1,10 +1,7 @@
 ﻿using EsportsProfileWebApi.CROSSCUTTING;
+using EsportsProfileWebApi.CROSSCUTTING.RequestDTOs.Settings;
+using EsportsProfileWebApi.DOMAIN.Orchestrators.Settings;
 using EsportsProfileWebApi.INFRASTRUCTURE;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EsportsProfileWebApi.DOMAIN
 {
@@ -16,9 +13,9 @@ namespace EsportsProfileWebApi.DOMAIN
             _settingsRepository = settingsRepository ?? throw new NotImplementedException();
         }
 
-        public SettingsDTO getAllSettingsForPlayer(string playerName)
+        public SettingsResponseDTO getAllSettingsForPlayer(SettingsRequestDTO settingsRequest)
         {
-            return _settingsRepository.getAllSettingsForPlayer(playerName);
+            return _settingsRepository.getAllSettingsForPlayer(settingsRequest);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using EsportsProfileWebApi.CROSSCUTTING;
+﻿using EsportsProfileWebApi.CROSSCUTTING.RequestDTOs.PeripheralDTOs;
+using EsportsProfileWebApi.CROSSCUTTING.Responses.Peripherals;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace EsportsProfileWebApi.INFRASTRUCTURE
 {
     public interface IPeripheralsRepository
     {
-        public PeripheralsDTO getAllPeripheralsForPlayer(string playerName);
+        public PeripheralsResponseDTO getAllPeripheralsForPlayer(PeripheralsRequestDTO peripheralsRequest);
     }
 }
