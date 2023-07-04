@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.30.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\EsportsProfileWebApi.CROSSCUTTING\EsportsProfileWebApi.CROSSCUTTING.csproj" />
     <ProjectReference Include="..\EsportsProfileWebApi.INFRASTRUCTURE\EsportsProfileWebApi.INFRASTRUCTURE.csproj" />
   </ItemGroup>

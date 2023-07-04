@@ -8,10 +8,10 @@ namespace EsportsProfileWebApi.CROSSCUTTING
     public class PlayerCreationDTO
     {
         [Required]
-        public string? fname { get; set; } 
+        public string? Fname { get; set; } 
 
         [Required]
-        public string? lname { get; set; } 
+        public string? Lname { get; set; } 
 
         [Required]
         public string? Alias { get; set; } 

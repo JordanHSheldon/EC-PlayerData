@@ -3,7 +3,6 @@ namespace EsportsProfileWebApi.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
     using EsportsProfileWebApi.CROSSCUTTING;
-    using EsportsProfileWebApi.CROSSCUTTING.RequestDTOs.PlayerDTOs;
     using EsportsProfileWebApi.DOMAIN.Orchestrators.Players;
 
     [Route("api/[controller]")]
@@ -29,21 +28,10 @@ namespace EsportsProfileWebApi.Web.Controllers
         }
 
         [HttpPost]
-        [Route("Register")]
-        public ActionResult RegisterPlayer(PlayerCreationDTO player)
-        {
-            if (player == null)
-            {
-                return BadRequest("Player data must be valid");
-            }
-            return new JsonResult(_playerOrchestrator.RegisterPlayer(player));
-        }
-
-        [HttpPost]
-        [Route("Get")]
+        [Route("GetPlayerByAccountId")]
         public ActionResult GetPlayer(PlayerDTO player)
         {
-            if (player!=null)
+            if (player!=null && player.Alias != null)
             {
                 return new JsonResult(_playerOrchestrator.GetPlayer(player.Alias));
             }
@@ -51,36 +39,14 @@ namespace EsportsProfileWebApi.Web.Controllers
         }
 
         [HttpPost]
-        [Route("Login")]
-        public ActionResult LoginPlayer(PlayerLoginRequestDTO player)
-        {
-            if (player != null)
-            {
-                return new JsonResult(_playerOrchestrator.LoginPlayer(player));
-            }
-            return BadRequest();
-        }
-
-        [HttpPost]
-        [Route("GetAll")]
+        [Route("GetAllPlayers")]
         public ActionResult GetAllPlayers()
         {
             return new JsonResult(_playerOrchestrator.GetAllPlayers().ToArray());
         }
-        
-        [HttpPost]
-        [Route("Delete")]
-        public ActionResult RemovePlayer(string player)
-        {
-            if (player != null)
-            {
-                return new JsonResult(_playerOrchestrator.DeletePlayer(player));
-            }
-            return BadRequest();
-        }
 
         [HttpPut]
-        [Route("Update")]
+        [Route("UpdatePlayerById")]
         public ActionResult UpdatePlayer(PlayerDTO player)
         {
             if (player != null)
@@ -89,5 +55,16 @@ namespace EsportsProfileWebApi.Web.Controllers
             }
             return BadRequest();
         }
+
+        [HttpPost]
+        [Route("DeletePlayerById")]
+        public ActionResult RemovePlayer(string player)
+        {
+            if (player != null)
+            {
+                return new JsonResult(_playerOrchestrator.DeletePlayer(player));
+            }
+            return BadRequest();
+        }   
     }
 }

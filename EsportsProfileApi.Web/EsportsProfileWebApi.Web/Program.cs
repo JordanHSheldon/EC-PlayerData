@@ -5,6 +5,7 @@ using EsportsProfileWebApi.DOMAIN.Orchestrators.Settings;
 using EsportsProfileWebApi.INFRASTRUCTURE;
 using EsportsProfileWebApi.INFRASTRUCTURE.Repository;
 
+
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +30,11 @@ builder.Services.AddTransient<ISettingsOrchestrator, SettingsOrchestrator>();
 builder.Services.AddTransient<ISettingsRepository, SettingsRepository>();
 builder.Services.AddTransient<IPeripheralOrchestrator, PeripheralOrchestrator>();
 builder.Services.AddTransient<IPeripheralsRepository, PeripheralsRepository>();
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = "JwtBearer";
+    options.DefaultChallengeScheme = "JwtBearer";
+});
 
 var app = builder.Build();
 

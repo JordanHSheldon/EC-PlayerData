@@ -15,9 +15,17 @@ namespace EsportsProfileWebApi.Web.Controllers
         {
             _settingsOrchestrator = settingsOrchestrator ?? throw new NotImplementedException();
         }
+
         [HttpPost]
         [Route("Add")]
         public ActionResult AddSettingsToPlayer(int playerId)
+        {
+            return new JsonResult("");
+        }
+
+        [HttpPost]
+        [Route("UpdateSettingsForPlayer")]
+        public ActionResult UpdateSettingsForPlayer(int playerId)
         {
             return new JsonResult("");
         }
