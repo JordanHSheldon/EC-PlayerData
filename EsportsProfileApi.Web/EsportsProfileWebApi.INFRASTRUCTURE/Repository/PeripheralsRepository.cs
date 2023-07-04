@@ -1,5 +1,4 @@
-﻿
-namespace EsportsProfileWebApi.INFRASTRUCTURE
+﻿namespace EsportsProfileWebApi.INFRASTRUCTURE
 {
     using Dapper;
     using EsportsProfileWebApi.CROSSCUTTING.RequestDTOs.PeripheralDTOs;

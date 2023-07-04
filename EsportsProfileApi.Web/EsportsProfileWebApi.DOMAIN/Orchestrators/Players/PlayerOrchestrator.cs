@@ -2,7 +2,6 @@
 namespace EsportsProfileWebApi.DOMAIN
 {
     using EsportsProfileWebApi.CROSSCUTTING;
-    using EsportsProfileWebApi.CROSSCUTTING.RequestDTOs.PlayerDTOs;
     using EsportsProfileWebApi.DOMAIN.Orchestrators.Players;
     using EsportsProfileWebApi.INFRASTRUCTURE.Repository;
 
@@ -22,8 +21,8 @@ namespace EsportsProfileWebApi.DOMAIN
             List<PlayerDTO> check = GetAllPlayers();
             return _playerRepostirory.RegisterPlayer(
                     new PlayerDTO() {
-                        Firstname = player.fname,
-                        Lastname = player.lname,
+                        Firstname = player.Fname,
+                        Lastname = player.Lname,
                         Alias = player.Alias,
                         Email = player.Email,
                         Pass = player.Password 
@@ -35,8 +34,8 @@ namespace EsportsProfileWebApi.DOMAIN
              return _playerRepostirory.AddPlayer(
                 new PlayerDTO()
                 {
-                    Firstname = player.fname,
-                    Lastname = player.lname,
+                    Firstname = player.Fname,
+                    Lastname = player.Lname,
                     Alias = player.Alias,
                     Email = player.Email,
                     Pass = player.Password
@@ -57,19 +56,6 @@ namespace EsportsProfileWebApi.DOMAIN
         public PlayerDTO GetPlayer(string player)
         {
             return _playerRepostirory.GetPlayer(player);
-        }
-
-        public PlayerLoginRequestDTO? LoginPlayer(PlayerLoginRequestDTO player)
-        {
-            var playerLogin = _playerRepostirory.GetPlayer(player.Alias);
-            if (playerLogin != null && (playerLogin.Pass ==  player.Password))
-            {
-                return player;
-            }
-            else
-            {
-                return null;
-            }
         }
 
         public bool DeletePlayer(string player)

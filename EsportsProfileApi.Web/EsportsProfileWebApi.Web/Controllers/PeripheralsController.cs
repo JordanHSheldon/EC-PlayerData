@@ -17,7 +17,7 @@ namespace EsportsProfileWebApi.Web.Controllers
         }
 
         [HttpPost]
-        [Route("Add")]
+        [Route("UpdatePlayerPeripherals")]
         public ActionResult AddPeripheralsToPlayer(int playerId)
         {
             return new JsonResult("");
@@ -37,6 +37,12 @@ namespace EsportsProfileWebApi.Web.Controllers
             return new JsonResult(_peripheralOrchestrator.getAllPeripheralsForPlayer(peripheralsRequest));
         }
 
+        [HttpPost]
+        [Route("RemovePeripherals")]
+        public ActionResult RemovePeripherals(PeripheralsRequestDTO peripheralsRequest)
+        {
+            return new JsonResult("");
+        }
 
     }
 }
