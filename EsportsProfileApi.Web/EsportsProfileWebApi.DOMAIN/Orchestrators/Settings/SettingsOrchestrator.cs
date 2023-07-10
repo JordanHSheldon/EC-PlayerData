@@ -1,5 +1,6 @@
 ﻿using EsportsProfileWebApi.CROSSCUTTING;
-using EsportsProfileWebApi.CROSSCUTTING.RequestDTOs.Settings;
+using EsportsProfileWebApi.CROSSCUTTING.Responses.Peripherals;
+using EsportsProfileWebApi.CROSSCUTTING.Responses.Settings;
 using EsportsProfileWebApi.DOMAIN.Orchestrators.Settings;
 using EsportsProfileWebApi.INFRASTRUCTURE;
 
@@ -16,6 +17,11 @@ namespace EsportsProfileWebApi.DOMAIN
         public SettingsResponseDTO? GetAllSettingsForPlayer(SettingsRequestDTO settingsRequest)
         {
             return _settingsRepository.GetAllSettingsForPlayer(settingsRequest);
+        }
+
+        public PeripheralsResponseDTO getAllPeripheralsForPlayer(PeripheralsRequestDTO peripheralsRequest)
+        {
+            return _settingsRepository.getAllPeripheralsForPlayer(peripheralsRequest);
         }
     }
 }

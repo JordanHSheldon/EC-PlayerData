@@ -18,25 +18,23 @@ namespace EsportsProfileWebApi.Web.Controllers
 
         [HttpPost]
         [Route("Add")]
-        public ActionResult AddSettingsToPlayer(int playerId)
+        public ActionResult AddSettingsById(int playerId)
         {
             return new JsonResult("");
         }
 
         [HttpPost]
-        [Route("UpdateSettingsForPlayer")]
-        public ActionResult UpdateSettingsForPlayer(int playerId)
+        [Route("UpdateSettings")]
+        public ActionResult UpdateSettingsById(int playerId)
         {
             return new JsonResult("");
         }
 
         [HttpPost]
         [Route("GetAllSettings")]
-        public ActionResult GetAllSettings(SettingsRequestDTO settingsRequest)
+        public ActionResult GetAllSettings(GetPeripheralsRequestDTO settingsRequest)
         {
             return new JsonResult(_settingsOrchestrator.GetAllSettingsForPlayer(settingsRequest));
         }
-
-
     }
 }

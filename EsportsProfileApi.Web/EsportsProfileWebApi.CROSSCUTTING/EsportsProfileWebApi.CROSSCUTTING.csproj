@@ -6,9 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Responses\Players\" />
-    <Folder Include="Responses\Settings\" />
-  </ItemGroup>
-
 </Project>
