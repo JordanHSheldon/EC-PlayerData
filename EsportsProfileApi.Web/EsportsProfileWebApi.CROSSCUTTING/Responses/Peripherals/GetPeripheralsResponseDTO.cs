@@ -5,6 +5,8 @@
     [ExcludeFromCodeCoverage]
     public class GetPeripheralsResponseDTO
     {
+        public int Id { get; set; }
+
         public string? Mouse { get; set; }
 
         public string? MousePad { get; set; }

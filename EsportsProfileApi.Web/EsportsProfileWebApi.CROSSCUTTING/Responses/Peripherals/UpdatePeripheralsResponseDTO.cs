@@ -7,3 +7,4 @@ namespace EsportsProfileWebApi.CROSSCUTTING.Responses.Peripherals
         public bool IsSuccessful { get; set; }
     }
 }
+
