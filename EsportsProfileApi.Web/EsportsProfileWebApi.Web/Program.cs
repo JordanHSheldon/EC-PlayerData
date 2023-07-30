@@ -1,9 +1,6 @@
 using EsportsProfileWebApi.DOMAIN;
-using EsportsProfileWebApi.DOMAIN.Orchestrators.Peripherals;
-using EsportsProfileWebApi.DOMAIN.Orchestrators.Players;
 using EsportsProfileWebApi.DOMAIN.Orchestrators.Settings;
 using EsportsProfileWebApi.INFRASTRUCTURE;
-using EsportsProfileWebApi.INFRASTRUCTURE.Repository;
 
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -24,12 +21,8 @@ builder.Services.AddCors(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddTransient<IPlayerOrchestrator,PlayerOrchestrator>();
-builder.Services.AddTransient<IPlayerRepository,PlayerRepository>();
-builder.Services.AddTransient<ISettingsOrchestrator, SettingsOrchestrator>();
-builder.Services.AddTransient<ISettingsRepository, SettingsRepository>();
-builder.Services.AddTransient<IPeripheralOrchestrator, PeripheralOrchestrator>();
-builder.Services.AddTransient<IPeripheralsRepository, PeripheralsRepository>();
+builder.Services.AddTransient<IDataOrchestrator, DataOrchestrator>();
+builder.Services.AddTransient<IDataRepository, DataRepository>();
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = "JwtBearer";

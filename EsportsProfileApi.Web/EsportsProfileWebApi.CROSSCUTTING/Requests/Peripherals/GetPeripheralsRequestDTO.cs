@@ -5,9 +5,9 @@ namespace EsportsProfileWebApi.CROSSCUTTING
     using System.Diagnostics.CodeAnalysis;
 
     [ExcludeFromCodeCoverage]
-    public class SettingsRequestDTO
+    public class GetPeripheralsRequestDTO
     {
         [Required]
-        public string Alias { get; set; } = string.Empty;
+        public int Id { get; set; }
     }
 }

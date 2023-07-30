@@ -1,11 +1,15 @@
-﻿namespace EsportsProfileWebApi.CROSSCUTTING.Responses.Peripherals
+﻿
+namespace EsportsProfileWebApi.CROSSCUTTING
 {
+    using System.ComponentModel.DataAnnotations;
     using System.Diagnostics.CodeAnalysis;
 
     [ExcludeFromCodeCoverage]
-    public class PeripheralsResponseDTO
+    public class UpdatePeripheralsRequestDTO
     {
-        public string? Alias { get; set; }
+        [Required]
+        public int Id { get; set; }
+
         public string? Mouse { get; set; }
 
         public string? MousePad { get; set; }
@@ -15,7 +19,5 @@
         public string? HeadSet { get; set; }
 
         public string? Monitor { get; set; }
-
-
     }
 }
