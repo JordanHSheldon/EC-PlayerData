@@ -7,13 +7,14 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["/src/EsportsProfileApi.Web/EsportsProfileWebApi.Web/EsportsProfileWebApi.Web.csproj", "EsportsProfileWebApi.Web/"]
-COPY ["/src/EsportsProfileApi.Web/EsportsProfileWebApi.DOMAIN/EsportsProfileWebApi.DOMAIN.csproj", "EsportsProfileWebApi.DOMAIN/"]
-COPY ["/src/EsportsProfileApi.Web/EsportsProfileWebApi.CROSSCUTTING/EsportsProfileWebApi.CROSSCUTTING.csproj", "EsportsProfileWebApi.CROSSCUTTING/"]
-COPY ["/src/EsportsProfileApi.Web/EsportsProfileWebApi.INFRASTRUCTURE/EsportsProfileWebApi.INFRASTRUCTURE.csproj", "EsportsProfileWebApi.INFRASTRUCTURE/"]
+COPY ["EsportsProfileApi.Web/EsportsProfileWebApi.Web/EsportsProfileWebApi.Web.csproj", "EsportsProfileWebApi.Web/"]
+COPY ["EsportsProfileApi.Web/EsportsProfileWebApi.DOMAIN/EsportsProfileWebApi.DOMAIN.csproj", "EsportsProfileWebApi.DOMAIN/"]
+COPY ["EsportsProfileApi.Web/EsportsProfileWebApi.CROSSCUTTING/EsportsProfileWebApi.CROSSCUTTING.csproj", "EsportsProfileWebApi.CROSSCUTTING/"]
+COPY ["EsportsProfileApi.Web/EsportsProfileWebApi.INFRASTRUCTURE/EsportsProfileWebApi.INFRASTRUCTURE.csproj", "EsportsProfileWebApi.INFRASTRUCTURE/"]
 RUN dotnet restore "EsportsProfileWebApi.Web/EsportsProfileWebApi.Web.csproj"
-COPY . .
+
 WORKDIR "/src/EsportsProfileWebApi.Web"
+COPY . .
 RUN dotnet build "EsportsProfileWebApi.Web.csproj" -c Release -o /app/build
 
 FROM build AS publish
