@@ -31,7 +31,7 @@ jobs:
       with:
         push: true
         tags: setsrv.azurewebsites.net/${{ secrets.AzureAppService_ContainerUsername_eed472d57c644e3587f463902c987d1a }}/appsvc/staticsite:${{ github.sha }}
-        file: ./EsportsProfileApi.Web/EsportsProfileWebApi.Web/Dockerfile
+        file: ./EsportsProfileWebApi.Web/Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
