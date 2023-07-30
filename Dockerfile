@@ -7,10 +7,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["src/EsportsProfileWebApi.Web/EsportsProfileWebApi.Web.csproj", "EsportsProfileWebApi.Web/"]
-COPY ["src/EsportsProfileWebApi.DOMAIN/EsportsProfileWebApi.DOMAIN.csproj", "EsportsProfileWebApi.DOMAIN/"]
-COPY ["src/EsportsProfileWebApi.CROSSCUTTING/EsportsProfileWebApi.CROSSCUTTING.csproj", "EsportsProfileWebApi.CROSSCUTTING/"]
-COPY ["src/EsportsProfileWebApi.INFRASTRUCTURE/EsportsProfileWebApi.INFRASTRUCTURE.csproj", "EsportsProfileWebApi.INFRASTRUCTURE/"]
+COPY ["EsportsProfileApi.Web/EsportsProfileWebApi.Web/EsportsProfileWebApi.Web.csproj", "EsportsProfileWebApi.Web/"]
+COPY ["EsportsProfileApi.Web/EsportsProfileWebApi.DOMAIN/EsportsProfileWebApi.DOMAIN.csproj", "EsportsProfileWebApi.DOMAIN/"]
+COPY ["EsportsProfileApi.Web/EsportsProfileWebApi.CROSSCUTTING/EsportsProfileWebApi.CROSSCUTTING.csproj", "EsportsProfileWebApi.CROSSCUTTING/"]
+COPY ["EsportsProfileApi.Web/EsportsProfileWebApi.INFRASTRUCTURE/EsportsProfileWebApi.INFRASTRUCTURE.csproj", "EsportsProfileWebApi.INFRASTRUCTURE/"]
 RUN dotnet restore "EsportsProfileWebApi.Web/EsportsProfileWebApi.Web.csproj"
 COPY . .
 WORKDIR "/src/EsportsProfileWebApi.Web"
