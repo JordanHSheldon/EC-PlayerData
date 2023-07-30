@@ -22,7 +22,7 @@ jobs:
     - name: Log in to registry
       uses: docker/login-action@v2
       with:
-        registry: https://esportscompare.azurecr.io/
+        registry: esportscompare.azurecr.io
         username: ${{ secrets.AzureAppService_ContainerUsername_eed472d57c644e3587f463902c987d1a }}
         password: ${{ secrets.AzureAppService_ContainerPassword_6953646d8c1e49f397366ea8899e7cf0 }}
 
