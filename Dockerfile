@@ -14,8 +14,9 @@ COPY ["EsportsProfileWebApi.DOMAIN/EsportsProfileWebApi.DOMAIN.csproj", "/Esport
 COPY ["EsportsProfileWebApi.CROSSCUTTING/EsportsProfileWebApi.CROSSCUTTING.csproj", "/EsportsProfileWebApi.CROSSCUTTING"]
 COPY ["EsportsProfileWebApi.INFRASTRUCTURE/EsportsProfileWebApi.INFRASTRUCTURE.csproj", "/EsportsProfileWebApi.INFRASTRUCTURE"]
 RUN dotnet restore "EsportsProfileWebApi.Web/EsportsProfileWebApi.Web.csproj"
-COPY . .
+
 WORKDIR "/src/EsportsProfileWebApi.Web"
+COPY . .
 RUN dotnet build "EsportsProfileWebApi.Web.csproj" -c Release -o /app/build
 
 FROM build AS publish
