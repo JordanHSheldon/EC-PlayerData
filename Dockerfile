@@ -6,11 +6,13 @@ EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR /src
-COPY ["src/EsportsProfileWebApi.Web/EsportsProfileWebApi.Web.csproj", "EsportsProfileWebApi.Web/"]
-COPY ["src/EsportsProfileWebApi.DOMAIN/EsportsProfileWebApi.DOMAIN.csproj", "EsportsProfileWebApi.DOMAIN/"]
-COPY ["src/EsportsProfileWebApi.CROSSCUTTING/EsportsProfileWebApi.CROSSCUTTING.csproj", "EsportsProfileWebApi.CROSSCUTTING/"]
-COPY ["src/EsportsProfileWebApi.INFRASTRUCTURE/EsportsProfileWebApi.INFRASTRUCTURE.csproj", "EsportsProfileWebApi.INFRASTRUCTURE/"]
+
+# WORKDIR /src
+
+COPY ["EsportsProfileWebApi.Web/EsportsProfileWebApi.Web.csproj", "/EsportsProfileWebApi.Web"]
+COPY ["EsportsProfileWebApi.DOMAIN/EsportsProfileWebApi.DOMAIN.csproj", "/EsportsProfileWebApi.DOMAIN"]
+COPY ["EsportsProfileWebApi.CROSSCUTTING/EsportsProfileWebApi.CROSSCUTTING.csproj", "/EsportsProfileWebApi.CROSSCUTTING"]
+COPY ["EsportsProfileWebApi.INFRASTRUCTURE/EsportsProfileWebApi.INFRASTRUCTURE.csproj", "/EsportsProfileWebApi.INFRASTRUCTURE"]
 RUN dotnet restore "EsportsProfileWebApi.Web/EsportsProfileWebApi.Web.csproj"
 COPY . .
 WORKDIR "/src/EsportsProfileWebApi.Web"

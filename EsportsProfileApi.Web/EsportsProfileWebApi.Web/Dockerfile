@@ -8,9 +8,6 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["EsportsProfileWebApi.Web/EsportsProfileWebApi.Web.csproj", "EsportsProfileWebApi.Web/"]
-COPY ["EsportsProfileWebApi.DOMAIN/EsportsProfileWebApi.DOMAIN.csproj", "EsportsProfileWebApi.DOMAIN/"]
-COPY ["EsportsProfileWebApi.CROSSCUTTING/EsportsProfileWebApi.CROSSCUTTING.csproj", "EsportsProfileWebApi.CROSSCUTTING/"]
-COPY ["EsportsProfileWebApi.INFRASTRUCTURE/EsportsProfileWebApi.INFRASTRUCTURE.csproj", "EsportsProfileWebApi.INFRASTRUCTURE/"]
 RUN dotnet restore "EsportsProfileWebApi.Web/EsportsProfileWebApi.Web.csproj"
 COPY . .
 WORKDIR "/src/EsportsProfileWebApi.Web"
