@@ -45,7 +45,7 @@ namespace EsportsProfileWebApi.INFRASTRUCTURE
             var getEntityResult = con.Query<GetSettingsResponseDTO>(sql, new GetSettingsResponseDTO { });
             return getEntityResult.First();
         }
-
+        
         public GetPeripheralsResponseDTO GetPeripherals(GetPeripheralsRequestDTO peripheralsRequest)
         {
             var cs = @"Data Source=JORDAN;Initial Catalog=EsportsCompare;Integrated Security=True";
