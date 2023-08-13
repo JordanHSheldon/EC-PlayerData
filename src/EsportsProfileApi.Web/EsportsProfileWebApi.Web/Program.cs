@@ -30,3 +30,4 @@ app.UseHttpsRedirection();
 app.UseMiddleware<BasicAuthHandler>("Test");
 app.UseCors();
 app.MapControllers();
+app.Run();

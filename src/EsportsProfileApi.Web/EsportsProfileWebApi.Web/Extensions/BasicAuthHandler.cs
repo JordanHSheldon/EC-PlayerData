@@ -1,7 +1,6 @@
-﻿using System.Text;
-
-namespace EsportsProfileWebApi.Web.Extensions
+﻿namespace EsportsProfileWebApi.Web.Extensions
 {
+    using System.Text;
     public class BasicAuthHandler
     {
         private readonly string Relm;
