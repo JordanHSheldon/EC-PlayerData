@@ -17,49 +17,49 @@ namespace EsportsProfileWebApi.DOMAIN
             _dataRepository = dataRepository ?? throw new NotImplementedException();
         }
 
+        public IEnumerable<GetDataResponseDTO> GetAllData(GetDataRequestDTO dataRequest)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<GetPeripheralsResponseDTO> GetAllPeripherals(GetPeripheralsRequestDTO peripheralsRequest)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<GetSettingsResponseDTO> GetAllSettings(GetSettingsRequestDTO settingsRequest)
+        {
+            throw new NotImplementedException();
+        }
+
         public GetDataResponseDTO GetData(GetDataRequestDTO dataRequest)
         {
             return _dataRepository.GetData(dataRequest);
         }
 
-        public GetSettingsResponseDTO GetSettings(GetSettingsRequestDTO settingsRequest)
-        {
-            return _dataRepository.GetSettings(settingsRequest);
-        }
-
         public GetPeripheralsResponseDTO GetPeripherals(GetPeripheralsRequestDTO peripheralsRequest)
         {
-            return _dataRepository.GetPeripherals(peripheralsRequest);
+            throw new NotImplementedException();
         }
 
-        public IEnumerable<GetSettingsResponseDTO> GetAllSettings(GetSettingsRequestDTO settingsRequest)
+        public GetSettingsResponseDTO GetSettings(GetSettingsRequestDTO settingsRequest)
         {
-            return _dataRepository.GetAllSettings(settingsRequest);
-        }
-
-        public IEnumerable<GetPeripheralsResponseDTO> GetAllPeripherals(GetPeripheralsRequestDTO peripheralsRequest)
-        {
-            return _dataRepository.GetAllPeripherals(peripheralsRequest);
-        }
-
-        public IEnumerable<GetDataResponseDTO> GetAllData(GetDataRequestDTO dataRequest)
-        {
-            return _dataRepository.GetAllData(dataRequest);
-        }
-
-        public bool UpdateSettings(UpdateSettingsRequestDTO settingsRequest)
-        {
-            return _dataRepository.UpdateSettings(settingsRequest);
-        }
-
-        public bool UpdatePeripherals(UpdatePeripheralsRequestDTO peripheralsRequest)
-        {
-            return _dataRepository.UpdatePeripherals(peripheralsRequest);
+            throw new NotImplementedException();
         }
 
         public bool UpdateData(UpdateDataRequestDTO peripheralsRequest)
         {
-            return _dataRepository.UpdateData(peripheralsRequest);
+            throw new NotImplementedException();
+        }
+
+        public bool UpdatePeripherals(UpdatePeripheralsRequestDTO peripheralsRequest)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UpdateSettings(UpdateSettingsRequestDTO settingsRequest)
+        {
+            throw new NotImplementedException();
         }
     }
 }

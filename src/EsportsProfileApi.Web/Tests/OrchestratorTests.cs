@@ -11,7 +11,7 @@
     public class OrchestratorTests
     {
         private readonly Mock<IDataRepository> mockDataRepository;
-        private readonly DataOrchestrator _dataOrchestrator;
+        private readonly UserOrchestrator _dataOrchestrator;
 
         //[SetUp]
         public OrchestratorTests()
