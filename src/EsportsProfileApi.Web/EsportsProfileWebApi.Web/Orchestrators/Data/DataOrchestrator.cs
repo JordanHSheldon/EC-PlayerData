@@ -37,27 +37,7 @@ namespace EsportsProfileWebApi.DOMAIN
             return _dataRepository.GetData(dataRequest);
         }
 
-        public GetPeripheralsResponseDTO GetPeripherals(GetPeripheralsRequestDTO peripheralsRequest)
-        {
-            throw new NotImplementedException();
-        }
-
-        public GetSettingsResponseDTO GetSettings(GetSettingsRequestDTO settingsRequest)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool UpdateData(UpdateDataRequestDTO peripheralsRequest)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool UpdatePeripherals(UpdatePeripheralsRequestDTO peripheralsRequest)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool UpdateSettings(UpdateSettingsRequestDTO settingsRequest)
         {
             throw new NotImplementedException();
         }

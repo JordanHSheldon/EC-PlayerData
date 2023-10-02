@@ -10,8 +10,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // split this out into auth extensions
-builder.Services.AddAuthentication().AddCookie("Test");
-builder.Services.AddAuthorization();
+//builder.Services.AddAuthentication().AddCookie("Test");
+//builder.Services.AddAuthorization();
 
 // split out these custom services
 builder.Services.AddTransient<IDataOrchestrator, DataOrchestrator>();

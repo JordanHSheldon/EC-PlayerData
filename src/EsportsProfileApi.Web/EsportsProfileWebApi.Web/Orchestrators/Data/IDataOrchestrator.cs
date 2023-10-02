@@ -10,19 +10,11 @@ namespace EsportsProfileWebApi.DOMAIN.Orchestrators.Settings
     {
         GetDataResponseDTO GetData(GetDataRequestDTO dataRequest);
 
-        GetSettingsResponseDTO GetSettings(GetSettingsRequestDTO settingsRequest);
-
-        GetPeripheralsResponseDTO GetPeripherals(GetPeripheralsRequestDTO peripheralsRequest);
-
         IEnumerable<GetSettingsResponseDTO> GetAllSettings(GetSettingsRequestDTO settingsRequest);
 
         IEnumerable<GetPeripheralsResponseDTO> GetAllPeripherals(GetPeripheralsRequestDTO peripheralsRequest);
 
         IEnumerable<GetDataResponseDTO> GetAllData(GetDataRequestDTO dataRequest);
-
-        bool UpdateSettings(UpdateSettingsRequestDTO settingsRequest);
-
-        bool UpdatePeripherals(UpdatePeripheralsRequestDTO peripheralsRequest);
 
         bool UpdateData(UpdateDataRequestDTO peripheralsRequest);
     }

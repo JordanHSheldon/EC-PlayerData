@@ -102,10 +102,5 @@
             var getEntityResult = con.Query<GetPeripheralsResponseDTO>(sql, new GetPeripheralsResponseDTO { });
             return true;
         }
-
-        public bool UpdateData(UpdateDataRequestDTO dataRequest)
-        {
-            return false;
-        }
     }
 }

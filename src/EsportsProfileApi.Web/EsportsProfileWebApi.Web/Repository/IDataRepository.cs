@@ -24,8 +24,6 @@ namespace EsportsProfileWebApi.INFRASTRUCTURE
         public bool UpdateSettings(UpdateSettingsRequestDTO settingsRequest);
 
         public bool UpdatePeripherals(UpdatePeripheralsRequestDTO peripheralsRequest);
-
-        public bool UpdateData(UpdateDataRequestDTO peripheralsRequest);
     }
 }
 
