@@ -15,15 +15,12 @@
         }
 
         [HttpPost]
-        [Route("GetUserByName")]
+        [Route("GetUserById")]
         public ActionResult GetUserByName()
         {
             return new JsonResult(new GetUserDataResponseDto
             {
-                FirstName = "Jordan",
-                LastName = "Sheldon",
-                Email = "Jordansheldon@email.com",
-                Username = "Nadroj",
+                Id = 0,
             });
         }
 
