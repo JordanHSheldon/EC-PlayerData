@@ -9,6 +9,7 @@ namespace EsportsProfileWebApi.Web.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class DataController : Controller
     {
         private readonly IDataOrchestrator _dataOrchestrator;
@@ -18,19 +19,18 @@ namespace EsportsProfileWebApi.Web.Controllers
             _dataOrchestrator = dataOrchestrator ?? throw new NotImplementedException();
         }
 
-        [Authorize]
         [HttpPost]
         [Route("GetDataById")]
-        public ActionResult GetDataById(GetDataRequestDTO getDataRequestDTO)
+        public ActionResult GetDataById(GetDataRequestDTO getDataRequestDto)
         {
-            return new JsonResult(_dataOrchestrator.GetData(getDataRequestDTO));
+            return new JsonResult(_dataOrchestrator.GetData(getDataRequestDto));
         }
 
         [HttpPost]
         [Route("UpdateDataById")]
-        public ActionResult UpdateDataById(UpdateDataRequestDTO updateDataRequestDTO)
+        public ActionResult UpdateDataById(UpdateDataRequestDTO updateDataRequestDto)
         {
-            return new JsonResult(_dataOrchestrator.UpdateData(updateDataRequestDTO));
+            return new JsonResult(_dataOrchestrator.UpdateData(updateDataRequestDto));
         }
 
         [HttpPost]
