@@ -4,12 +4,10 @@ namespace EsportsProfileWebApi.Web.Controllers
     using EsportsProfileWebApi.CROSSCUTTING;
     using EsportsProfileWebApi.CROSSCUTTING.Requests.Data;
     using EsportsProfileWebApi.DOMAIN.Orchestrators.Settings;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class DataController : Controller
     {
         private readonly IDataOrchestrator _dataOrchestrator;
@@ -20,10 +18,11 @@ namespace EsportsProfileWebApi.Web.Controllers
         }
 
         [HttpPost]
-        [Route("GetDataById")]
-        public ActionResult GetDataById(GetDataRequestDTO getDataRequestDto)
+        [Route("GetDataByName")]
+        public ActionResult GetDataByName(GetDataRequestDTO getDataRequestDto)
         {
-            return new JsonResult(_dataOrchestrator.GetData(getDataRequestDto));
+            var result = _dataOrchestrator.GetData(getDataRequestDto);
+            return new JsonResult(result);
         }
 
         [HttpPost]

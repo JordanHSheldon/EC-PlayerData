@@ -3,7 +3,7 @@
     using System.Diagnostics.CodeAnalysis;
 
     [ExcludeFromCodeCoverage]
-    public class GetPeripheralsResponseDTO
+    public class GetPeripheralsResponse
     {
         public int Id { get; set; }
 

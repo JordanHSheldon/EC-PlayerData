@@ -3,7 +3,7 @@
     using System.Diagnostics.CodeAnalysis;
 
     [ExcludeFromCodeCoverage]
-    public class GetSettingsResponseDTO
+    public class GetSettingsResponse
     {
         public decimal Sensitivity { get; set; }
 

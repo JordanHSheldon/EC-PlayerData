@@ -25,7 +25,7 @@
         {
             //Arrange
             var request = new GetDataRequestDTO();
-            var response = new GetDataResponseDTO();
+            var response = new GetDataResponse();
             mockDataRepository.Setup(test => test.GetData(It.IsAny<GetDataRequestDTO>())).Returns(response);
             
             //Act

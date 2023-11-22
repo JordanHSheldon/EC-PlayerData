@@ -8,13 +8,13 @@
 
     public interface IDataOrchestrator
     {
-        GetDataResponseDTO GetData(GetDataRequestDTO dataRequest);
+        GetDataResponse GetData(GetDataRequestDTO dataRequest);
 
-        IEnumerable<GetSettingsResponseDTO> GetAllSettings(GetSettingsRequestDTO settingsRequest);
+        IEnumerable<GetSettingsResponse> GetAllSettings(GetSettingsRequestDTO settingsRequest);
 
-        IEnumerable<GetPeripheralsResponseDTO> GetAllPeripherals(GetPeripheralsRequestDTO peripheralsRequest);
+        IEnumerable<GetPeripheralsResponse> GetAllPeripherals(GetPeripheralsRequestDTO peripheralsRequest);
 
-        IEnumerable<GetDataResponseDTO> GetAllData(GetDataRequestDTO dataRequest);
+        IEnumerable<GetDataResponse> GetAllData(GetDataRequestDTO dataRequest);
 
         bool UpdateData(UpdateDataRequestDTO peripheralsRequest);
     }

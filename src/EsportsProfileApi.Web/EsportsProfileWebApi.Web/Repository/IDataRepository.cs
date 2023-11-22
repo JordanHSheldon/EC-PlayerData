@@ -9,17 +9,17 @@ namespace EsportsProfileWebApi.INFRASTRUCTURE
 
     public interface IDataRepository
     {
-        public GetDataResponseDTO GetData(GetDataRequestDTO dataRequest);
+        public GetDataResponse GetData(GetDataRequestDTO dataRequest);
 
-        public GetSettingsResponseDTO GetSettings(GetSettingsRequestDTO peripheralsRequest);
+        public GetSettingsResponse GetSettings(GetSettingsRequestDTO peripheralsRequest);
 
-        public GetPeripheralsResponseDTO GetPeripherals(GetPeripheralsRequestDTO peripheralsRequest);
+        public GetPeripheralsResponse GetPeripherals(GetPeripheralsRequestDTO peripheralsRequest);
 
-        public IEnumerable<GetPeripheralsResponseDTO> GetAllPeripherals(GetPeripheralsRequestDTO peripheralsRequest);
+        public IEnumerable<GetPeripheralsResponse> GetAllPeripherals(GetPeripheralsRequestDTO peripheralsRequest);
 
-        public IEnumerable<GetSettingsResponseDTO> GetAllSettings(GetSettingsRequestDTO settingsRequest);
+        public IEnumerable<GetSettingsResponse> GetAllSettings(GetSettingsRequestDTO settingsRequest);
 
-        public IEnumerable<GetDataResponseDTO> GetAllData(GetDataRequestDTO dataRequest);
+        public IEnumerable<GetDataResponse> GetAllData(GetDataRequestDTO dataRequest);
 
         public bool UpdateSettings(UpdateSettingsRequestDTO settingsRequest);
 

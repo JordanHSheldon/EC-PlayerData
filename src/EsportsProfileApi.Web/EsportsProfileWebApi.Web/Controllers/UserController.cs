@@ -8,26 +8,19 @@ using Responses.User;
 public class UserController : Controller
 {
     [HttpPost]
-    [Route("CreateUser")]
-    public ActionResult GetDataById()
+    [Route("Register")]
+    public ActionResult Register()
     {
         return new JsonResult(false);
     }
 
     [HttpPost]
-    [Route("GetUserById")]
-    public ActionResult GetUserByName()
+    [Route("Login")]
+    public ActionResult Login()
     {
         return new JsonResult(new GetUserDataResponseDto
         {
             Id = 0,
         });
-    }
-
-    [HttpPost]
-    [Route("UpdateUserByName")]
-    public ActionResult UpdateUserByName()
-    {
-        return new JsonResult(false);
     }
 }

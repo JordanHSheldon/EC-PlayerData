@@ -2,7 +2,7 @@
 
 namespace EsportsProfileWebApi.CROSSCUTTING.Responses.Peripherals
 {
-    public class UpdatePeripheralsResponseDTO
+    public class UpdatePeripheralsResponse
     {
         public bool IsSuccessful { get; set; }
     }

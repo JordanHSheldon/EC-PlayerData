@@ -17,22 +17,22 @@ namespace EsportsProfileWebApi.DOMAIN
             _dataRepository = dataRepository ?? throw new NotImplementedException();
         }
 
-        public IEnumerable<GetDataResponseDTO> GetAllData(GetDataRequestDTO dataRequest)
+        public IEnumerable<GetDataResponse> GetAllData(GetDataRequestDTO dataRequest)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<GetPeripheralsResponseDTO> GetAllPeripherals(GetPeripheralsRequestDTO peripheralsRequest)
+        public IEnumerable<GetPeripheralsResponse> GetAllPeripherals(GetPeripheralsRequestDTO peripheralsRequest)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<GetSettingsResponseDTO> GetAllSettings(GetSettingsRequestDTO settingsRequest)
+        public IEnumerable<GetSettingsResponse> GetAllSettings(GetSettingsRequestDTO settingsRequest)
         {
             throw new NotImplementedException();
         }
 
-        public GetDataResponseDTO GetData(GetDataRequestDTO dataRequest)
+        public GetDataResponse GetData(GetDataRequestDTO dataRequest)
         {
             return _dataRepository.GetData(dataRequest);
         }

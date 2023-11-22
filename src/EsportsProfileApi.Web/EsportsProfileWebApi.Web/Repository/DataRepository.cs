@@ -19,19 +19,15 @@
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new NotImplementedException();
         }
-        public GetDataResponseDTO GetData(GetDataRequestDTO dataRequest)
+        public GetDataResponse GetData(GetDataRequestDTO dataRequest)
         {
-            var data = new GetDataResponseDTO();
-            data.SettingsResponse = new GetSettingsResponseDTO()
+            var data = new GetDataResponse()
             {
                 Dpi = 800,
                 Sensitivity = 1,
                 ResolutionX = 1920,
                 ResolutionY = 1080,
-                ResolutionType = "Native"
-            };
-            data.PeripheralsResponse = new GetPeripheralsResponseDTO()
-            {
+                ResolutionType = "Native",
                 Monitor = "Benq",
                 Mouse = "Gprowireless",
                 MousePad = "Aqua Control PLus",
@@ -41,48 +37,48 @@
             return data;
         }
 
-        public GetSettingsResponseDTO GetSettings(GetSettingsRequestDTO settingsRequest)
+        public GetSettingsResponse GetSettings(GetSettingsRequestDTO settingsRequest)
         {
             using var con = new SqlConnection(_connectionString);
             con.Open();
             var sql = "EXEC Settingsinsertupdatedelete '" + settingsRequest.Id + "',0.0,'','','','','SelectDistinct'";
-            var getEntityResult = con.Query<GetSettingsResponseDTO>(sql, new GetSettingsResponseDTO { });
+            var getEntityResult = con.Query<GetSettingsResponse>(sql, new GetSettingsResponse { });
             return getEntityResult.First();
         }
         
-        public GetPeripheralsResponseDTO GetPeripherals(GetPeripheralsRequestDTO peripheralsRequest)
+        public GetPeripheralsResponse GetPeripherals(GetPeripheralsRequestDTO peripheralsRequest)
         {
             using var con = new SqlConnection(_connectionString);
             con.Open();
 
             var sql = "EXEC Peripheralinsertupdatedelete '" + peripheralsRequest.Id + "','','','','','','SelectDistinct'";
-            var getEntityResult = con.Query<GetPeripheralsResponseDTO>(sql, new GetPeripheralsResponseDTO { });
+            var getEntityResult = con.Query<GetPeripheralsResponse>(sql, new GetPeripheralsResponse { });
             return getEntityResult.First();
         }
 
-        public IEnumerable<GetSettingsResponseDTO> GetAllSettings(GetSettingsRequestDTO settingsRequest)
+        public IEnumerable<GetSettingsResponse> GetAllSettings(GetSettingsRequestDTO settingsRequest)
         {
             using (IDbConnection dbConnection = new SqlConnection(_connectionString))
             {
                 dbConnection.Open();
                 dbConnection.Execute(RepositoryConstants.GetSettingsById, new object(), commandType: CommandType.StoredProcedure);
             }
-            return new List<GetSettingsResponseDTO>();
+            return new List<GetSettingsResponse>();
         }
 
-        public IEnumerable<GetPeripheralsResponseDTO> GetAllPeripherals(GetPeripheralsRequestDTO peripheralsRequest)
+        public IEnumerable<GetPeripheralsResponse> GetAllPeripherals(GetPeripheralsRequestDTO peripheralsRequest)
         {
             using (IDbConnection dbConnection = new SqlConnection(_connectionString))
             {
                 dbConnection.Open();
                 dbConnection.Execute(RepositoryConstants.GetPeripheralsById, new object(), commandType: CommandType.StoredProcedure);
             }
-            return new List<GetPeripheralsResponseDTO>();
+            return new List<GetPeripheralsResponse>();
         }
 
-        public IEnumerable<GetDataResponseDTO> GetAllData(GetDataRequestDTO settingsRequest)
+        public IEnumerable<GetDataResponse> GetAllData(GetDataRequestDTO settingsRequest)
         {
-            return new List<GetDataResponseDTO>();
+            return new List<GetDataResponse>();
         }
 
         public bool UpdatePeripherals(UpdatePeripheralsRequestDTO peripheralsRequest)
@@ -90,7 +86,7 @@
             using var con = new SqlConnection(_connectionString);
             con.Open();
             var sql = "EXEC Peripheralinsertupdatedelete '" + peripheralsRequest.Id + "','','','','','','Insert'";
-            var getEntityResult = con.Query<GetPeripheralsResponseDTO>(sql, new GetPeripheralsResponseDTO { });
+            var getEntityResult = con.Query<GetPeripheralsResponse>(sql, new GetPeripheralsResponse { });
             return true;
         }
 
@@ -99,7 +95,7 @@
             using var con = new SqlConnection(_connectionString);
             con.Open();
             var sql = "EXEC Peripheralinsertupdatedelete '" + settingsRequest.Id + "','','','','','','Insert'";
-            var getEntityResult = con.Query<GetPeripheralsResponseDTO>(sql, new GetPeripheralsResponseDTO { });
+            var getEntityResult = con.Query<GetPeripheralsResponse>(sql, new GetPeripheralsResponse { });
             return true;
         }
     }
