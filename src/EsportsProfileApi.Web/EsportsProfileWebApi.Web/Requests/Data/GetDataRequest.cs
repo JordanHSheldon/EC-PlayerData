@@ -1,7 +1,7 @@
 ﻿
 namespace EsportsProfileWebApi.CROSSCUTTING.Requests.Data
 {
-    public class GetDataRequestDTO
+    public class GetDataRequest
     {
         public string Alias { get; set; }
     }

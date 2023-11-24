@@ -1,23 +1,22 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.OAuth;
+﻿namespace EsportsProfileWebApi.Web.Extensions;
+
+using Microsoft.AspNetCore.Authentication;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text.Json;
-
-namespace EsportsProfileWebApi.Web.Extensions;
 
 public static class OAuthService
 {
     public static IServiceCollection AddOAuthAuthentication(this IServiceCollection services)
     {
+        // gonna change to be google and steam.
         services.AddAuthentication("cookie")
         .AddCookie("cookie")
         .AddOAuth("github", options =>
         {
             options.SignInScheme = "cookie";
-            options.ClientId = "0e8915cc353e473a4046";
-            options.ClientSecret = "d7de60f10428d3d237acf8b1adc40c79c82baaf3";
+            options.ClientId = "";
+            options.ClientSecret = ""; // get from configuration.
 
             options.AuthorizationEndpoint = "https://github.com/login/oauth/authorize";
             options.TokenEndpoint = "https://github.com/login/oauth/access_token";

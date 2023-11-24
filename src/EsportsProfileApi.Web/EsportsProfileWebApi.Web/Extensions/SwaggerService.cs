@@ -43,7 +43,6 @@ public static class SwaggerService
                     new List<string>()
                  }
             });
-
         });
         return services;
     }

@@ -1,6 +1,7 @@
-﻿namespace EsportsProfileWebApi.CROSSCUTTING.Responses.Data;
+﻿namespace EsportsProfileWebApi.CROSSCUTTING.Requests.Data;
+using System.ComponentModel.DataAnnotations;
 
-public class GetDataResponse
+public class UpdateDataRequest
 {
     public double Sensitivity { get; set; } = 2.5;
 
@@ -22,5 +23,6 @@ public class GetDataResponse
 
     public string? Monitor { get; set; } = string.Empty;
 
+    [Required]
     public string? Username { get; set; } = string.Empty;
 }

@@ -18,7 +18,7 @@ public class UserController : Controller
     [Route("Login")]
     public ActionResult Login()
     {
-        return new JsonResult(new GetUserDataResponseDto
+        return new JsonResult(new GetUserDataResponse
         {
             Id = 0,
         });
