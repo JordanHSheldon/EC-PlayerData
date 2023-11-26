@@ -8,7 +8,7 @@
     {
         GetDataResponse GetData(GetDataRequest dataRequest);
 
-        IEnumerable<GetDataResponse> GetAllData(GetDataRequest dataRequest);
+        IEnumerable<GetDataResponse> GetAllData();
 
         bool UpdateData(UpdateDataRequest peripheralsRequest);
     }

@@ -7,7 +7,7 @@ public interface IDataRepository
 {
     public GetDataResponse GetData(GetDataRequest dataRequest);
 
-    public IEnumerable<GetDataResponse> GetAllData(GetDataRequest dataRequest);
+    public IEnumerable<GetDataResponse> GetAllData();
 
     bool UpdateData(UpdateDataRequest request);
 }

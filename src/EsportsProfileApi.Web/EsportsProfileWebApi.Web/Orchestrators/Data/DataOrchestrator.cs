@@ -14,9 +14,9 @@ public class DataOrchestrator : IDataOrchestrator
         _dataRepository = dataRepository ?? throw new NotImplementedException();
     }
 
-    public IEnumerable<GetDataResponse> GetAllData(GetDataRequest dataRequest)
+    public IEnumerable<GetDataResponse> GetAllData()
     {
-        throw new NotImplementedException();
+       return _dataRepository.GetAllData();
     }
 
     public GetDataResponse GetData(GetDataRequest dataRequest)

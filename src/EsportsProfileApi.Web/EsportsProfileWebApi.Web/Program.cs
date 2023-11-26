@@ -38,7 +38,7 @@ app.MapGet("/login", (HttpContext ctx) =>
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-app.UseSwaggerUI();
+    app.UseSwaggerUI();
 }
 
 app.UseCors(builder =>

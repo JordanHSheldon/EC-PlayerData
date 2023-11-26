@@ -38,4 +38,12 @@ public class DataController : Controller
     {
         return new JsonResult(_dataOrchestrator.UpdateData(updateDataRequestDto));
     }
+
+
+    [HttpPost]
+    [Route("GetAllData")]
+    public ActionResult GetAllData()
+    {
+        return new JsonResult(_dataOrchestrator.GetAllData());
+    }
 }
