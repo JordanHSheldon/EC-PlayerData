@@ -1,5 +1,6 @@
 ﻿namespace EsportsProfileWebApi.Web.Controllers;
 
+using EsportsProfileWebApi.Web.Requests.User;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Responses.User;
@@ -13,21 +14,25 @@ public class UserController : Controller
 {
     [HttpPost]
     [Route("Register")]
-    public ActionResult Register()
+    public ActionResult Register(RegisterRequest request)
     {
         return new JsonResult(false);
     }
 
     [HttpPost]
     [Route("Login")]
-    public ActionResult Login()
+    public ActionResult Login(LoginRequest request)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.UTF8.GetBytes("SuperDuperSecretValueSuperDuperSecretValue");
+
+        // find if the user is valid, if they are create the claims or retrieve them from the db
+
         var claims = new List<Claim>()
         {
-            new Claim(ClaimTypes.Name, "username"), // Replace with user claims
-            new Claim(ClaimTypes.Email, "user@example.com"),
+            new (ClaimTypes.Role, "Admin"),
+            new (ClaimTypes.Name, "NADROJ"), // Replace with user claims
+            new (ClaimTypes.Email, "Jordanhsheldon@gmail.com"),
         };
 
         var tokenDescriptor = new SecurityTokenDescriptor()

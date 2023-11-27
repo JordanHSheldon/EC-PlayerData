@@ -1,8 +1,6 @@
-﻿using EsportsProfileWebApi.CROSSCUTTING.Requests.Data;
-using EsportsProfileWebApi.INFRASTRUCTURE;
-using Microsoft.OpenApi.Models;
+﻿namespace EsportsProfileWebApi.Web.Extensions;
 
-namespace EsportsProfileWebApi.Web.Extensions;
+using Microsoft.OpenApi.Models;
 
 public static class SwaggerService
 {

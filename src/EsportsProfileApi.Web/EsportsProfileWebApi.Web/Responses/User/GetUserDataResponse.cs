@@ -10,5 +10,5 @@ public class GetUserDataResponse
 
     public string? Name { get; set; }
 
-    public List<Claim> claims { get; set; }
+    public List<Claim> Claims { get; set; } = new List<Claim>();
 }

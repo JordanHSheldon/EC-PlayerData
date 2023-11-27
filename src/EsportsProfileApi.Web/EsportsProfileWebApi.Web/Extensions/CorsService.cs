@@ -1,6 +1,5 @@
-﻿namespace EsportsProfileWebApi.Web.Extensions
+﻿namespace EsportsProfileWebApi.Web.Extensions;
+
+public class CorsService
 {
-    public class CorsService
-    {
-    }
 }
