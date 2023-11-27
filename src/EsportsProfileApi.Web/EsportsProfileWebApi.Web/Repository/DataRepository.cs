@@ -12,7 +12,7 @@ using System;
 public class DataRepository : IDataRepository
 {
     private static string _connectionString = string.Empty;
-    List<GetDataResponse> data = new List<GetDataResponse>()
+    List<GetDataResponse> data = new ()
     {
         new GetDataResponse() {
             Dpi = 800,

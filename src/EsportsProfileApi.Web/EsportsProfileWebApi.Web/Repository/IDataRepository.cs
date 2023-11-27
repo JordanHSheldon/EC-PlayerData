@@ -11,4 +11,3 @@ public interface IDataRepository
 
     bool UpdateData(UpdateDataRequest request);
 }
-

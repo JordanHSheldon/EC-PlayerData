@@ -1,4 +1,6 @@
-﻿namespace EsportsProfileWebApi.Web.Responses.User;
+﻿using System.Security.Claims;
+
+namespace EsportsProfileWebApi.Web.Responses.User;
 
 public class GetUserDataResponse
 {
@@ -7,4 +9,6 @@ public class GetUserDataResponse
     public int Id { get; set; }
 
     public string? Name { get; set; }
+
+    public List<Claim> claims { get; set; }
 }

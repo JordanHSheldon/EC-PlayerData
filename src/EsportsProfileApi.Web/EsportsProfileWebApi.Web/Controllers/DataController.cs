@@ -1,10 +1,11 @@
-﻿
-namespace EsportsProfileWebApi.Web.Controllers;
+﻿namespace EsportsProfileWebApi.Web.Controllers;
 
 using EsportsProfileWebApi.CROSSCUTTING.Requests.Data;
 using EsportsProfileWebApi.DOMAIN.Orchestrators.Settings;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class DataController : Controller
