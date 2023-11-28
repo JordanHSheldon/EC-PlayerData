@@ -6,6 +6,8 @@ using EsportsProfileWebApi.DOMAIN;
 using EsportsProfileWebApi.DOMAIN.Orchestrators.Settings;
 using EsportsProfileWebApi.INFRASTRUCTURE;
 using EsportsProfileWebApi.Web.Controllers;
+using EsportsProfileWebApi.Web.Requests.Data;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
 
@@ -19,6 +21,51 @@ public class DataControllerTests
     {
         mockDataOrchestrator = new Mock<IDataOrchestrator>();
         _dataController = new DataController(mockDataOrchestrator.Object);
+    }
+
+    [Test]
+    public void GetAllData_ReturnsGetDataResponse()
+    {
+        // Arrange
+        var request = new List<GetDataResponse>();
+        mockDataOrchestrator.Setup(test => test.GetAllData()).Returns(request);
+
+        // Act
+        var result = _dataController.GetAllData();
+
+        // Assert
+        Assert.IsNotNull(result);
+        mockDataOrchestrator.Verify(verify => verify.GetAllData(), Times.Once);
+    }
+
+    [Test]
+    public void GetDataByName_ReturnsGetDataResponse()
+    {
+        // Arrange
+
+        // Act
+
+        // Assert
+    }
+
+    [Test]
+    public void GetDataById_ReturnsGetDataResponse()
+    {
+        // Arrange
+
+        // Act
+
+        // Assert
+    }
+
+    [Test]
+    public void UpdateDataById_ReturnsGetDataResponse()
+    {
+        // Arrange
+
+        // Act
+
+        // Assert
     }
 
 }
