@@ -1,13 +1,8 @@
 ﻿namespace Tests;
 
-using EsportsProfileWebApi.CROSSCUTTING.Requests.Data;
 using EsportsProfileWebApi.CROSSCUTTING.Responses.Data;
-using EsportsProfileWebApi.DOMAIN;
 using EsportsProfileWebApi.DOMAIN.Orchestrators.Settings;
-using EsportsProfileWebApi.INFRASTRUCTURE;
 using EsportsProfileWebApi.Web.Controllers;
-using EsportsProfileWebApi.Web.Requests.Data;
-using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
 
