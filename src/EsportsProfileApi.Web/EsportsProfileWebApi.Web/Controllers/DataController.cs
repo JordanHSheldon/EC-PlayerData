@@ -5,7 +5,6 @@ using EsportsProfileWebApi.DOMAIN.Orchestrators.Settings;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class DataController : Controller
@@ -25,6 +24,7 @@ public class DataController : Controller
         return new JsonResult(result);
     }
 
+    [Authorize]
     [HttpPost]
     [Route("GetDataById")]
     public ActionResult GetDataById(GetDataRequest getDataRequestDto)
@@ -33,13 +33,13 @@ public class DataController : Controller
         return new JsonResult(result);
     }
 
+    [Authorize]
     [HttpPost]
     [Route("UpdateDataById")]
     public ActionResult UpdateDataById(UpdateDataRequest updateDataRequestDto)
     {
         return new JsonResult(_dataOrchestrator.UpdateData(updateDataRequestDto));
     }
-
 
     [HttpPost]
     [Route("GetAllData")]

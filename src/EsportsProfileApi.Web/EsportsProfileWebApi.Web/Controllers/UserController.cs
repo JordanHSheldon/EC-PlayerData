@@ -31,7 +31,7 @@ public class UserController : Controller
 
         // find if the user is valid, if they are create the claims or retrieve them from the db
         if (users.Contains(new Users { username = request.Username, Email = request.Email }))
-            return BadRequest("Username/email already exists!");
+            return BadRequest("Account already exists!");
 
         users.Add(new Users()
         {
@@ -39,6 +39,7 @@ public class UserController : Controller
             password = request.Password,
             Email = request.Email
         });
+
         //do this later to get claims and token once the registration is complete.
         var claims = new List<Claim>()
         {
