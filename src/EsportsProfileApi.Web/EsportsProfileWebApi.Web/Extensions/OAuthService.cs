@@ -2,7 +2,6 @@
 
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.IdentityModel.Tokens;
 using System.Net.Http.Headers;
 using System.Security.Claims;
@@ -49,7 +48,7 @@ public static class OAuthService
     public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, WebApplicationBuilder builder)
     {
         var config = builder.Configuration;
-        var key = Encoding.UTF8.GetBytes(config["JwtSettings:Key"]);
+        var key = Encoding.UTF8.GetBytes(config["JwtSettings:Key"] ?? throw new ArgumentNullException());
         services.AddAuthentication(x => 
         {
             x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -57,6 +56,7 @@ public static class OAuthService
             x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
         }).AddJwtBearer(x =>
         {
+            x.MapInboundClaims = false;
             x.TokenValidationParameters = new TokenValidationParameters
             {
                 ValidIssuer = config["JwtSettings:Issuer"],

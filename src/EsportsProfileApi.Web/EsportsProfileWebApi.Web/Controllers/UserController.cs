@@ -2,6 +2,7 @@
 
 using EsportsProfileWebApi.Web.Requests.User;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.IIS.Core;
 using Microsoft.IdentityModel.Tokens;
 using Responses.User;
 using System.IdentityModel.Tokens.Jwt;
@@ -12,6 +13,16 @@ using System.Text;
 [ApiController]
 public class UserController : Controller
 {
+
+    List<Users> users = new List<Users>()
+    {
+        new Users()
+        {
+            username = "username",
+            password = "password",
+        }
+    };
+
     [HttpPost]
     [Route("Register")]
     public ActionResult Register(RegisterRequest request)
@@ -20,12 +31,21 @@ public class UserController : Controller
         var key = Encoding.UTF8.GetBytes("SuperDuperSecretValueSuperDuperSecretValue");
 
         // find if the user is valid, if they are create the claims or retrieve them from the db
+        if (users.Contains(new Users { username = request.Username, Email = request.Email }))
+            return BadRequest("Username/email already exists!");
 
+        users.Add(new Users()
+        {
+            username = request.Username,
+            password = request.Password,
+            Email = request.Email
+        });
+        //do this later to get claims and token once the registration is complete.
         var claims = new List<Claim>()
         {
-            new (ClaimTypes.Role, "Admin"),
-            new (ClaimTypes.Name, "NADROJ"), // Replace with user claims
-            new (ClaimTypes.Email, "Jordanhsheldon@gmail.com"),
+            new (ClaimTypes.Role, "Member"),
+            new (ClaimTypes.Name, request.Username), // Replace with user claims
+            new (ClaimTypes.Email, request.Email),
         };
 
         var tokenDescriptor = new SecurityTokenDescriptor()
@@ -40,7 +60,8 @@ public class UserController : Controller
         return new JsonResult(new GetUserDataResponse
         {
             Token = tokenHandler.WriteToken(tokenHandler.CreateToken(tokenDescriptor)),
-            Id = 1
+            Id = 1,
+            Claims = claims
         });
     }
 
@@ -52,7 +73,8 @@ public class UserController : Controller
         var key = Encoding.UTF8.GetBytes("SuperDuperSecretValueSuperDuperSecretValue");
 
         // find if the user is valid, if they are create the claims or retrieve them from the db
-
+        if (users.Where(x=> x.username == request.Username && x.password == request.Password).Count().Equals(0))
+            return new NotFoundResult();
         var claims = new List<Claim>()
         {
             new (ClaimTypes.Role, "Admin"),
@@ -72,7 +94,8 @@ public class UserController : Controller
         return new JsonResult(new GetUserDataResponse
         {
             Token = tokenHandler.WriteToken(tokenHandler.CreateToken(tokenDescriptor)),
-            Id = 1
+            Id = 1,
+            Claims = claims
         });
     }
 
