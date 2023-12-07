@@ -2,7 +2,6 @@
 
 using EsportsProfileWebApi.Web.Requests.User;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Server.IIS.Core;
 using Microsoft.IdentityModel.Tokens;
 using Responses.User;
 using System.IdentityModel.Tokens.Jwt;
