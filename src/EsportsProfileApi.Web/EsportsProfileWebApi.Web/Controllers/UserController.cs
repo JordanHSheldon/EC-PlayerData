@@ -1,8 +1,10 @@
 ﻿namespace EsportsProfileWebApi.Web.Controllers;
 
+using EsportsProfileWebApi.Web.Orchestrators;
 using EsportsProfileWebApi.Web.Requests.User;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using MongoDB.Driver;
 using Responses.User;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -12,15 +14,29 @@ using System.Text;
 [ApiController]
 public class UserController : Controller
 {
-
-    List<Users> users = new List<Users>()
+    List<users> users = new List<users>()
     {
-        new Users()
+        new users()
         {
-            username = "username",
+            Username = "username",
             password = "password",
         }
     };
+
+    private readonly IDataOrchestrator _dataOrchestrator;
+
+    public UserController(IDataOrchestrator dataOrchestrator)
+    {
+        _dataOrchestrator = dataOrchestrator ?? throw new NotImplementedException();
+    }
+
+    [HttpPost]
+    [Route("Users")]
+    public async Task<users> GetAsync()
+    {
+        var result = await _dataOrchestrator.GetAllUsersAsync();
+        return result.FirstOrDefault();
+    }
 
     [HttpPost]
     [Route("Register")]
@@ -30,12 +46,12 @@ public class UserController : Controller
         var key = Encoding.UTF8.GetBytes("SuperDuperSecretValueSuperDuperSecretValue");
 
         // find if the user is valid, if they are create the claims or retrieve them from the db
-        if (users.Contains(new Users { username = request.Username, Email = request.Email }))
+        if (users.Contains(new users { Username = request.Username, Email = request.Email }))
             return BadRequest("Account already exists!");
 
-        users.Add(new Users()
+        users.Add(new users()
         {
-            username = request.Username,
+            Username = request.Username,
             password = request.Password,
             Email = request.Email
         });
@@ -73,7 +89,7 @@ public class UserController : Controller
         var key = Encoding.UTF8.GetBytes("SuperDuperSecretValueSuperDuperSecretValue");
 
         // find if the user is valid, if they are create the claims or retrieve them from the db
-        if (users.Where(x=> x.username == request.Username && x.password == request.Password).Count().Equals(0))
+        if (users.Where(x=> x.Username == request.Username && x.password == request.Password).Count().Equals(0))
             return new NotFoundResult();
         var claims = new List<Claim>()
         {
@@ -98,5 +114,4 @@ public class UserController : Controller
             Claims = claims
         });
     }
-
 }

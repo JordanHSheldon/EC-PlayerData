@@ -1,9 +1,9 @@
-﻿namespace EsportsProfileWebApi.DOMAIN;
+﻿namespace EsportsProfileWebApi.Web.Orchestrators;
 
 using EsportsProfileWebApi.CROSSCUTTING.Requests.Data;
 using EsportsProfileWebApi.CROSSCUTTING.Responses.Data;
-using EsportsProfileWebApi.DOMAIN.Orchestrators.Settings;
 using EsportsProfileWebApi.INFRASTRUCTURE;
+using EsportsProfileWebApi.Web.Controllers;
 
 public class DataOrchestrator : IDataOrchestrator
 {
@@ -16,7 +16,7 @@ public class DataOrchestrator : IDataOrchestrator
 
     public IEnumerable<GetDataResponse> GetAllData()
     {
-       return _dataRepository.GetAllData();
+        return _dataRepository.GetAllData();
     }
 
     public GetDataResponse GetData(GetDataRequest dataRequest)
@@ -27,5 +27,10 @@ public class DataOrchestrator : IDataOrchestrator
     public bool UpdateData(UpdateDataRequest request)
     {
         return _dataRepository.UpdateData(request);
+    }
+
+    public async Task<List<users>> GetAllUsersAsync()
+    {
+        return await _dataRepository.GetAllUsersAsync();
     }
 }

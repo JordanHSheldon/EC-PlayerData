@@ -1,11 +1,28 @@
-﻿namespace EsportsProfileWebApi.Web.Controllers
+﻿namespace EsportsProfileWebApi.Web.Controllers;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+public class users
 {
-    public class Users
-    {
-        public string username { get; set; } = string.Empty;
+    [BsonId]
+    [BsonRepresentation(BsonType.ObjectId)]
+    public string Id { get; set; }
 
-        public string Email { get; set; } = string.Empty;
+    [BsonElement("username")]
+    public string Username { get; set; }
 
-        public string password { get; set; } = string.Empty;
-    }
+    [BsonElement("password")]
+    public string password { get; set; }
+
+    [BsonElement("email")]
+    public string Email { get; set; }
+
+    [BsonElement("fname")]
+    public string fname { get; set; }
+
+    [BsonElement("lname")]
+    public string lname { get; set; }
+
+    [BsonElement("__v")]
+    public int __v { get; set; }
+
 }

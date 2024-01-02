@@ -1,7 +1,7 @@
 ﻿namespace EsportsProfileWebApi.Web.Controllers;
 
 using EsportsProfileWebApi.CROSSCUTTING.Requests.Data;
-using EsportsProfileWebApi.DOMAIN.Orchestrators.Settings;
+using EsportsProfileWebApi.Web.Orchestrators;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

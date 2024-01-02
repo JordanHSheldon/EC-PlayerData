@@ -1,7 +1,6 @@
-using EsportsProfileWebApi.DOMAIN;
-using EsportsProfileWebApi.DOMAIN.Orchestrators.Settings;
 using EsportsProfileWebApi.INFRASTRUCTURE;
 using EsportsProfileWebApi.Web.Extensions;
+using EsportsProfileWebApi.Web.Orchestrators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,13 +12,11 @@ builder.Services.AddSingleton<IDataOrchestrator, DataOrchestrator>();
 builder.Services.AddSingleton<IDataRepository, DataRepository>();
 
 var app = builder.Build();
-//if (app.Environment.IsDevelopment())
-//{
-//    app.UseSwagger();
-//    app.UseSwaggerUI();
-//}
-app.UseSwagger();
-app.UseSwaggerUI();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 app.UseCors(builder =>
 {
     builder.AllowAnyOrigin();
