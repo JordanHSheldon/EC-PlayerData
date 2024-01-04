@@ -1,18 +1,13 @@
-﻿namespace EsportsProfileWebApi.Web.Orchestrators
+﻿namespace EsportsProfileWebApi.Web.Orchestrators;
+
+using EsportsProfileWebApi.CROSSCUTTING.Requests.Data;
+using EsportsProfileWebApi.CROSSCUTTING.Responses.Data;
+
+public interface IDataOrchestrator
 {
-    using EsportsProfileWebApi.CROSSCUTTING;
-    using EsportsProfileWebApi.CROSSCUTTING.Requests.Data;
-    using EsportsProfileWebApi.CROSSCUTTING.Responses.Data;
-    using EsportsProfileWebApi.Web.Controllers;
+    Task<GetDataResponse> GetUserDataByAlias(GetDataRequest dataRequest);
 
-    public interface IDataOrchestrator
-    {
-        GetDataResponse GetData(GetDataRequest dataRequest);
+    Task<bool> UpdateDataByAlias(UpdateDataRequest request);
 
-        IEnumerable<GetDataResponse> GetAllData();
-
-        bool UpdateData(UpdateDataRequest peripheralsRequest);
-
-        Task<List<users>> GetAllUsersAsync();
-    }
+    Task<List<GetDataResponse>> GetAllDataAsync();
 }

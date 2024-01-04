@@ -25,7 +25,10 @@
       "publishAllPorts": true,
       "useSSL": true,
       "httpPort": 5000,
-      "sslPort": 5001
+      "sslPort": 5001,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
     }
   },
   "$schema": "https://json.schemastore.org/launchsettings.json",

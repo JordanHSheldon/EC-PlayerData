@@ -8,77 +8,39 @@ using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Data;
 using System;
-using EsportsProfileWebApi.Web.Controllers;
 using MongoDB.Driver;
 
 public class DataRepository : IDataRepository
 {
-    private readonly IMongoCollection<users> _userCollection;
+    private readonly IMongoCollection<GetDataResponse> _userCollection;
     private readonly MongoClient _mongoClient;
     private static string _connectionString = string.Empty;
-    List<GetDataResponse> data = new ()
-    {
-        new GetDataResponse() {
-            Dpi = 800,
-            Sensitivity = 1,
-            ResolutionX = 1920,
-            ResolutionY = 1080,
-            ResolutionType = "Native",
-            Monitor = "Benq",
-            Mouse = "Gprowireless",
-            MousePad = "Aqua Control PLus",
-            KeyBoard = "Wooting 60HE",
-            HeadSet = "SteelSeries Arctis Nova Pro",
-            Username = "NADROJ"
-        }
-    };
-
-    public IDbConnection CreateConnection() => new SqlConnection(_connectionString);
 
     public DataRepository(IConfiguration configuration)
     {
         _mongoClient = new MongoClient("mongodb://127.0.0.1:27017");
 
-        var mongoDatabase = _mongoClient.GetDatabase("mydb");
+        var mongoDatabase = _mongoClient.GetDatabase("STDATA");
 
-        _userCollection = mongoDatabase.GetCollection<users>("users");
+        _userCollection = mongoDatabase.GetCollection<GetDataResponse>("Settings");
         _connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new NotImplementedException();
     }
 
-    public IEnumerable<GetDataResponse> GetAllData()
+    public Task<bool> UpdateDataByAlias(UpdateDataRequest request)
     {
-        using var connection = new SqlConnection(_connectionString);
-        string query = "SELECT Id, Name, Price FROM Product";
-        try
-        {
-            connection.Open();
-            var products = connection.Query<GetDataResponse>(query);
-            return products;
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error: {ex.Message}");
-            throw;
-        }
+        var temp = _userCollection.UpdateOne(data => data.Alias == request.Alias, Builders<GetDataResponse>.Update.Set(data => data.Dpi, request.Dpi));
+        return Task.FromResult(true);
     }
 
-    public bool UpdateData(UpdateDataRequest request)
+    public async Task<GetDataResponse> GetUserDataByAlias(GetDataRequest dataRequest)
     {
-        data[0] = new GetDataResponse
-        { 
-            Username = "NADROJ"
-        };
-        return true;
+        var user = await _userCollection.Find(data => data.Alias == dataRequest.Alias).FirstAsync();
+        return user;
     }
 
-    public GetDataResponse GetData(GetDataRequest dataRequest)
+    public async Task<List<GetDataResponse>> GetAllDataAsync()
     {
-        return data.FirstOrDefault(x => x.Username == dataRequest.Alias)!;
-    }
-
-    public async Task<List<users>> GetAllUsersAsync()
-    {
-        var users =  await _userCollection.Find(_ => true).ToListAsync();
+        var users = await _userCollection.Find(_ => true).ToListAsync();
         return users;
     }
 }

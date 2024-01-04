@@ -1,6 +1,7 @@
 using EsportsProfileWebApi.INFRASTRUCTURE;
 using EsportsProfileWebApi.Web.Extensions;
 using EsportsProfileWebApi.Web.Orchestrators;
+using EsportsProfileWebApi.Web.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerJwtBearer();
 builder.Services.AddSingleton<IDataOrchestrator, DataOrchestrator>();
 builder.Services.AddSingleton<IDataRepository, DataRepository>();
+builder.Services.AddSingleton<IUserOrchestrator, UserOrchestrator>();
+builder.Services.AddSingleton<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())

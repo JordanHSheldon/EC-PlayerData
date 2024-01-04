@@ -48,7 +48,7 @@ public static class OAuthService
     public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, WebApplicationBuilder builder)
     {
         var config = builder.Configuration;
-        var key = Encoding.UTF8.GetBytes(config["JwtSettings:Key"] ?? throw new ArgumentNullException());
+        var key = Encoding.UTF8.GetBytes(config["Authentication:Key"] ?? throw new ArgumentNullException());
         services.AddAuthentication(x => 
         {
             x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -59,8 +59,8 @@ public static class OAuthService
             x.MapInboundClaims = false;
             x.TokenValidationParameters = new TokenValidationParameters
             {
-                ValidIssuer = config["JwtSettings:Issuer"],
-                ValidAudience = config["JwtSettings:Audience"],
+                ValidIssuer = config["Authentication:Issuer"],
+                ValidAudience = config["Authentication:Audience"],
                 IssuerSigningKey = new SymmetricSecurityKey(key),
                 ValidateIssuer = true, ValidateAudience = true, ValidateLifetime = true, ValidateIssuerSigningKey = true
             };

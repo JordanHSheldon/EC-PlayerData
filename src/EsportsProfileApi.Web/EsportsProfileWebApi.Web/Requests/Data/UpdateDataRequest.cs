@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 public class UpdateDataRequest
 {
+    [Required]
+    public string? Alias { get; set; } = string.Empty;
+
     public double Sensitivity { get; set; } = 2.5;
 
     public int Dpi { get; set; } = 400;
@@ -22,7 +25,4 @@ public class UpdateDataRequest
     public string? HeadSet { get; set; } = string.Empty;
 
     public string? Monitor { get; set; } = string.Empty;
-
-    [Required]
-    public string? Username { get; set; } = string.Empty;
 }

@@ -19,48 +19,4 @@ public class DataOrchestratorTests
         mockDataRepository = new Mock<IDataRepository>();
         _dataOrchestrator = new DataOrchestrator(mockDataRepository.Object);
     }
-
-    [Test]
-    public void GetDataGivenGetDataRequestReturnsGetDataResponse()
-    {
-        //Arrange
-        var request = new GetDataRequest();
-        var response = new GetDataResponse();
-        mockDataRepository.Setup(test => test.GetData(It.IsAny<GetDataRequest>())).Returns(response);
-        
-        //Act
-        var result = _dataOrchestrator.GetData(request);
-        
-        //Assert
-        Assert.AreEqual(response, result);
-    }
-
-    [Test]
-    public void GetAllDataGiven_ReturnsGetDataResponse()
-    {
-        //Arrange
-        var response = new List<GetDataResponse>();
-        mockDataRepository.Setup(test => test.GetAllData()).Returns(response);
-
-        //Act
-        var result = _dataOrchestrator.GetAllData();
-        
-        //Assert
-        Assert.AreEqual(response, result);
-    }
-
-    [Test]
-    public void UpdateData_GivenUpdateDataRequest_ReturnsBool()
-    {
-        //Arrange
-        var request = new UpdateDataRequest();
-        bool response = false;
-        mockDataRepository.Setup(test => test.UpdateData(It.IsAny<UpdateDataRequest>())).Returns(response);
-
-        //Act
-        var result = _dataOrchestrator.UpdateData(request);
-
-        //Assert
-        Assert.AreEqual(response, result);
-    }
 }

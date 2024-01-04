@@ -3,7 +3,6 @@
 using EsportsProfileWebApi.CROSSCUTTING.Requests.Data;
 using EsportsProfileWebApi.CROSSCUTTING.Responses.Data;
 using EsportsProfileWebApi.INFRASTRUCTURE;
-using EsportsProfileWebApi.Web.Controllers;
 
 public class DataOrchestrator : IDataOrchestrator
 {
@@ -14,23 +13,18 @@ public class DataOrchestrator : IDataOrchestrator
         _dataRepository = dataRepository ?? throw new NotImplementedException();
     }
 
-    public IEnumerable<GetDataResponse> GetAllData()
+    public async Task<GetDataResponse> GetUserDataByAlias(GetDataRequest dataRequest)
     {
-        return _dataRepository.GetAllData();
+        return await _dataRepository.GetUserDataByAlias(dataRequest);
     }
 
-    public GetDataResponse GetData(GetDataRequest dataRequest)
+    public async Task<bool> UpdateDataByAlias(UpdateDataRequest request)
     {
-        return _dataRepository.GetData(dataRequest);
+        return await _dataRepository.UpdateDataByAlias(request);
     }
 
-    public bool UpdateData(UpdateDataRequest request)
+    public async Task<List<GetDataResponse>> GetAllDataAsync()
     {
-        return _dataRepository.UpdateData(request);
-    }
-
-    public async Task<List<users>> GetAllUsersAsync()
-    {
-        return await _dataRepository.GetAllUsersAsync();
+        return await _dataRepository.GetAllDataAsync();
     }
 }
