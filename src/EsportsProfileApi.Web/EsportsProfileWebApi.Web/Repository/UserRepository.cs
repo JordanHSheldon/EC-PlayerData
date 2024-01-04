@@ -18,7 +18,6 @@ public class UserRepository : IUserRepository
     public async Task<bool> CheckIfUserExists(string username, string email)
     {
         using var connection = new SqlConnection(_connectionString);
-        await connection.OpenAsync();
 
         var parameters = new DynamicParameters();
         parameters.Add("@Username", username);
@@ -30,21 +29,19 @@ public class UserRepository : IUserRepository
             commandType: CommandType.StoredProcedure,
             commandTimeout: 10
         );
-        connection.Close();
-        return await Task.FromResult(result.Count().Equals(0));
+        return await Task.FromResult(result.Any());
     }
 
     public async Task<bool> RegisterUser(RegisterRequest request)
     {
         using var connection = new SqlConnection(_connectionString);
-        await connection.OpenAsync();
 
         var parameters = new DynamicParameters();
         parameters.Add("@Username", request.Username);
         parameters.Add("@PasswordHash", request.Password);
         parameters.Add("@Email", request.Email);
 
-        var result = await connection.QueryAsync<int>(
+        var result = await connection.ExecuteAsync(
             "RegisterUser",
             parameters,
             commandType: CommandType.StoredProcedure,

@@ -22,9 +22,10 @@ public class UserController : Controller
 
     [HttpPost]
     [Route("Register")]
-    public ActionResult Register(RegisterRequest request)
+    public async Task<ActionResult> Register(RegisterRequest request)
     {
-        return new JsonResult(_userOrchestrator.RegisterUser(request));
+        var x = await _userOrchestrator.RegisterUser(request);
+        return new JsonResult(x);
     }
 
     //[HttpPost]

@@ -1,12 +1,12 @@
-﻿using EsportsProfileWebApi.Web.Repository;
+﻿namespace EsportsProfileWebApi.Web.Orchestrators;
+
+using EsportsProfileWebApi.Web.Repository;
 using EsportsProfileWebApi.Web.Requests.User;
 using EsportsProfileWebApi.Web.Responses.User;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-
-namespace EsportsProfileWebApi.Web.Orchestrators;
 
 public class UserOrchestrator : IUserOrchestrator
 {
@@ -16,7 +16,7 @@ public class UserOrchestrator : IUserOrchestrator
         _userRepository = userRepository ?? throw new NotImplementedException();
     }
 
-    public Task<GetUserDataResponse> RegisterUser(RegisterRequest request)
+    public async Task<GetUserDataResponse> RegisterUser(RegisterRequest request)
     {
         // find if the user is valid, if they are create the claims or retrieve them from the db
         var alreadyExists = _userRepository.CheckIfUserExists(request.Username,request.Email).Result;
@@ -38,10 +38,10 @@ public class UserOrchestrator : IUserOrchestrator
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
         };
 
-        return new Task<GetUserDataResponse>(() => new GetUserDataResponse
+        return await Task.FromResult(new GetUserDataResponse
         {
+            Id = user.Id,
             Token = tokenHandler.WriteToken(tokenHandler.CreateToken(tokenDescriptor)),
-            Id = 1
         });
     }
 }
