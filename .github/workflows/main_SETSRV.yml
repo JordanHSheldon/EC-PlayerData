@@ -22,7 +22,9 @@ jobs:
         dotnet-version: '6.0.x'
 
     - name: Restore Dependencies
-      run: dotnet restore
+      run: |
+          cd src
+          dotnet restore EsportsProfileWebApi.Web/EsportsProfileWebApi.Web.csproj
 
     - name: Build
       run: dotnet build --configuration Release
