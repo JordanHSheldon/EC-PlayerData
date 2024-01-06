@@ -32,35 +32,4 @@ public class DataControllerTests
         Assert.IsNotNull(result);
         mockDataOrchestrator.Verify(verify => verify.GetAllDataAsync(), Times.Once);
     }
-
-    [Test]
-    public void GetDataByName_ReturnsGetDataResponse()
-    {
-        // Arrange
-
-        // Act
-
-        // Assert
-    }
-
-    [Test]
-    public void GetDataById_ReturnsGetDataResponse()
-    {
-        // Arrange
-
-        // Act
-
-        // Assert
-    }
-
-    [Test]
-    public void UpdateDataById_ReturnsGetDataResponse()
-    {
-        // Arrange
-
-        // Act
-
-        // Assert
-    }
-
 }
