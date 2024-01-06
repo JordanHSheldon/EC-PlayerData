@@ -24,14 +24,17 @@ jobs:
     - name: Restore Dependencies
       run: |
           cd src/EsportsProfileApi.Web
-          ls -la
           dotnet restore EsportsProfileWebApi.Web
 
     - name: Build
-      run: dotnet build --configuration Release
+      run: |
+          cd src/EsportsProfileApi.Web
+          dotnet build --configuration Release
 
     - name: Run Tests
-      run: dotnet test --configuration Release --no-build
+      run: |
+          cd src/EsportsProfileApi.Web
+          dotnet test --configuration Release --no-build
 
     - name: Check Test Results
       run: dotnet test --list-tests --configuration Release | Out-File testResults.txt
