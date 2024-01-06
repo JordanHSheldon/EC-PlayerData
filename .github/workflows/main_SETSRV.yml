@@ -39,7 +39,7 @@ jobs:
     - name: Check Test Results
       run: |
           cd src/EsportsProfileApi.Web
-          dotnet test --list-tests --configuration Release | Out-File testResults.txt
+          dotnet test --list-tests --configuration Release > testResults.txt
           
     - name: Display Test Results
       run: |
