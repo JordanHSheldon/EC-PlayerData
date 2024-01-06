@@ -37,10 +37,14 @@ jobs:
           dotnet test --configuration Release --no-build
 
     - name: Check Test Results
-      run: dotnet test --list-tests --configuration Release | Out-File testResults.txt
+      run: |
+          cd src/EsportsProfileApi.Web
+          dotnet test --list-tests --configuration Release | Out-File testResults.txt
           
     - name: Display Test Results
-      run: cat testResults.txt
+      run: |
+          cd src/EsportsProfileApi.Web
+          cat testResults.txt
 
     - name: Upload Test Results
       uses: actions/upload-artifact@v2
