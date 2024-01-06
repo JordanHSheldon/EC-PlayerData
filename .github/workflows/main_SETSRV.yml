@@ -23,6 +23,7 @@ jobs:
 
     - name: Restore Dependencies
       run: |
+          ls -la
           cd src
           dotnet restore
 
