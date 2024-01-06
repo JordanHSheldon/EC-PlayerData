@@ -3,11 +3,7 @@
 using EsportsProfileWebApi.Web.Orchestrators;
 using EsportsProfileWebApi.Web.Requests.User;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using Responses.User;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -22,10 +18,10 @@ public class UserController : Controller
 
     [HttpPost]
     [Route("Register")]
-    public async Task<ActionResult> Register(RegisterRequest request)
+    public async Task<GetUserDataResponse> Register(RegisterRequest request)
     {
-        var x = await _userOrchestrator.RegisterUser(request);
-        return new JsonResult(x);
+        var result = await _userOrchestrator.RegisterUser(request);
+        return result;
     }
 
     //[HttpPost]

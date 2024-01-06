@@ -5,6 +5,7 @@ using EsportsProfileWebApi.Web.Requests.User;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System.Data;
+using System.Security.Claims;
 
 public class UserRepository : IUserRepository
 {
@@ -23,7 +24,7 @@ public class UserRepository : IUserRepository
         parameters.Add("@Username", username);
         parameters.Add("@Email", email);
 
-        var result = await connection.QueryAsync<int>(
+        var result = await connection.QueryAsync<string>(
             "CheckIfUserExists",
             parameters,
             commandType: CommandType.StoredProcedure,
@@ -32,22 +33,23 @@ public class UserRepository : IUserRepository
         return await Task.FromResult(result.Any());
     }
 
-    public async Task<bool> RegisterUser(RegisterRequest request)
+    public async Task<IEnumerable<Claim>> RegisterUser(RegisterRequest request, string id)
     {
         using var connection = new SqlConnection(_connectionString);
 
         var parameters = new DynamicParameters();
+        parameters.Add("@UserId", id);
         parameters.Add("@Username", request.Username);
         parameters.Add("@PasswordHash", request.Password);
         parameters.Add("@Email", request.Email);
 
-        var result = await connection.ExecuteAsync(
+        IEnumerable<Claim> result = await connection.QueryAsync<Claim>(
             "RegisterUser",
             parameters,
             commandType: CommandType.StoredProcedure,
             commandTimeout: 10
         );
 
-        return true;
+        return result;
     }
 }

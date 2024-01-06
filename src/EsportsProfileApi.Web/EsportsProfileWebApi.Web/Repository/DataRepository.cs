@@ -1,20 +1,15 @@
 ﻿namespace EsportsProfileWebApi.INFRASTRUCTURE;
 
-using Microsoft.Data.SqlClient;
-using Dapper;
 using EsportsProfileWebApi.CROSSCUTTING.Requests.Data;
 using EsportsProfileWebApi.CROSSCUTTING.Responses.Data;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
-using System.Data;
-using System;
 using MongoDB.Driver;
 
 public class DataRepository : IDataRepository
 {
     private readonly IMongoCollection<GetDataResponse> _userCollection;
     private readonly MongoClient _mongoClient;
-    private static string _connectionString = string.Empty;
 
     public DataRepository(IConfiguration configuration)
     {
@@ -23,18 +18,24 @@ public class DataRepository : IDataRepository
         var mongoDatabase = _mongoClient.GetDatabase("STDATA");
 
         _userCollection = mongoDatabase.GetCollection<GetDataResponse>("Settings");
-        _connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new NotImplementedException();
     }
 
     public Task<bool> UpdateDataByAlias(UpdateDataRequest request)
     {
-        var temp = _userCollection.UpdateOne(data => data.Alias == request.Alias, Builders<GetDataResponse>.Update.Set(data => data.Dpi, request.Dpi));
+        var temp = _userCollection.UpdateOne(data => data.Username == request.Username, Builders<GetDataResponse>.Update.Set(data => data.Dpi, request.Dpi));
         return Task.FromResult(true);
+    }
+
+    public async Task<string> CreateUserDataForUsername(string username)
+    {
+        await _userCollection.InsertOneAsync(new GetDataResponse() {Username = username });
+        var user = await _userCollection.Find(data => data.Username == username).FirstAsync();
+        return user.Id;
     }
 
     public async Task<GetDataResponse> GetUserDataByAlias(GetDataRequest dataRequest)
     {
-        var user = await _userCollection.Find(data => data.Alias == dataRequest.Alias).FirstAsync();
+        var user = await _userCollection.Find(data => data.Username == dataRequest.Username).FirstAsync();
         return user;
     }
 

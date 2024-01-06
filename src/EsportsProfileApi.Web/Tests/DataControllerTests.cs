@@ -19,18 +19,18 @@ public class DataControllerTests
     }
 
     [Test]
-    public void GetAllData_ReturnsGetDataResponse()
+    public void GetAllDataAsync_ReturnsGetDataResponse()
     {
         // Arrange
         var request = new List<GetDataResponse>();
-        mockDataOrchestrator.Setup(test => test.GetAllData()).Returns(request);
+        mockDataOrchestrator.Setup(test => test.GetAllDataAsync()).ReturnsAsync(request);
 
         // Act
-        var result = _dataController.GetAllData();
+        var result = _dataController.GetAllDataAsync();
 
         // Assert
         Assert.IsNotNull(result);
-        mockDataOrchestrator.Verify(verify => verify.GetAllData(), Times.Once);
+        mockDataOrchestrator.Verify(verify => verify.GetAllDataAsync(), Times.Once);
     }
 
     [Test]

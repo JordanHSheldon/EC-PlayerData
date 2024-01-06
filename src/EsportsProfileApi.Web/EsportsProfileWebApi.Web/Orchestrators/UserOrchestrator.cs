@@ -1,47 +1,42 @@
 ﻿namespace EsportsProfileWebApi.Web.Orchestrators;
 
+using EsportsProfileWebApi.INFRASTRUCTURE;
+using EsportsProfileWebApi.Web.Helpers;
 using EsportsProfileWebApi.Web.Repository;
 using EsportsProfileWebApi.Web.Requests.User;
 using EsportsProfileWebApi.Web.Responses.User;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 
 public class UserOrchestrator : IUserOrchestrator
 {
     private readonly IUserRepository _userRepository;
-    public UserOrchestrator(IUserRepository userRepository)
+    private readonly IDataRepository _dataRepository;
+    public UserOrchestrator(IUserRepository userRepository, IConfiguration config, IDataRepository dataRepository)
     {
         _userRepository = userRepository ?? throw new NotImplementedException();
+        _dataRepository = dataRepository ?? throw new NotImplementedException();
     }
 
     public async Task<GetUserDataResponse> RegisterUser(RegisterRequest request)
     {
         // find if the user is valid, if they are create the claims or retrieve them from the db
-        var alreadyExists = _userRepository.CheckIfUserExists(request.Username,request.Email).Result;
+        var alreadyExists = await _userRepository.CheckIfUserExists(request.Username,request.Email);
         if (alreadyExists)
-            throw new Exception("User already exists");
+            throw new Exception("User already exists.");
 
         // create the user and add them to the db
-        var user = _userRepository.RegisterUser(request);
+        var userData = await _dataRepository.CreateUserDataForUsername(request.Username)
+                ?? throw new Exception("Error creating user data.");
 
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.UTF8.GetBytes("SuperDuperSecretValueSuperDuperSecretValue");
+        // create the user and add them to the db, then retrieve the claims
+        // change to have sp increment id on insert.
+        var claims = await _userRepository.RegisterUser(request, userData);
 
-        var tokenDescriptor = new SecurityTokenDescriptor()
-        {
-            Subject = new ClaimsIdentity(),
-            Expires = DateTime.UtcNow.AddMinutes(30),
-            Issuer = "https://localhost:5000",
-            Audience = "https://localhost:5000",
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
-        };
-
-        return await Task.FromResult(new GetUserDataResponse
-        {
-            Id = user.Id,
-            Token = tokenHandler.WriteToken(tokenHandler.CreateToken(tokenDescriptor)),
-        });
+        return await TokenBuilder.BuildToken(
+            "SuperDuperSecretValueSuperDuperSecretValue",
+            "https://localhost:5000",
+            "https://localhost:5000",
+            claims.ToList(),
+            userData
+            );
     }
 }

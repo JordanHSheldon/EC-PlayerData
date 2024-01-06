@@ -10,4 +10,6 @@ public interface IDataOrchestrator
     Task<bool> UpdateDataByAlias(UpdateDataRequest request);
 
     Task<List<GetDataResponse>> GetAllDataAsync();
+
+    Task<string> CreateUserDataForUsername(string username);
 }

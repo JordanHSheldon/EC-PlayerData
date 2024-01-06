@@ -1,4 +1,5 @@
 ﻿using EsportsProfileWebApi.Web.Requests.User;
+using System.Security.Claims;
 
 namespace EsportsProfileWebApi.Web.Repository;
 
@@ -6,7 +7,7 @@ public interface IUserRepository
 {
     Task<bool> CheckIfUserExists(string username, string email);
 
-    Task<bool> RegisterUser(RegisterRequest request);
+    Task<IEnumerable<Claim>> RegisterUser(RegisterRequest request, string id);
 
     //Task<bool> LoginUser(string username);
 }

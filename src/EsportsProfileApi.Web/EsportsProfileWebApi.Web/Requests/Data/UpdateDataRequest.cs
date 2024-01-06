@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 public class UpdateDataRequest
 {
     [Required]
-    public string? Alias { get; set; } = string.Empty;
+    public string? Username { get; set; } = string.Empty;
 
     public double Sensitivity { get; set; } = 2.5;
 

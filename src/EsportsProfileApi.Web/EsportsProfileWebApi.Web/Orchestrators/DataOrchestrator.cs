@@ -13,6 +13,11 @@ public class DataOrchestrator : IDataOrchestrator
         _dataRepository = dataRepository ?? throw new NotImplementedException();
     }
 
+    public async Task<string> CreateUserDataForUsername(string username)
+    {
+        return await _dataRepository.CreateUserDataForUsername(username);
+    }
+
     public async Task<GetDataResponse> GetUserDataByAlias(GetDataRequest dataRequest)
     {
         return await _dataRepository.GetUserDataByAlias(dataRequest);

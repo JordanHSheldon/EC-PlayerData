@@ -19,10 +19,10 @@ public class DataController : Controller
 
     [HttpPost]
     [Route("GetDataByName")]
-    public ActionResult GetDataByName(GetDataRequest getDataRequestDto)
+    public async Task<GetDataResponse> GetDataByName(GetDataRequest getDataRequestDto)
     {
-        var result = _dataOrchestrator.GetUserDataByAlias(getDataRequestDto);
-        return new JsonResult(result);
+        var result = await _dataOrchestrator.GetUserDataByAlias(getDataRequestDto);
+        return result;
     }
 
     [Authorize]
@@ -37,10 +37,10 @@ public class DataController : Controller
     [Authorize]
     [HttpPost]
     [Route("GetDataById")]
-    public ActionResult GetDataById(GetDataRequest getDataRequestDto)
+    public async Task<GetDataResponse> GetDataById(GetDataRequest getDataRequestDto)
     {
-        var result = _dataOrchestrator.GetUserDataByAlias(getDataRequestDto);
-        return new JsonResult(result);
+        var result = await _dataOrchestrator.GetUserDataByAlias(getDataRequestDto);
+        return result;
     }
 
     [Authorize]
@@ -48,6 +48,8 @@ public class DataController : Controller
     [Route("UpdateDataByAlias")]
     public ActionResult UpdateDataByAlias(UpdateDataRequest updateDataRequestDto)
     {
+        // need to make sure only the user can update their own data
+        //https://stackoverflow.com/questions/11037213/asp-net-mvc-attribute-to-only-let-user-edit-his-her-own-content
         return new JsonResult(_dataOrchestrator.UpdateDataByAlias(updateDataRequestDto));
     }
 }
