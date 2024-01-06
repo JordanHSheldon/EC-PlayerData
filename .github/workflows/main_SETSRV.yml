@@ -23,7 +23,7 @@ jobs:
 
     - name: Restore Dependencies
       run: |
-          cd src\EsportsProfileApi.Web
+          cd src/EsportsProfileApi.Web
           ls -la
           dotnet restore EsportsProfileWebApi.Web
 
