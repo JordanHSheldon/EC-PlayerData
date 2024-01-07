@@ -31,7 +31,7 @@ jobs:
       run: dotnet test src/EsportsProfileApi.Web/EsportsProfileWebApi.Web --configuration Release --no-build
 
     - name: Check Test Results
-      run: dotnet test src/EsportsProfileApi.Web/EsportsProfileWebApi.Web --list-tests --configuration Release > testResults.txt
+      run: dotnet test src/EsportsProfileApi.Web/EsportsProfileWebApi.Web /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura --list-tests --configuration Release > testResults.txt 
           
     - name: Display Test Results
       run: cat testResults.txt
@@ -41,16 +41,3 @@ jobs:
       with:
         name: test-results
         path: testResults.txt
-
-    - name: Code Coverage Report
-      uses: irongut/CodeCoverageSummary@v1.3.0
-      with:
-        filename: src\EsportsProfileApi.Web\Tests\coverage.cobertura.xml
-        badge: true
-        fail_below_min: true
-        format: markdown
-        hide_branch_rate: false
-        hide_complexity: true
-        indicators: true
-        output: console
-        thresholds: '60 80'
