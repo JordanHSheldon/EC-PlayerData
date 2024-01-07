@@ -22,32 +22,35 @@ jobs:
         dotnet-version: '6.0.x'
 
     - name: Restore Dependencies
-      run: |
-          cd src/EsportsProfileApi.Web
-          dotnet restore EsportsProfileWebApi.Web
+      run: dotnet restore src/EsportsProfileApi.Web/EsportsProfileWebApi.Web
 
     - name: Build
-      run: |
-          cd src/EsportsProfileApi.Web
-          dotnet build --configuration Release
+      run: dotnet build src/EsportsProfileApi.Web/EsportsProfileWebApi.Web --configuration Release
 
     - name: Run Tests
-      run: |
-          cd src/EsportsProfileApi.Web
-          dotnet test --configuration Release --no-build
+      run: dotnet test src/EsportsProfileApi.Web/EsportsProfileWebApi.Web --configuration Release --no-build
 
     - name: Check Test Results
-      run: |
-          cd src/EsportsProfileApi.Web
-          dotnet test --list-tests --configuration Release > testResults.txt
+      run: dotnet test src/EsportsProfileApi.Web/EsportsProfileWebApi.Web --list-tests --configuration Release > testResults.txt
           
     - name: Display Test Results
-      run: |
-          cd src/EsportsProfileApi.Web
-          cat testResults.txt
+      run: cat testResults.txt
 
     - name: Upload Test Results
       uses: actions/upload-artifact@v2
       with:
         name: test-results
         path: testResults.txt
+
+    - name: Code Coverage Report
+      uses: irongut/CodeCoverageSummary@v1.3.0
+      with:
+        filename: coverage/**/coverage.cobertura.xml
+        badge: true
+        fail_below_min: true
+        format: markdown
+        hide_branch_rate: false
+        hide_complexity: true
+        indicators: true
+        output: both
+        thresholds: '60 80'
