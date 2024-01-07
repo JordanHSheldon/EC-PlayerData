@@ -52,5 +52,5 @@ jobs:
         hide_branch_rate: false
         hide_complexity: true
         indicators: true
-        output: both
+        output: console
         thresholds: '60 80'
