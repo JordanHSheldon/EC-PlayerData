@@ -7,7 +7,7 @@ public class GetDataResponse
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
-    public string Id { get; set; }
+    public string Id { get; set; } = string.Empty;
 
     [BsonElement("username")]
     public string Username { get; set; } = string.Empty;
