@@ -43,18 +43,10 @@ public class UserOrchestrator : IUserOrchestrator
 
     public async Task<GetUserDataResponse> LoginUser(LoginRequest request)
     {
-        // find if the user is valid, if they are create the claims or retrieve them from the db
-        // replace with sp that returns userid
-        var alreadyExists = await _userRepository.CheckIfUserExists(request.Password, request.Username);
-        if (!alreadyExists)
+        // retrieve the claims, if they do not exist for the user throw an exception
+        var claims = await _userRepository.LoginUser(request);
+        if (!claims.Any())
             throw new Exception("Incorrect or unknown credentials");
-        
-        var claims = new List<Claim>()
-        {
-            new (ClaimTypes.Role, "Admin"),
-            new (ClaimTypes.Name, "NADROJ"), // Replace with user claims
-            new (ClaimTypes.Email, "Jordanhsheldon@gmail.com"),
-        };
 
         return await TokenBuilder.BuildToken(
             "SuperDuperSecretValueSuperDuperSecretValue",// get key from config
@@ -64,4 +56,5 @@ public class UserOrchestrator : IUserOrchestrator
             request.Username
             );
     }
+
 }
