@@ -30,6 +30,7 @@ public class UserRepository : IUserRepository
             commandType: CommandType.StoredProcedure,
             commandTimeout: 10
         );
+
         return await Task.FromResult(result.Any());
     }
 
