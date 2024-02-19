@@ -5,6 +5,7 @@ using EsportsProfileWebApi.Web.Helpers;
 using EsportsProfileWebApi.Web.Repository;
 using EsportsProfileWebApi.Web.Requests.User;
 using EsportsProfileWebApi.Web.Responses.User;
+using System.Security.Claims;
 
 public class UserOrchestrator : IUserOrchestrator
 {
@@ -39,4 +40,21 @@ public class UserOrchestrator : IUserOrchestrator
             userData
             );
     }
+
+    public async Task<GetUserDataResponse> LoginUser(LoginRequest request)
+    {
+        // retrieve the claims, if they do not exist for the user throw an exception
+        var claims = await _userRepository.LoginUser(request);
+        if (!claims.Any())
+            throw new Exception("Incorrect or unknown credentials");
+
+        return await TokenBuilder.BuildToken(
+            "SuperDuperSecretValueSuperDuperSecretValue",// get key from config
+            "https://localhost:5000",// get url from config
+            "https://localhost:5000",// get url from config
+            claims.ToList(),
+            request.Username
+            );
+    }
+
 }

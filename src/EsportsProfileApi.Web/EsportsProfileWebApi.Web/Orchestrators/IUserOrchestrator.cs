@@ -7,5 +7,5 @@ public interface IUserOrchestrator
 {
     Task<GetUserDataResponse> RegisterUser(RegisterRequest request);
 
-    //Task<bool> LoginUser(string username);
+    Task<GetUserDataResponse> LoginUser(LoginRequest request);
 }

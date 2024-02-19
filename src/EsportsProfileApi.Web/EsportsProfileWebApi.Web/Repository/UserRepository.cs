@@ -30,6 +30,7 @@ public class UserRepository : IUserRepository
             commandType: CommandType.StoredProcedure,
             commandTimeout: 10
         );
+
         return await Task.FromResult(result.Any());
     }
 
@@ -45,6 +46,24 @@ public class UserRepository : IUserRepository
 
         IEnumerable<Claim> result = await connection.QueryAsync<Claim>(
             "RegisterUser",
+            parameters,
+            commandType: CommandType.StoredProcedure,
+            commandTimeout: 10
+        );
+
+        return result;
+    }
+
+    public async Task<IEnumerable<Claim>> LoginUser(LoginRequest request)
+    {
+        using var connection = new SqlConnection(_connectionString);
+
+        var parameters = new DynamicParameters();
+        parameters.Add("@Username", request.Username);
+        parameters.Add("@PasswordHash", request.Password);
+
+        IEnumerable<Claim> result = await connection.QueryAsync<Claim>(
+            "LoginUser",
             parameters,
             commandType: CommandType.StoredProcedure,
             commandTimeout: 10
