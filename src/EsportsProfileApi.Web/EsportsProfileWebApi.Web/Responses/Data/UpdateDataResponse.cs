@@ -1,5 +1,4 @@
-﻿
-namespace EsportsProfileWebApi.CROSSCUTTING.Responses.Data
+﻿namespace EsportsProfileWebApi.CROSSCUTTING.Responses.Data
 {
     public class UpdateDataResponse
     {

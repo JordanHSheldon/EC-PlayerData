@@ -5,6 +5,7 @@ using EsportsProfileWebApi.Web.Helpers;
 using EsportsProfileWebApi.Web.Repository;
 using EsportsProfileWebApi.Web.Requests.User;
 using EsportsProfileWebApi.Web.Responses.User;
+using System.Security.Claims;
 
 public class UserOrchestrator : IUserOrchestrator
 {
@@ -37,6 +38,30 @@ public class UserOrchestrator : IUserOrchestrator
             "https://localhost:5000",
             claims.ToList(),
             userData
+            );
+    }
+
+    public async Task<GetUserDataResponse> LoginUser(LoginRequest request)
+    {
+        // find if the user is valid, if they are create the claims or retrieve them from the db
+        // replace with sp that returns userid
+        var alreadyExists = await _userRepository.CheckIfUserExists(request.Password, request.Username);
+        if (!alreadyExists)
+            throw new Exception("Incorrect or unknown credentials");
+        
+        var claims = new List<Claim>()
+        {
+            new (ClaimTypes.Role, "Admin"),
+            new (ClaimTypes.Name, "NADROJ"), // Replace with user claims
+            new (ClaimTypes.Email, "Jordanhsheldon@gmail.com"),
+        };
+
+        return await TokenBuilder.BuildToken(
+            "SuperDuperSecretValueSuperDuperSecretValue",// get key from config
+            "https://localhost:5000",// get url from config
+            "https://localhost:5000",// get url from config
+            claims.ToList(),
+            request.Username
             );
     }
 }

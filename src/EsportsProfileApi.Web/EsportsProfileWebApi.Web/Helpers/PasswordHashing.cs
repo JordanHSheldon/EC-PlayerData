@@ -7,14 +7,14 @@ public class PasswordHashing
 {
     public static string HashPassword(string password)
     {
-        if (String.IsNullOrEmpty(password))
-            return String.Empty;
+        if (string.IsNullOrEmpty(password))
+            return string.Empty;
 
-        using (var sha = new SHA256Managed())
+        using (var sha = SHA256.Create())
         {
             byte[] textData = Encoding.UTF8.GetBytes(password);
             byte[] hash = sha.ComputeHash(textData);
-            return BitConverter.ToString(hash).Replace("-", String.Empty);
+            return BitConverter.ToString(hash).Replace("-", string.Empty);
         }
     }
 

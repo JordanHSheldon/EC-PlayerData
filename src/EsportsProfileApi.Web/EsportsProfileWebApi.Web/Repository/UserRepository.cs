@@ -52,4 +52,22 @@ public class UserRepository : IUserRepository
 
         return result;
     }
+
+    public async Task<IEnumerable<Claim>> LoginUser(LoginRequest request)
+    {
+        using var connection = new SqlConnection(_connectionString);
+
+        var parameters = new DynamicParameters();
+        parameters.Add("@Username", request.Username);
+        parameters.Add("@PasswordHash", request.Password);
+
+        IEnumerable<Claim> result = await connection.QueryAsync<Claim>(
+            "LoginUser",
+            parameters,
+            commandType: CommandType.StoredProcedure,
+            commandTimeout: 10
+        );
+
+        return result;
+    }
 }
