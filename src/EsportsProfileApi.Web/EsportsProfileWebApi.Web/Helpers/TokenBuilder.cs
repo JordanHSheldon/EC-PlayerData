@@ -10,7 +10,7 @@ public class TokenBuilder
 {
     private static readonly int _expiryInMinutes = 30;
 
-    public static async Task<GetUserDataResponse> BuildToken(string key, string issuer, string audience, List<Claim> claims, string Id)
+    public static async Task<GetUserDataResponse> BuildToken(string key, string issuer, string audience, IEnumerable<Claim> claims, string Id)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var encodedKey = Encoding.UTF8.GetBytes(key);
