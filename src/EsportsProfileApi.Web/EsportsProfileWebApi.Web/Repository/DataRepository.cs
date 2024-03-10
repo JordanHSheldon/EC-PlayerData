@@ -13,35 +13,33 @@ public class DataRepository : IDataRepository
 
     public DataRepository(IConfiguration configuration)
     {
-        _mongoClient = new MongoClient("mongodb://127.0.0.1:27017");
+        _mongoClient = new MongoClient(configuration.GetConnectionString("MongoConnection") ?? throw new NotImplementedException());
 
         var mongoDatabase = _mongoClient.GetDatabase("STDATA");
 
         _userCollection = mongoDatabase.GetCollection<GetDataResponse>("Settings");
     }
 
-    public Task<bool> UpdateDataByAlias(UpdateDataRequest request)
+    public async Task<bool> UpdateDataByAlias(UpdateDataRequest request)
     {
-        var temp = _userCollection.UpdateOne(data => data.Username == request.Username, Builders<GetDataResponse>.Update.Set(data => data.Dpi, request.Dpi));
-        return Task.FromResult(true);
+        var temp = await _userCollection.UpdateOneAsync(data => data.Username == request.Username, Builders<GetDataResponse>.Update.Set(data => data.Dpi, request.Dpi));
+        return true;
     }
 
     public async Task<string> CreateUserDataForUsername(string username)
     {
-        await _userCollection.InsertOneAsync(new GetDataResponse() {Username = username });
+        await _userCollection.InsertOneAsync(new GetDataResponse() { Username = username });
         var user = await _userCollection.Find(data => data.Username == username).FirstAsync();
         return user.Id;
     }
 
     public async Task<GetDataResponse> GetUserDataByAlias(GetDataRequest dataRequest)
     {
-        var user = await _userCollection.Find(data => data.Username == dataRequest.Username).FirstAsync();
-        return user;
+        return await _userCollection.Find(data => data.Username == dataRequest.Username).FirstAsync();
     }
 
     public async Task<List<GetDataResponse>> GetAllDataAsync()
     {
-        var users = await _userCollection.Find(_ => true).ToListAsync();
-        return users;
+        return await _userCollection.Find(_ => true).ToListAsync();
     }
 }

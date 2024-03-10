@@ -1,11 +1,12 @@
 ﻿namespace EsportsProfileWebApi.Web.Orchestrators;
 
+using Azure.Core;
 using EsportsProfileWebApi.INFRASTRUCTURE;
 using EsportsProfileWebApi.Web.Helpers;
 using EsportsProfileWebApi.Web.Repository;
 using EsportsProfileWebApi.Web.Requests.User;
 using EsportsProfileWebApi.Web.Responses.User;
-using System.Security.Claims;
+using System.Net;
 
 public class UserOrchestrator : IUserOrchestrator
 {
@@ -22,14 +23,13 @@ public class UserOrchestrator : IUserOrchestrator
         // find if the user is valid, if they are create the claims or retrieve them from the db
         var alreadyExists = await _userRepository.CheckIfUserExists(request.Username,request.Email);
         if (alreadyExists)
-            throw new Exception("User already exists.");
+            throw new Exception("User with specified username already exists.");
 
         // create the user and add them to the db
         var userData = await _dataRepository.CreateUserDataForUsername(request.Username)
                 ?? throw new Exception("Error creating user data.");
 
-        // create the user and add them to the db, then retrieve the claims
-        // change to have sp increment id on insert.
+        // create the user and add them to the db
         var claims = await _userRepository.RegisterUser(request, userData);
 
         return await TokenBuilder.BuildToken(
@@ -56,5 +56,4 @@ public class UserOrchestrator : IUserOrchestrator
             request.Username
             );
     }
-
 }

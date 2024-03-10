@@ -1,5 +1,4 @@
 ﻿using EsportsProfileWebApi.Web.Requests.User;
-using EsportsProfileWebApi.Web.Responses.User;
 using System.Security.Claims;
 
 namespace EsportsProfileWebApi.Web.Repository;

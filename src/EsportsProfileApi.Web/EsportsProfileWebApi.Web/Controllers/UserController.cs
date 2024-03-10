@@ -30,6 +30,5 @@ public class UserController : Controller
     {
         var result = await _userOrchestrator.LoginUser(request);
         return result;
-        
     }
 }
