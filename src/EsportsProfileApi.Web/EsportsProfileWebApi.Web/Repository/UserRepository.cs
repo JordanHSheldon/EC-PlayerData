@@ -44,14 +44,12 @@ public class UserRepository : IUserRepository
         parameters.Add("@PasswordHash", request.Password);
         parameters.Add("@Email", request.Email);
 
-        IEnumerable<Claim> result = await connection.QueryAsync<Claim>(
+        return await connection.QueryAsync<Claim>(
             "RegisterUser",
             parameters,
             commandType: CommandType.StoredProcedure,
             commandTimeout: 10
         );
-
-        return result;
     }
 
     public async Task<IEnumerable<Claim>> LoginUser(LoginRequest request)
@@ -62,13 +60,11 @@ public class UserRepository : IUserRepository
         parameters.Add("@Username", request.Username);
         parameters.Add("@PasswordHash", request.Password);
 
-        IEnumerable<Claim> result = await connection.QueryAsync<Claim>(
+        return await connection.QueryAsync<Claim>(
             "LoginUser",
             parameters,
             commandType: CommandType.StoredProcedure,
             commandTimeout: 10
         );
-
-        return result;
     }
 }

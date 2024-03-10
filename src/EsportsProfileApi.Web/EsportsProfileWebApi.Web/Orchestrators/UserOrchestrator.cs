@@ -36,7 +36,7 @@ public class UserOrchestrator : IUserOrchestrator
             "SuperDuperSecretValueSuperDuperSecretValue",
             "https://localhost:5000",
             "https://localhost:5000",
-            claims.ToList(),
+            claims,
             userData
             );
     }
@@ -52,7 +52,7 @@ public class UserOrchestrator : IUserOrchestrator
             "SuperDuperSecretValueSuperDuperSecretValue",// get key from config
             "https://localhost:5000",// get url from config
             "https://localhost:5000",// get url from config
-            claims.ToList(),
+            claims,
             request.Username
             );
     }
