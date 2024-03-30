@@ -4,25 +4,35 @@ using System.ComponentModel.DataAnnotations;
 public class UpdateDataRequest
 {
     [Required]
-    public string? Username { get; set; } = string.Empty;
+    public string Username { get; set; }
 
-    public double Sensitivity { get; set; } = 2.5;
+    [Required]
+    public double Sensitivity { get; set; }
 
-    public int Dpi { get; set; } = 400;
+    [Required]
+    public int Dpi { get; set; }
 
-    public int ResolutionX { get; set; } = 1920;
+    [Required]
+    public int ResolutionX { get; set; }
 
-    public int ResolutionY { get; set; } = 1080;
+    [Required]
+    public int ResolutionY { get; set; }
 
-    public string ResolutionType { get; set; } = "Native";
+    [Required]
+    public string ResolutionType { get; set; }
 
-    public string? Mouse { get; set; } = string.Empty;
+    [Required]
+    public string? Mouse { get; set; }
 
-    public string? MousePad { get; set; } = string.Empty;
+    [Required]
+    public string? MousePad { get; set; }
 
-    public string? KeyBoard { get; set; } = string.Empty;
+    [Required]
+    public string? KeyBoard { get; set; }
 
-    public string? HeadSet { get; set; } = string.Empty;
+    [Required]
+    public string? HeadSet { get; set; }
 
-    public string? Monitor { get; set; } = string.Empty;
+    [Required]
+    public string? Monitor { get; set; }
 }

@@ -6,20 +6,22 @@ using System.Text;
 
 namespace EsportsProfileWebApi.Web.Helpers;
 
-public class TokenBuilder
+public class TokenBuilder(IConfiguration config)
 {
-    private static readonly int _expiryInMinutes = 30;
+    private readonly int _expiryInMinutes = 30;
+    private readonly IConfiguration _config = config ?? throw new NotImplementedException();
 
-    public static async Task<GetUserDataResponse> BuildToken(string key, string issuer, string audience, List<Claim> claims, string Id)
+    public async Task<GetUserDataResponse> BuildToken(IEnumerable<Claim> claims, string Id)
     {
+        var key = _config.GetValue<string>("Authentication:Key") ?? throw new NotImplementedException();
         var tokenHandler = new JwtSecurityTokenHandler();
-        var encodedKey = Encoding.UTF8.GetBytes(key);
+        var encodedKey = Encoding.UTF8.GetBytes(key) ?? throw new NotImplementedException();
         var tokenDescriptor = new SecurityTokenDescriptor()
         {
             Subject = new ClaimsIdentity(claims),
             Expires = DateTime.UtcNow.AddMinutes(_expiryInMinutes),
-            Issuer = issuer,
-            Audience = audience,
+            Issuer = _config.GetValue<string>("Authentication:Issuer"),
+            Audience = _config.GetValue<string>("Authentication:Audience"),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(encodedKey), SecurityAlgorithms.HmacSha256)
         };
 

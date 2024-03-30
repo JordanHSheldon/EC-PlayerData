@@ -9,5 +9,5 @@ public interface IUserRepository
 
     Task<IEnumerable<Claim>> RegisterUser(RegisterRequest request, string id);
 
-    //Task<bool> LoginUser(string username);
+    Task<IEnumerable<Claim>> LoginUser(LoginRequest request);
 }

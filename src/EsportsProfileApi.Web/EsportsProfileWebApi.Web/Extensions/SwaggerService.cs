@@ -13,6 +13,7 @@ public static class SwaggerService
                 Title = "You api title",
                 Version = "v1"
             });
+
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 

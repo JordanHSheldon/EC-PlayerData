@@ -7,14 +7,9 @@ using Microsoft.Extensions.Configuration;
 using System.Data;
 using System.Security.Claims;
 
-public class UserRepository : IUserRepository
+public class UserRepository(IConfiguration configuration) : IUserRepository
 {
-    private readonly string _connectionString;
-
-    public UserRepository(IConfiguration configuration)
-    {
-        _connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new NotImplementedException();
-    }
+    private readonly string _connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new NotImplementedException();
 
     public async Task<bool> CheckIfUserExists(string username, string email)
     {
@@ -30,6 +25,7 @@ public class UserRepository : IUserRepository
             commandType: CommandType.StoredProcedure,
             commandTimeout: 10
         );
+
         return await Task.FromResult(result.Any());
     }
 
@@ -43,13 +39,27 @@ public class UserRepository : IUserRepository
         parameters.Add("@PasswordHash", request.Password);
         parameters.Add("@Email", request.Email);
 
-        IEnumerable<Claim> result = await connection.QueryAsync<Claim>(
+        return await connection.QueryAsync<Claim>(
             "RegisterUser",
             parameters,
             commandType: CommandType.StoredProcedure,
             commandTimeout: 10
         );
+    }
 
-        return result;
+    public async Task<IEnumerable<Claim>> LoginUser(LoginRequest request)
+    {
+        using var connection = new SqlConnection(_connectionString);
+
+        var parameters = new DynamicParameters();
+        parameters.Add("@Username", request.Username);
+        parameters.Add("@PasswordHash", request.Password);
+
+        return await connection.QueryAsync<Claim>(
+            "LoginUser",
+            parameters,
+            commandType: CommandType.StoredProcedure,
+            commandTimeout: 10
+        );
     }
 }

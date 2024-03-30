@@ -4,14 +4,9 @@ using EsportsProfileWebApi.CROSSCUTTING.Requests.Data;
 using EsportsProfileWebApi.CROSSCUTTING.Responses.Data;
 using EsportsProfileWebApi.INFRASTRUCTURE;
 
-public class DataOrchestrator : IDataOrchestrator
+public class DataOrchestrator(IDataRepository dataRepository) : IDataOrchestrator
 {
-    private readonly IDataRepository _dataRepository;
-
-    public DataOrchestrator(IDataRepository dataRepository)
-    {
-        _dataRepository = dataRepository ?? throw new NotImplementedException();
-    }
+    private readonly IDataRepository _dataRepository = dataRepository ?? throw new NotImplementedException();
 
     public async Task<string> CreateUserDataForUsername(string username)
     {
