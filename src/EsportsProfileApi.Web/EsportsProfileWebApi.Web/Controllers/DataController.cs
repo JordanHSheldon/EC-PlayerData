@@ -8,14 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
 [ApiController]
-public class DataController : Controller
+public class DataController(IDataOrchestrator dataOrchestrator) : Controller
 {
-    private readonly IDataOrchestrator _dataOrchestrator;
-
-    public DataController(IDataOrchestrator dataOrchestrator)
-    {
-        _dataOrchestrator = dataOrchestrator ?? throw new NotImplementedException();
-    }
+    private readonly IDataOrchestrator _dataOrchestrator = dataOrchestrator ?? throw new NotImplementedException();
 
     [HttpPost]
     [Route("GetDataByName")]

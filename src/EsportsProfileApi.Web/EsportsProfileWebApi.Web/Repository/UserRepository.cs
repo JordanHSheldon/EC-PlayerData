@@ -7,14 +7,9 @@ using Microsoft.Extensions.Configuration;
 using System.Data;
 using System.Security.Claims;
 
-public class UserRepository : IUserRepository
+public class UserRepository(IConfiguration configuration) : IUserRepository
 {
-    private readonly string _connectionString;
-
-    public UserRepository(IConfiguration configuration)
-    {
-        _connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new NotImplementedException();
-    }
+    private readonly string _connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new NotImplementedException();
 
     public async Task<bool> CheckIfUserExists(string username, string email)
     {

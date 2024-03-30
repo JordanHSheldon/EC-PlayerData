@@ -1,22 +1,16 @@
 ﻿namespace EsportsProfileWebApi.Web.Orchestrators;
 
-using Azure.Core;
 using EsportsProfileWebApi.INFRASTRUCTURE;
 using EsportsProfileWebApi.Web.Helpers;
 using EsportsProfileWebApi.Web.Repository;
 using EsportsProfileWebApi.Web.Requests.User;
 using EsportsProfileWebApi.Web.Responses.User;
-using System.Net;
 
-public class UserOrchestrator : IUserOrchestrator
+public class UserOrchestrator(IUserRepository userRepository, IDataRepository dataRepository, IConfiguration config) : IUserOrchestrator
 {
-    private readonly IUserRepository _userRepository;
-    private readonly IDataRepository _dataRepository;
-    public UserOrchestrator(IUserRepository userRepository, IConfiguration config, IDataRepository dataRepository)
-    {
-        _userRepository = userRepository ?? throw new NotImplementedException();
-        _dataRepository = dataRepository ?? throw new NotImplementedException();
-    }
+    private readonly IUserRepository _userRepository = userRepository ?? throw new NotImplementedException();
+    private readonly IDataRepository _dataRepository = dataRepository ?? throw new NotImplementedException();
+    private readonly TokenBuilder _tokenBuilder = new(config);
 
     public async Task<GetUserDataResponse> RegisterUser(RegisterRequest request)
     {
@@ -32,13 +26,7 @@ public class UserOrchestrator : IUserOrchestrator
         // create the user and add them to the db
         var claims = await _userRepository.RegisterUser(request, userData);
 
-        return await TokenBuilder.BuildToken(
-            "SuperDuperSecretValueSuperDuperSecretValue",
-            "https://localhost:5000",
-            "https://localhost:5000",
-            claims,
-            userData
-            );
+        return await _tokenBuilder.BuildToken(claims,userData);
     }
 
     public async Task<GetUserDataResponse> LoginUser(LoginRequest request)
@@ -48,12 +36,6 @@ public class UserOrchestrator : IUserOrchestrator
         if (!claims.Any())
             throw new Exception("Incorrect or unknown credentials");
 
-        return await TokenBuilder.BuildToken(
-            "SuperDuperSecretValueSuperDuperSecretValue",// get key from config
-            "https://localhost:5000",// get url from config
-            "https://localhost:5000",// get url from config
-            claims,
-            request.Username
-            );
+        return await _tokenBuilder.BuildToken(claims, request.Username);
     }
 }
