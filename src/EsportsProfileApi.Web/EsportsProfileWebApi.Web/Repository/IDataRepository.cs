@@ -1,16 +1,16 @@
 ﻿namespace EsportsProfileWebApi.INFRASTRUCTURE;
 
-using EsportsProfileWebApi.CROSSCUTTING.Requests.Data;
-using EsportsProfileWebApi.CROSSCUTTING.Responses.Data;
+using EsportsProfileWebApi.Web.Orchestrators.Models;
+using EsportsProfileWebApi.Web.Repository.Entities.Data;
 using System.Collections.Generic;
 
 public interface IDataRepository
 {
-    Task<GetDataResponse> GetUserDataByAlias(GetDataRequest dataRequest);
+    Task<DataEntity> GetUserDataById(GetDataRequestModel dataRequest);
 
-    Task<bool> UpdateDataByAlias(UpdateDataRequest request);
+    Task<bool> UpdateDataById(UpdateDataRequestModel request);
 
-    Task<List<GetDataResponse>> GetAllDataAsync();
+    Task<List<DataEntity>> GetAllDataAsync();
 
-    Task<string> CreateUserDataForUsername(string username);
+    Task<string> CreateCSData(string username);
 }

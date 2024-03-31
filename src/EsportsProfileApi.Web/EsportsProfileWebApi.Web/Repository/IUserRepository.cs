@@ -1,13 +1,13 @@
-﻿using EsportsProfileWebApi.Web.Requests.User;
-using System.Security.Claims;
+﻿using EsportsProfileWebApi.Web.Orchestrators.Models;
+using EsportsProfileWebApi.Web.Repository.Entities.User;
 
 namespace EsportsProfileWebApi.Web.Repository;
 
 public interface IUserRepository
 {
-    Task<bool> CheckIfUserExists(string username, string email);
+    Task<bool> UserExists(string userName);
 
-    Task<IEnumerable<Claim>> RegisterUser(RegisterRequest request, string id);
+    Task<UserEntity> RegisterUser(UserRegisterRequestModel request);
 
-    Task<IEnumerable<Claim>> LoginUser(LoginRequest request);
+    Task<UserEntity> LoginUser(UserLoginRequestModel request);
 }

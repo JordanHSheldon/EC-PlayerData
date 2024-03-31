@@ -1,10 +1,11 @@
-﻿namespace EsportsProfileWebApi.CROSSCUTTING.Requests.Data;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-public class UpdateDataRequest
+namespace EsportsProfileWebApi.Web.Orchestrators.Models;
+
+public class UpdateDataRequestModel
 {
     [Required]
-    public string Username { get; set; }
+    public string? Username { get; set; }
 
     [Required]
     public double Sensitivity { get; set; }
@@ -19,7 +20,7 @@ public class UpdateDataRequest
     public int ResolutionY { get; set; }
 
     [Required]
-    public string ResolutionType { get; set; }
+    public string? ResolutionType { get; set; }
 
     [Required]
     public string? Mouse { get; set; }

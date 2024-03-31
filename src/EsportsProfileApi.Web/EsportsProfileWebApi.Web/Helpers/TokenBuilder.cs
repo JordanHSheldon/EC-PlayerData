@@ -11,7 +11,7 @@ public class TokenBuilder(IConfiguration config)
     private readonly int _expiryInMinutes = 30;
     private readonly IConfiguration _config = config ?? throw new NotImplementedException();
 
-    public async Task<GetUserDataResponse> BuildToken(IEnumerable<Claim> claims, string Id)
+    public async Task<string> BuildToken(IEnumerable<Claim> claims)
     {
         var key = _config.GetValue<string>("Authentication:Key") ?? throw new NotImplementedException();
         var tokenHandler = new JwtSecurityTokenHandler();
@@ -25,10 +25,6 @@ public class TokenBuilder(IConfiguration config)
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(encodedKey), SecurityAlgorithms.HmacSha256)
         };
 
-        return await Task.FromResult(new GetUserDataResponse
-        {
-            Id = Id,
-            Token = tokenHandler.WriteToken(tokenHandler.CreateToken(tokenDescriptor)),
-        });
+        return await Task.FromResult(tokenHandler.WriteToken(tokenHandler.CreateToken(tokenDescriptor)));
     }
 }

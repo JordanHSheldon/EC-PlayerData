@@ -1,65 +1,55 @@
 ﻿namespace EsportsProfileWebApi.Web.Repository;
 
-using Dapper;
-using EsportsProfileWebApi.Web.Requests.User;
-using Microsoft.Data.SqlClient;
+using EsportsProfileWebApi.Web.Orchestrators.Models;
+using EsportsProfileWebApi.Web.Repository.Entities.User;
 using Microsoft.Extensions.Configuration;
-using System.Data;
+using MongoDB.Driver;
 using System.Security.Claims;
 
-public class UserRepository(IConfiguration configuration) : IUserRepository
+public class UserRepository : IUserRepository
 {
-    private readonly string _connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new NotImplementedException();
+    private readonly IMongoCollection<UserEntity> _userCollection;
+    private readonly MongoClient _mongoClient;
 
-    public async Task<bool> CheckIfUserExists(string username, string email)
+    public UserRepository(IConfiguration configuration)
     {
-        using var connection = new SqlConnection(_connectionString);
+        _mongoClient = new MongoClient(configuration.GetConnectionString("MongoConnection") ?? throw new NotImplementedException());
 
-        var parameters = new DynamicParameters();
-        parameters.Add("@Username", username);
-        parameters.Add("@Email", email);
+        var mongoDatabase = _mongoClient.GetDatabase("EsportsCompare");
 
-        var result = await connection.QueryAsync<string>(
-            "CheckIfUserExists",
-            parameters,
-            commandType: CommandType.StoredProcedure,
-            commandTimeout: 10
-        );
-
-        return await Task.FromResult(result.Any());
+        _userCollection = mongoDatabase.GetCollection<UserEntity>("Users");
     }
 
-    public async Task<IEnumerable<Claim>> RegisterUser(RegisterRequest request, string id)
+    public async Task<bool> UserExists(string userName)
     {
-        using var connection = new SqlConnection(_connectionString);
-
-        var parameters = new DynamicParameters();
-        parameters.Add("@UserId", id);
-        parameters.Add("@Username", request.Username);
-        parameters.Add("@PasswordHash", request.Password);
-        parameters.Add("@Email", request.Email);
-
-        return await connection.QueryAsync<Claim>(
-            "RegisterUser",
-            parameters,
-            commandType: CommandType.StoredProcedure,
-            commandTimeout: 10
-        );
+        if (await _userCollection.Find(user => user.UserName == userName).FirstOrDefaultAsync() == null)
+            return false;
+        return true;
     }
 
-    public async Task<IEnumerable<Claim>> LoginUser(LoginRequest request)
+    public async Task<UserEntity> RegisterUser(UserRegisterRequestModel request)
     {
-        using var connection = new SqlConnection(_connectionString);
+        var userId = Guid.NewGuid().ToString();
+        var claims = new List<Claim>()
+        {
+            new Claim("UserId", userId),
+            new Claim("Role", "User")
+        };
+        var user = new UserEntity()
+        {
+            UserId = userId,
+            UserName = request.Username,
+            Email = request.Email,
+            Password = Helpers.PasswordHashing.HashPassword(request.Password),
+            Claims = claims
+        };
 
-        var parameters = new DynamicParameters();
-        parameters.Add("@Username", request.Username);
-        parameters.Add("@PasswordHash", request.Password);
+        await _userCollection.InsertOneAsync(user);
+        return user;
+    }
 
-        return await connection.QueryAsync<Claim>(
-            "LoginUser",
-            parameters,
-            commandType: CommandType.StoredProcedure,
-            commandTimeout: 10
-        );
+    public async Task<UserEntity> LoginUser(UserLoginRequestModel request)
+    {
+        return await _userCollection.Find(user => user.Password == Helpers.PasswordHashing.HashPassword(request.Password)).FirstOrDefaultAsync();
     }
 }

@@ -2,9 +2,8 @@
 
 using EsportsProfileWebApi.INFRASTRUCTURE;
 using EsportsProfileWebApi.Web.Helpers;
+using EsportsProfileWebApi.Web.Orchestrators.Models;
 using EsportsProfileWebApi.Web.Repository;
-using EsportsProfileWebApi.Web.Requests.User;
-using EsportsProfileWebApi.Web.Responses.User;
 
 public class UserOrchestrator(IUserRepository userRepository, IDataRepository dataRepository, IConfiguration config) : IUserOrchestrator
 {
@@ -12,30 +11,38 @@ public class UserOrchestrator(IUserRepository userRepository, IDataRepository da
     private readonly IDataRepository _dataRepository = dataRepository ?? throw new NotImplementedException();
     private readonly TokenBuilder _tokenBuilder = new(config);
 
-    public async Task<GetUserDataResponse> RegisterUser(RegisterRequest request)
+    public async Task<UserRegisterResponseModel> RegisterUser(UserRegisterRequestModel request)
     {
-        // find if the user is valid, if they are create the claims or retrieve them from the db
-        var alreadyExists = await _userRepository.CheckIfUserExists(request.Username,request.Email);
-        if (alreadyExists)
-            throw new Exception("User with specified username already exists.");
+        // check if user exists
+        var exists = await _userRepository.UserExists(request.Username);
+        if (exists == true)
+            throw new Exception("User Already Exists");
 
         // create the user and add them to the db
-        var userData = await _dataRepository.CreateUserDataForUsername(request.Username)
-                ?? throw new Exception("Error creating user data.");
+        var user = await _userRepository.RegisterUser(request)
+                ?? throw new Exception("Error creating user data");
 
-        // create the user and add them to the db
-        var claims = await _userRepository.RegisterUser(request, userData);
+        // create the user's cs data
+        _ = await _dataRepository.CreateCSData(user.UserId)
+                ?? throw new Exception("Error creating cs data");
 
-        return await _tokenBuilder.BuildToken(claims,userData);
+        return new UserRegisterResponseModel()
+        {
+            Token = await _tokenBuilder.BuildToken(user.Claims)
+        };
     }
 
-    public async Task<GetUserDataResponse> LoginUser(LoginRequest request)
+    public async Task<UserLoginResponseModel> LoginUser(UserLoginRequestModel request)
     {
         // retrieve the claims, if they do not exist for the user throw an exception
-        var claims = await _userRepository.LoginUser(request);
-        if (!claims.Any())
+        var user = await _userRepository.LoginUser(request);
+
+        if (user == null)
             throw new Exception("Incorrect or unknown credentials");
 
-        return await _tokenBuilder.BuildToken(claims, request.Username);
+        return new UserLoginResponseModel()
+        {
+            Token = await _tokenBuilder.BuildToken(user.Claims)
+        };
     }
 }
