@@ -1,50 +1,45 @@
 ﻿namespace EsportsProfileWebApi.Web.Controllers;
 
-using EsportsProfileWebApi.CROSSCUTTING.Requests.Data;
-using EsportsProfileWebApi.CROSSCUTTING.Responses.Data;
+using AutoMapper;
+using EsportsProfileWebApi.Web.Controllers.DTOs.Data;
 using EsportsProfileWebApi.Web.Orchestrators;
+using EsportsProfileWebApi.Web.Orchestrators.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
 [ApiController]
-public class DataController(IDataOrchestrator dataOrchestrator) : Controller
+public class DataController(IDataOrchestrator dataOrchestrator, IMapper mapper) : Controller
 {
     private readonly IDataOrchestrator _dataOrchestrator = dataOrchestrator ?? throw new NotImplementedException();
-
-    [HttpPost]
-    [Route("GetDataByName")]
-    public async Task<GetDataResponse> GetDataByUserName(GetDataRequest getDataRequestDto)
-    {
-        var result = await _dataOrchestrator.GetUserDataByAlias(getDataRequestDto);
-        return result;
-    }
+    private readonly IMapper _mapper = mapper ?? throw new NotImplementedException();
 
     [Authorize]
     [HttpPost]
     [Route("GetAllUserData")]
-    public async Task<List<GetDataResponse>> GetAllDataAsync()
+    public async Task<List<GetDataResponseDTO>> GetAllDataAsync()
     {
         var result = await _dataOrchestrator.GetAllDataAsync();
-        return result;
+        return _mapper.Map<List<GetDataResponseDTO>>(result);
     }
 
     [Authorize]
     [HttpPost]
     [Route("GetDataById")]
-    public async Task<GetDataResponse> GetDataById(GetDataRequest getDataRequestDto)
+    public async Task<GetDataResponseDTO> GetDataById(GetDataRequestDTO getDataRequestDto)
     {
-        var result = await _dataOrchestrator.GetUserDataByAlias(getDataRequestDto);
-        return result;
+        var request = _mapper.Map<GetDataRequestModel>(getDataRequestDto);
+        var result = await _dataOrchestrator.GetDataById(request);
+        return _mapper.Map<GetDataResponseDTO>(result);
     }
 
     [Authorize]
     [HttpPost]
-    [Route("UpdateDataByAlias")]
-    public ActionResult UpdateDataByAlias(UpdateDataRequest updateDataRequestDto)
+    [Route("UpdateDataById")]
+    public async Task<UpdateDataResponseDTO> UpdateDataById(UpdateDataRequestDTO updateDataRequestDto)
     {
-        // need to make sure only the user can update their own data
-        //https://stackoverflow.com/questions/11037213/asp-net-mvc-attribute-to-only-let-user-edit-his-her-own-content
-        return new JsonResult(_dataOrchestrator.UpdateDataByAlias(updateDataRequestDto));
+        var request = _mapper.Map<UpdateDataRequestModel>(updateDataRequestDto);
+        var result = await _dataOrchestrator.UpdateDataById(request);
+        return _mapper.Map<UpdateDataResponseDTO>(result);
     }
 }

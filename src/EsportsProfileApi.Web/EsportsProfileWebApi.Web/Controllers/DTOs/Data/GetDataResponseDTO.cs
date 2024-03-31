@@ -1,9 +1,9 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
 
-namespace EsportsProfileWebApi.CROSSCUTTING.Responses.Data;
+namespace EsportsProfileWebApi.Web.Controllers.DTOs.Data;
 
-public class GetDataResponse
+public class GetDataResponseDTO
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]

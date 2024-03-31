@@ -1,44 +1,44 @@
 ﻿namespace EsportsProfileWebApi.INFRASTRUCTURE;
 
-using EsportsProfileWebApi.CROSSCUTTING.Requests.Data;
-using EsportsProfileWebApi.CROSSCUTTING.Responses.Data;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using MongoDB.Driver;
+using EsportsProfileWebApi.Web.Orchestrators.Models;
+using EsportsProfileWebApi.Web.Repository.Entities.Data;
 
 public class DataRepository : IDataRepository
 {
-    private readonly IMongoCollection<GetDataResponse> _userCollection;
+    private readonly IMongoCollection<DataEntity> _userCollection;
     private readonly MongoClient _mongoClient;
 
     public DataRepository(IConfiguration configuration)
     {
         _mongoClient = new MongoClient(configuration.GetConnectionString("MongoConnection") ?? throw new NotImplementedException());
 
-        var mongoDatabase = _mongoClient.GetDatabase("STDATA");
+        var mongoDatabase = _mongoClient.GetDatabase("EsportsCompare");
 
-        _userCollection = mongoDatabase.GetCollection<GetDataResponse>("Settings");
+        _userCollection = mongoDatabase.GetCollection<DataEntity>("cs_data");
     }
 
-    public async Task<bool> UpdateDataByAlias(UpdateDataRequest request)
+    public async Task<bool> UpdateDataById(UpdateDataRequestModel request)
     {
-        var temp = await _userCollection.UpdateOneAsync(data => data.Username == request.Username, Builders<GetDataResponse>.Update.Set(data => data.Dpi, request.Dpi));
+        var temp = await _userCollection.UpdateOneAsync(data => data.UserId == request.Username, Builders<DataEntity>.Update.Set(data => data.Dpi, request.Dpi));
         return true;
     }
 
-    public async Task<string> CreateUserDataForUsername(string username)
+    public async Task<string> CreateCSData(string UserId)
     {
-        await _userCollection.InsertOneAsync(new GetDataResponse() { Username = username });
-        var user = await _userCollection.Find(data => data.Username == username).FirstAsync();
+        await _userCollection.InsertOneAsync(new DataEntity() { UserId = UserId });
+        var user = await _userCollection.Find(data => data.UserId == UserId).FirstOrDefaultAsync();
         return user.Id;
     }
 
-    public async Task<GetDataResponse> GetUserDataByAlias(GetDataRequest dataRequest)
+    public async Task<DataEntity> GetUserDataById(GetDataRequestModel dataRequest)
     {
-        return await _userCollection.Find(data => data.Username == dataRequest.Username).FirstAsync();
+        return await _userCollection.Find(data => data.UserId == dataRequest.UserId).FirstOrDefaultAsync();
     }
 
-    public async Task<List<GetDataResponse>> GetAllDataAsync()
+    public async Task<List<DataEntity>> GetAllDataAsync()
     {
         return await _userCollection.Find(_ => true).ToListAsync();
     }

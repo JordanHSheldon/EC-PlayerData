@@ -1,11 +1,11 @@
-﻿namespace EsportsProfileWebApi.Web.Orchestrators;
+﻿using EsportsProfileWebApi.Web.Orchestrators.Models;
 
-using EsportsProfileWebApi.Web.Requests.User;
-using EsportsProfileWebApi.Web.Responses.User;
+namespace EsportsProfileWebApi.Web.Orchestrators;
+
 
 public interface IUserOrchestrator
 {
-    Task<GetUserDataResponse> RegisterUser(RegisterRequest request);
+    Task<UserRegisterResponseModel> RegisterUser(UserRegisterRequestModel request);
 
-    Task<GetUserDataResponse> LoginUser(LoginRequest request);
+    Task<UserLoginResponseModel> LoginUser(UserLoginRequestModel request);
 }

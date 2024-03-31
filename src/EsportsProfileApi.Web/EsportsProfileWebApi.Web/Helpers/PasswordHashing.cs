@@ -17,9 +17,4 @@ public class PasswordHashing
             return BitConverter.ToString(hash).Replace("-", string.Empty);
         }
     }
-
-    public static bool VerifyPassword(string password, string hashedPassword)
-    {
-        return HashPassword(password) == hashedPassword;
-    }
 }

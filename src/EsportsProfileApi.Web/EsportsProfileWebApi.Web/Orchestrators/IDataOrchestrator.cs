@@ -1,15 +1,14 @@
 ﻿namespace EsportsProfileWebApi.Web.Orchestrators;
 
-using EsportsProfileWebApi.CROSSCUTTING.Requests.Data;
-using EsportsProfileWebApi.CROSSCUTTING.Responses.Data;
+using EsportsProfileWebApi.Web.Orchestrators.Models;
 
 public interface IDataOrchestrator
 {
-    Task<GetDataResponse> GetUserDataByAlias(GetDataRequest dataRequest);
+    Task<GetDataResponseModel> GetDataById(GetDataRequestModel dataRequest);
 
-    Task<bool> UpdateDataByAlias(UpdateDataRequest request);
+    Task<UpdateDataRequestModel> UpdateDataById(UpdateDataRequestModel request);
 
-    Task<List<GetDataResponse>> GetAllDataAsync();
+    Task<List<GetDataResponseModel>> GetAllDataAsync();
 
-    Task<string> CreateUserDataForUsername(string username);
+    Task<string> CreateCSData(string username);
 }

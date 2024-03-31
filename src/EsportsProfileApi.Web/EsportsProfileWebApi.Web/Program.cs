@@ -1,5 +1,6 @@
 using EsportsProfileWebApi.INFRASTRUCTURE;
 using EsportsProfileWebApi.Web.Extensions;
+using EsportsProfileWebApi.Web.Mapping;
 using EsportsProfileWebApi.Web.Orchestrators;
 using EsportsProfileWebApi.Web.Repository;
 
@@ -13,6 +14,7 @@ builder.Services.AddSingleton<IDataOrchestrator, DataOrchestrator>();
 builder.Services.AddSingleton<IDataRepository, DataRepository>();
 builder.Services.AddSingleton<IUserOrchestrator, UserOrchestrator>();
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())

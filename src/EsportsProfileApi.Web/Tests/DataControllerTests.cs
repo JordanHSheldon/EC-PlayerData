@@ -1,9 +1,10 @@
 ﻿namespace Tests;
 
-using EsportsProfileWebApi.CROSSCUTTING.Requests.Data;
-using EsportsProfileWebApi.CROSSCUTTING.Responses.Data;
+using AutoMapper;
 using EsportsProfileWebApi.Web.Controllers;
+using EsportsProfileWebApi.Web.Controllers.DTOs.Data;
 using EsportsProfileWebApi.Web.Orchestrators;
+using EsportsProfileWebApi.Web.Orchestrators.Models;
 using Moq;
 using NUnit.Framework;
 
@@ -12,19 +13,21 @@ public class DataControllerTests
 {
     private readonly Mock<IDataOrchestrator> mockDataOrchestrator;
     private readonly DataController _dataController;
+    private readonly Mock<IMapper> _mapper;
 
     public DataControllerTests()
     {
         mockDataOrchestrator = new Mock<IDataOrchestrator>();
-        _dataController = new DataController(mockDataOrchestrator.Object);
+        _mapper = new Mock<IMapper>();
+        _dataController = new DataController(mockDataOrchestrator.Object, _mapper.Object);
     }
 
     [Test]
     public void GetAllDataAsync_ValidRequest_ReturnsGetDataResponse()
     {
         // Arrange
-        var request = new List<GetDataResponse>();
-        mockDataOrchestrator.Setup(test => test.GetAllDataAsync()).ReturnsAsync(request);
+        var response = new List<GetDataResponseModel>();
+        mockDataOrchestrator.Setup(test => test.GetAllDataAsync()).ReturnsAsync(response);
 
         // Act
         var result = _dataController.GetAllDataAsync();
@@ -35,33 +38,18 @@ public class DataControllerTests
     }
 
     [Test]
-    public void GetUserDataByUserName_ValidRequest_ReturnsGetDataResponse()
+    public void GetDataById_ReturnsGetDataResponse()
     {
         // Arrange
-        var request = new GetDataRequest();
-        mockDataOrchestrator.Setup(test => test.GetUserDataByAlias(It.IsAny<GetDataRequest>())).ReturnsAsync(new GetDataResponse());
+        var request = new GetDataRequestDTO();
+        mockDataOrchestrator.Setup(test => test.GetDataById(It.IsAny<GetDataRequestModel>())).ReturnsAsync(new GetDataResponseModel());
 
         // Act
-        var result = _dataController.GetDataByUserName(request);
+        var result = _dataController.GetDataById(request);
 
         // Assert
         Assert.IsNotNull(result);
-        mockDataOrchestrator.Verify(verify => verify.GetUserDataByAlias(request), Times.Once);
+        mockDataOrchestrator.Verify(verify => verify.GetDataById(It.IsAny<GetDataRequestModel>()), Times.Once);
     }
-    //GetDataById
 
-    //[Test]
-    //public void GetDataById_ValidRequest_ReturnsGetDataResponse()
-    //{
-    //    // Arrange
-    //    var request = new GetDataRequest();
-    //    mockDataOrchestrator.Setup(test => test.GetUserDataByAlias(It.IsAny<GetDataRequest>())).ReturnsAsync(new GetDataResponse());
-
-    //    // Act
-    //    var result = _dataController.GetDataById(request);
-
-    //    // Assert
-    //    Assert.IsNotNull(result);
-    //    mockDataOrchestrator.Verify(verify => verify.GetUserDataByAlias(request), Times.Once);
-    //}
 }
