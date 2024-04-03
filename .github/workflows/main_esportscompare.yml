@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -23,10 +23,12 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build src/EsportsProfileApi.Web/EsportsProfileWebApi.Web --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: |
+          cd src/EsportsProfileApi.Web/EsportsProfileWebApi.Web
+          dotnet publish -c Release
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -35,7 +37,7 @@ jobs:
           path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     needs: build
     environment:
       name: 'Production'
@@ -52,9 +54,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_10D37052CCE845B79732524230DCA9C3 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_7A8CBFBA5640464EAD61238E8EA27099 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_5D47B7524EC048E0A12E24FEB89E15B6 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_09CA22C76CF840FAAB403A52E16FA574 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_0B86CBAB3D3049FE92EFB96489A0A7E0 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_1BF8FF839A6142479B4445A9A17A234C }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
