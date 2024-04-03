@@ -26,13 +26,13 @@ jobs:
         run: dotnet build src/EsportsProfileApi.Web/EsportsProfileWebApi.Web --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o src/EsportsProfileApi.Web/EsportsProfileWebApi.Web
+        run: dotnet publish -c Release
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: .net-app
-          path: src/EsportsProfileApi.Web/EsportsProfileWebApi.Web
+          path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
     runs-on: windows-latest
