@@ -28,7 +28,7 @@ jobs:
       - name: dotnet publish
         run: |
           cd src/EsportsProfileApi.Web/EsportsProfileWebApi.Web
-          dotnet publish -c Release
+          dotnet publish -c Debug
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
