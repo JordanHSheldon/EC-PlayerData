@@ -13,7 +13,7 @@ public class UserRepository : IUserRepository
 
     public UserRepository(IConfiguration configuration)
     {
-        _mongoClient = new MongoClient(configuration.GetConnectionString("MongoConnection") ?? throw new NotImplementedException());
+        _mongoClient = new MongoClient(configuration.GetConnectionString("DefaultConnection") ?? throw new NotImplementedException());
 
         var mongoDatabase = _mongoClient.GetDatabase("EsportsCompare");
 

@@ -13,7 +13,7 @@ public class DataRepository : IDataRepository
 
     public DataRepository(IConfiguration configuration)
     {
-        _mongoClient = new MongoClient(configuration.GetConnectionString("MongoConnection") ?? throw new NotImplementedException());
+        _mongoClient = new MongoClient(configuration.GetConnectionString("DefaultConnection") ?? throw new NotImplementedException());
 
         var mongoDatabase = _mongoClient.GetDatabase("EsportsCompare");
 
