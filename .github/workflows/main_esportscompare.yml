@@ -11,7 +11,6 @@ on:
 
 env:
   AZURE_WEBAPP_NAME: EsportsCompare
-  AZURE_WEBAPP_PACKAGE_PATH: "./publish"
   
 jobs:
   build:
@@ -32,13 +31,13 @@ jobs:
         run: dotnet build src/EsportsProfileApi.Web/EsportsProfileWebApi.Web.sln --configuration Release --no-restore
 
       - name: dotnet publish
-        run: dotnet publish src/EsportsProfileApi.Web/EsportsProfileWebApi.Web.sln --configuration Release --no-build --output ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+        run: dotnet publish src/EsportsProfileApi.Web/EsportsProfileWebApi.Web.sln --configuration Release --no-build --output ${{ env.DOTNET_ROOT }}/EsportsCompare
 
-      # - name: Upload artifact for deployment job
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: ${{ env.AZURE_WEBAPP_NAME }}
-      #     path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.AZURE_WEBAPP_NAME }}
+          path: ${{ env.DOTNET_ROOT }}/EsportsCompare
 
   deploy:
     runs-on: ubuntu-latest
@@ -50,10 +49,10 @@ jobs:
       id-token: write #This is required for requesting the JWT
 
     steps:
-    #   - name: Download artifact from build job
-    #     uses: actions/download-artifact@v3
-    #     with:
-    #       name: ${{ env.AZURE_WEBAPP_NAME }}
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.AZURE_WEBAPP_NAME }}
       
       - name: Login to Azure
         uses: azure/login@v1.4.7
@@ -66,4 +65,4 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
-          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          package: .
