@@ -26,35 +26,35 @@ jobs:
         uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: "{{ ESPORTSCOMPARE_ISSUER }}"
-          replace: 'taco' #"${{ env.ESPORTSCOMPARE_ISSUER }}"
+          replace: '${{ env.ESPORTSCOMPARE_ISSUER }}'
           include: "**appsettings.json"
       
       - name: Change  for environment
         uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: "{{ ESPORTSCOMPARE_AUDIENCE }}"
-          replace: "${{ env.ESPORTSCOMPARE_AUDIENCE }}"
+          replace: '${{ env.ESPORTSCOMPARE_AUDIENCE }}'
           include: "**appsettings.json"
 
       - name: Change 2 for environment
         uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: "{{ KEY }}"
-          replace: "${{ env.KEY }}"
+          replace: '${{ env.KEY }}'
           include: "**appsettings.json"
 
       - name: Change  for environment
         uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: "{{ DefaultConnection }}"
-          replace: "${{ env.DefaultConnection }}"
+          replace: '${{ env.DefaultConnection }}'
           include: "**appsettings.json"
 
       - name: Change  for environment
         uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: "{{ ESPORTSCOMPARE_FRONTEND_URL }}"
-          replace: "${{ env.ESPORTSCOMPARE_FRONTEND_URL }}"
+          replace: '${{ env.ESPORTSCOMPARE_FRONTEND_URL }}'
           include: "**appsettings.json"
 
       - name: Restore
