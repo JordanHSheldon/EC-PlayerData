@@ -38,7 +38,7 @@ jobs:
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
-          name: .net-app
+          name: ${{ env.AZURE_WEBAPP_NAME }}
           path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
   deploy:
@@ -54,7 +54,7 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
-          name: .net-app
+          name: ${{ env.AZURE_WEBAPP_NAME }}
       
       - name: Login to Azure
         uses: azure/login@v1.4.7
