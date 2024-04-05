@@ -26,7 +26,7 @@ jobs:
         uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: "{{ ESPORTSCOMPARE_ISSUER }}"
-          replace: "${{ env.ESPORTSCOMPARE_ISSUER }}"
+          replace: 'taco' #"${{ env.ESPORTSCOMPARE_ISSUER }}"
           include: "**appsettings.json"
       
       - name: Change  for environment
