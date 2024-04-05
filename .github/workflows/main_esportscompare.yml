@@ -13,7 +13,6 @@ env:
   AZURE_WEBAPP_NAME: EsportsCompare
   AZURE_WEBAPP_PACKAGE_PATH: "src/EsportsProfileApi.Web/EsportsProfileWebApi.Web/bin/Release/net8.0/publish"
   
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,10 +21,9 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Set up .NET Core
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.0.x'
-          include-prerelease: true
 
       - name: Restore
         run: dotnet restore src/EsportsProfileApi.Web/EsportsProfileWebApi.Web.sln
@@ -34,7 +32,7 @@ jobs:
         run: dotnet build src/EsportsProfileApi.Web/EsportsProfileWebApi.Web --configuration Release --no-restore
 
       - name: dotnet publish
-        run: dotnet publish src/EsportsProfileApi.Web/EsportsProfileWebApi.Web.sln --configuration Release --no-build --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
+        run: dotnet publish src/EsportsProfileApi.Web/EsportsProfileWebApi.Web.sln --configuration Release --no-build
 
       # - name: Upload artifact for deployment job
       #   uses: actions/upload-artifact@v3
