@@ -34,7 +34,7 @@ jobs:
         run: dotnet build src/EsportsProfileApi.Web/EsportsProfileWebApi.Web --configuration Release --no-restore
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
+        run: dotnet publish -c Release -o '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}.sln'
 
       # - name: Upload artifact for deployment job
       #   uses: actions/upload-artifact@v3
