@@ -28,7 +28,8 @@ jobs:
       - name: dotnet publish
         run: |
           cd src/EsportsProfileApi.Web/EsportsProfileWebApi.Web
-          dotnet publish -c Release
+          dotnet publish -c Release --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
+
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -60,6 +61,6 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'EsportsCompare'
-          slot-name: 'Production'
-          package: .
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
