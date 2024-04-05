@@ -11,7 +11,7 @@ on:
 
 env:
   AZURE_WEBAPP_NAME: EsportsCompare
-  AZURE_WEBAPP_PACKAGE_PATH: "src/EsportsProfileApi.Web/EsportsProfileWebApi.Web/bin/Release/net8.0/publish"
+  AZURE_WEBAPP_PACKAGE_PATH: "./publish"
   
 jobs:
   build:
@@ -32,7 +32,9 @@ jobs:
         run: dotnet build src/EsportsProfileApi.Web/EsportsProfileWebApi.Web --configuration Release --no-restore
 
       - name: dotnet publish
-        run: dotnet publish src/EsportsProfileApi.Web/EsportsProfileWebApi.Web.sln --configuration Release --no-build
+        run: |
+          mkdir -p "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
+          dotnet publish src/EsportsProfileApi.Web/EsportsProfileWebApi.Web.sln --configuration Release --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
 
       # - name: Upload artifact for deployment job
       #   uses: actions/upload-artifact@v3
