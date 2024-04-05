@@ -1,6 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Deploy - EsportsCompare
 
 on:
@@ -15,7 +12,8 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    environment:
+      name: 'Production'
     steps:
       - uses: actions/checkout@v4
 
@@ -23,6 +21,41 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.0.x'
+      
+      - name: Change  for environment
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "{{ ESPORTSCOMPARE_ISSUER }}"
+          replace: ${{ env.ESPORTSCOMPARE_ISSUER }}
+          include: "**appsettings.json"
+      
+      - name: Change  for environment
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "{{ ESPORTSCOMPARE_AUDIENCE }}"
+          replace: ${{ env.ESPORTSCOMPARE_AUDIENCE }}
+          include: "**appsettings.json"
+
+      - name: Change 2 for environment
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "{{ KEY }}"
+          replace: ${{ env.KEY }}
+          include: "**appsettings.json"
+
+      - name: Change  for environment
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "{{ DefaultConnection }}"
+          replace: ${{ env.DefaultConnection }}
+          include: "**appsettings.json"
+
+      - name: Change  for environment
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "{{ ESPORTSCOMPARE_FRONTEND_URL }}"
+          replace: ${{ env.ESPORTSCOMPARE_FRONTEND_URL }}
+          include: "**appsettings.json"
 
       - name: Restore
         run: dotnet restore src/EsportsProfileApi.Web/EsportsProfileWebApi.Web.sln
@@ -46,7 +79,7 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write #This is required for requesting the JWT
+      id-token: write
 
     steps:
       - name: Download artifact from build job
