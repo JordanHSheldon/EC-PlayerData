@@ -34,12 +34,11 @@ jobs:
           cd src/EsportsProfileApi.Web/EsportsProfileWebApi.Web
           dotnet publish -c Release --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
 
-
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ env.AZURE_WEBAPP_NAME }}
-          path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+      # - name: Upload artifact for deployment job
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: ${{ env.AZURE_WEBAPP_NAME }}
+      #     path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
   deploy:
     runs-on: ubuntu-latest
@@ -51,10 +50,10 @@ jobs:
       id-token: write #This is required for requesting the JWT
 
     steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v3
-        with:
-          name: ${{ env.AZURE_WEBAPP_NAME }}
+    #   - name: Download artifact from build job
+    #     uses: actions/download-artifact@v3
+    #     with:
+    #       name: ${{ env.AZURE_WEBAPP_NAME }}
       
       - name: Login to Azure
         uses: azure/login@v1.4.7
