@@ -30,7 +30,7 @@ jobs:
         run: |
           sed -i 's/{{ DefaultConnection }}/'${{ env.DEFAULTCONNECTION }}'/g' ./publish/appsettings.json
 
-      - name: Replace URL
+      - name: Replace Audience
         run: |
           sed -i 's/{{ ESPORTSCOMPARE_AUDIENCE }}/'${{ env.ESPORTSCOMPARE_AUDIENCE }}'/g' ./publish/appsettings.json
 
@@ -38,7 +38,7 @@ jobs:
         run: |
           sed -i 's/{{ ESPORTSCOMPARE_FRONTEND_URL }}/'${{ env.ESPORTSCOMPARE_FRONTEND_URL }}'/g' ./publish/appsettings.json
 
-      - name: Replace Key
+      - name: Replace Issuer
         run: |
           sed -i 's/{{ ESPORTSCOMPARE_ISSUER }}/'${{ env.ESPORTSCOMPARE_ISSUER }}'/g' ./publish/appsettings.json
 
