@@ -17,18 +17,11 @@ builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 var app = builder.Build();
-// if (app.Environment.IsDevelopment())
-// {
+if (app.Environment.IsDevelopment())
+{
     app.UseSwagger();
     app.UseSwaggerUI();
-// }
-
-app.UseCors(builder =>
-{
-    builder.AllowAnyOrigin();
-    builder.AllowAnyMethod();
-    builder.AllowAnyHeader();
-});
+}
 
 app.UseHttpsRedirection();
 app.UseAuthentication();
