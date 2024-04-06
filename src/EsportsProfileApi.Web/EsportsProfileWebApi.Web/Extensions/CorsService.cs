@@ -1,20 +1,23 @@
-﻿namespace EsportsProfileWebApi.Web.Extensions;
+﻿using System.Text;
 
-public class CorsService(IConfiguration config)
-{
-    private readonly IConfiguration _config = config ?? throw new NotImplementedException();
-    
-    public void AddCors(IServiceCollection services)
+namespace EsportsProfileWebApi.Web.Extensions;
+
+public static class CorsService
+{   
+    public static IServiceCollection AddCustomCors(this IServiceCollection services, WebApplicationBuilder builder)
     {
+        var config = builder.Configuration;
         services.AddCors(options =>
         {
             options.AddPolicy("AllowSpecificOrigin",
                 builder =>
                 {
-                    builder.WithOrigins(_config
+                    builder.WithOrigins(config
                            .GetValue<string>("front-end-url") ?? throw new NotImplementedException())
                            .WithMethods("POST");
                 });
         });
+
+        return services;
     }
 }
