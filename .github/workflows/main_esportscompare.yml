@@ -28,7 +28,7 @@ jobs:
 
       - name: Replace DB Connection String
         run: |
-          sed -i 's/{{ DefaultConnection }}/'${{ env.DEFAULTCONNECTION }}'/g' ./publish/appsettings.json
+          sed -i 's/{{ DefaultConnection }}/'${{ secrets.ESPORTSCOMPAREDB }}'/g' ./publish/appsettings.json
 
       - name: Replace Audience
         run: |
