@@ -32,15 +32,15 @@ jobs:
 
       - name: Replace Audience
         run: |
-          sed -i 's#{{ ESPORTSCOMPARE_AUDIENCE }}#${{ env.ESPORTSCOMPARE_AUDIENCE }}#' src/EsportsProfileApi.Web/EsportsProfileWebApi.Web/appsettings.json
+          sed -i 's#{{ ESPORTSCOMPARE_AUDIENCE }}#${{ secrets.ESPORTSCOMPARE_AUDIENCE }}#' src/EsportsProfileApi.Web/EsportsProfileWebApi.Web/appsettings.json
 
       - name: Replace URL
         run: |
-          sed -i 's#{{ ESPORTSCOMPARE_FRONTEND_URL }}#${{ env.ESPORTSCOMPARE_FRONTEND_URL }}#' src/EsportsProfileApi.Web/EsportsProfileWebApi.Web/appsettings.json
+          sed -i 's#{{ ESPORTSCOMPARE_FRONTEND_URL }}#${{ secrets.ESPORTSCOMPARE_FRONTEND_URL }}#' src/EsportsProfileApi.Web/EsportsProfileWebApi.Web/appsettings.json
 
       - name: Replace Issuer
         run: |
-          sed -i 's#{{ ESPORTSCOMPARE_ISSUER }}#${{ env.ESPORTSCOMPARE_ISSUER }}#' src/EsportsProfileApi.Web/EsportsProfileWebApi.Web/appsettings.json
+          sed -i 's#{{ ESPORTSCOMPARE_ISSUER }}#${{ secrets.ESPORTSCOMPARE_ISSUER }}#' src/EsportsProfileApi.Web/EsportsProfileWebApi.Web/appsettings.json
 
       - name: Restore
         run: dotnet restore src/EsportsProfileApi.Web/EsportsProfileWebApi.Web.sln
