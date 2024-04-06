@@ -24,23 +24,23 @@ jobs:
       
       - name: Replace Key
         run: |
-          sed -i 's/{{ KEY }}/'${{ secrets.ESPORTSCOMPAREKEY }}'/g' ./src/EsportsProfileApi.Web/EsportsProfileWebApi.Web/appsettings.json
+          sed -i 's/{{ KEY }}/${{ secrets.ESPORTSCOMPAREKEY }}/g' ./src/EsportsProfileApi.Web/EsportsProfileWebApi.Web/appsettings.json
 
       - name: Replace DB Connection String
         run: |
-          sed -i 's/{{ DefaultConnection }}/'${{ secrets.ESPORTSCOMPAREDB }}'/g' src/EsportsProfileApi.Web/EsportsProfileWebApi.Web/appsettings.json
+          sed -i 's/{{ DefaultConnection }}/${{ secrets.ESPORTSCOMPAREDB }}/g' src/EsportsProfileApi.Web/EsportsProfileWebApi.Web/appsettings.json
 
       - name: Replace Audience
         run: |
-          sed -i 's/{{ ESPORTSCOMPARE_AUDIENCE }}/'${{ env.ESPORTSCOMPARE_AUDIENCE }}'/g' src/EsportsProfileApi.Web/EsportsProfileWebApi.Web/appsettings.json
+          sed -i 's/{{ ESPORTSCOMPARE_AUDIENCE }}/${{ env.ESPORTSCOMPARE_AUDIENCE }}/g' src/EsportsProfileApi.Web/EsportsProfileWebApi.Web/appsettings.json
 
       - name: Replace URL
         run: |
-          sed -i 's/{{ ESPORTSCOMPARE_FRONTEND_URL }}/'${{ env.ESPORTSCOMPARE_FRONTEND_URL }}'/g' src/EsportsProfileApi.Web/EsportsProfileWebApi.Web/appsettings.json
+          sed -i 's/{{ ESPORTSCOMPARE_FRONTEND_URL }}/${{ env.ESPORTSCOMPARE_FRONTEND_URL }}/g' src/EsportsProfileApi.Web/EsportsProfileWebApi.Web/appsettings.json
 
       - name: Replace Issuer
         run: |
-          sed -i 's/{{ ESPORTSCOMPARE_ISSUER }}/'${{ env.ESPORTSCOMPARE_ISSUER }}'/g' src/EsportsProfileApi.Web/EsportsProfileWebApi.Web/appsettings.json
+          sed -i 's/{{ ESPORTSCOMPARE_ISSUER }}/${{ env.ESPORTSCOMPARE_ISSUER }}/g' src/EsportsProfileApi.Web/EsportsProfileWebApi.Web/appsettings.json
 
       - name: Restore
         run: dotnet restore src/EsportsProfileApi.Web/EsportsProfileWebApi.Web.sln
