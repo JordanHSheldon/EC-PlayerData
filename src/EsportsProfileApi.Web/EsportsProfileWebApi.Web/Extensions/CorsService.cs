@@ -12,8 +12,8 @@ public static class CorsService
             options.AddPolicy("AllowSpecificOrigin",
                 builder =>
                 {
-                    builder.WithOrigins(config
-                           .GetValue<string>("front-end-url") ?? throw new NotImplementedException())
+                    builder.AllowAnyOrigin()
+                           //.WithOrigins(config.GetValue<string>("front-end-url") ?? throw new NotImplementedException())
                            .AllowAnyHeader()
                            .WithMethods("POST");
                 });
