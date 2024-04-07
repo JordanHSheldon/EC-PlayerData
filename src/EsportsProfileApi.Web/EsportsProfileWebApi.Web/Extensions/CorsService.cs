@@ -14,6 +14,7 @@ public static class CorsService
                 {
                     builder.WithOrigins(config
                            .GetValue<string>("front-end-url") ?? throw new NotImplementedException())
+                           .AllowAnyHeader()
                            .WithMethods("POST");
                 });
         });
