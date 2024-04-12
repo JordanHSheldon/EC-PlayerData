@@ -20,22 +20,31 @@ public class DataRepository : IDataRepository
         _userCollection = mongoDatabase.GetCollection<DataEntity>("cs_data");
     }
 
-    public async Task<bool> UpdateDataById(UpdateDataRequestModel request)
+    public async Task<UpdateDataResponseModel> UpdateData(UpdateDataRequestModel request)
     {
-        var temp = await _userCollection.UpdateOneAsync(data => data.UserId == request.Username, Builders<DataEntity>.Update.Set(data => data.Dpi, request.Dpi));
-        return true;
+        var temp = await _userCollection.UpdateOneAsync(data => data.UserName == request.Username,
+            Builders<DataEntity>.Update.Set(data => data.Dpi, request.Dpi)
+                                       .Set(data => data.Sensitivity, request.Sensitivity)
+                                       .Set(data => data.ResolutionX, request.ResolutionX)
+                                       .Set(data => data.ResolutionY, request.ResolutionY)
+                                       .Set(data => data.ResolutionType, request.ResolutionType)
+                                       .Set(data => data.Mouse, request.Mouse)
+                                       .Set(data => data.MousePad, request.MousePad)
+                                       .Set(data => data.KeyBoard, request.KeyBoard)
+                                       .Set(data => data.HeadSet, request.HeadSet)
+                                       .Set(data => data.Monitor, request.Monitor));
+        return new UpdateDataResponseModel { IsSuccessful = true };
     }
 
-    public async Task<string> CreateCSData(string UserId)
+    public async Task<string> CreateCSData(string userName)
     {
-        await _userCollection.InsertOneAsync(new DataEntity() { UserId = UserId });
-        var user = await _userCollection.Find(data => data.UserId == UserId).FirstOrDefaultAsync();
-        return user.Id;
+        await _userCollection.InsertOneAsync(new DataEntity() { UserName = userName });
+        return userName;
     }
 
-    public async Task<DataEntity> GetUserDataById(GetDataRequestModel dataRequest)
+    public async Task<DataEntity> GetUserData(GetDataRequestModel dataRequest)
     {
-        return await _userCollection.Find(data => data.UserId == dataRequest.UserId).FirstOrDefaultAsync();
+        return await _userCollection.Find(data => data.UserName == dataRequest.UserName).FirstOrDefaultAsync();
     }
 
     public async Task<List<DataEntity>> GetAllDataAsync()

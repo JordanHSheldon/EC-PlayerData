@@ -2,5 +2,5 @@
 
 public class UserLoginResponseDTO
 {
-    public string Token { get; set; } = string.Empty;
+    public string Result { get; set; } = string.Empty;
 }

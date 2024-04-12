@@ -32,9 +32,10 @@ public class UserRepository : IUserRepository
         var userId = Guid.NewGuid().ToString();
         var claims = new List<Claim>()
         {
-            new Claim("UserId", userId),
-            new Claim("Role", "User")
+            new("UserName", request.Username),
+            new("Role", "User")
         };
+
         var user = new UserEntity()
         {
             UserId = userId,

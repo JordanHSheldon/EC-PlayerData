@@ -16,19 +16,36 @@ public class UserOrchestrator(IUserRepository userRepository, IDataRepository da
         // check if user exists
         var exists = await _userRepository.UserExists(request.Username);
         if (exists == true)
-            throw new Exception("User Already Exists");
+        {
+            return new UserRegisterResponseModel() 
+            { 
+                Result = "User Already Exists" 
+            };
+        }
 
         // create the user and add them to the db
-        var user = await _userRepository.RegisterUser(request)
-                ?? throw new Exception("Error creating user data");
+        var user = await _userRepository.RegisterUser(request);
+        if (user == null)
+        {
+            return new UserRegisterResponseModel()
+            {
+                Result = "Error creating user data"
+            };
+        }
 
         // create the user's cs data
-        _ = await _dataRepository.CreateCSData(user.UserId)
-                ?? throw new Exception("Error creating cs data");
+        var username = await _dataRepository.CreateCSData(user.UserName!);
+        if (username == null)
+        {
+            return new UserRegisterResponseModel()
+            {
+                Result = "Error creating user data"
+            };
+        }
 
         return new UserRegisterResponseModel()
         {
-            Token = await _tokenBuilder.BuildToken(user.Claims)
+            Result = await _tokenBuilder.BuildToken(user.Claims!)
         };
     }
 
@@ -36,13 +53,17 @@ public class UserOrchestrator(IUserRepository userRepository, IDataRepository da
     {
         // retrieve the claims, if they do not exist for the user throw an exception
         var user = await _userRepository.LoginUser(request);
-
         if (user == null)
-            throw new Exception("Incorrect or unknown credentials");
+        {
+            return new UserLoginResponseModel()
+            {
+                Result = "Not found"
+            };
+        }
 
         return new UserLoginResponseModel()
         {
-            Token = await _tokenBuilder.BuildToken(user.Claims)
+            Result = await _tokenBuilder.BuildToken(user.Claims!)
         };
     }
 }

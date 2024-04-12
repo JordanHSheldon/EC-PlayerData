@@ -4,9 +4,9 @@ using EsportsProfileWebApi.Web.Orchestrators.Models;
 
 public interface IDataOrchestrator
 {
-    Task<GetDataResponseModel> GetDataById(GetDataRequestModel dataRequest);
+    Task<GetDataResponseModel> GetData(GetDataRequestModel dataRequest);
 
-    Task<UpdateDataRequestModel> UpdateDataById(UpdateDataRequestModel request);
+    Task<UpdateDataResponseModel> UpdateData(UpdateDataRequestModel request);
 
     Task<List<GetDataResponseModel>> GetAllDataAsync();
 

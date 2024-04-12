@@ -4,6 +4,7 @@ namespace EsportsProfileWebApi.Web.Orchestrators.Models;
 
 public class UpdateDataRequestModel
 {
+
     [Required]
     public string? Username { get; set; }
 
