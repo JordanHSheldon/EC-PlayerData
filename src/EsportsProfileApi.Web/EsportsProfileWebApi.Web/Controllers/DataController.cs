@@ -16,7 +16,7 @@ public class DataController(IDataOrchestrator dataOrchestrator, IMapper mapper) 
 
     [Authorize]
     [HttpPost]
-    [Route("GetAllUserData")]
+    [Route("GetAllData")]
     public async Task<List<GetDataResponseDTO>> GetAllDataAsync()
     {
         var result = await _dataOrchestrator.GetAllDataAsync();
@@ -25,21 +25,23 @@ public class DataController(IDataOrchestrator dataOrchestrator, IMapper mapper) 
 
     [Authorize]
     [HttpPost]
-    [Route("GetDataById")]
-    public async Task<GetDataResponseDTO> GetDataById(GetDataRequestDTO getDataRequestDto)
+    [Route("GetData")]
+    public async Task<GetDataResponseDTO> GetData(GetDataRequestDTO getDataRequestDto)
     {
         var request = _mapper.Map<GetDataRequestModel>(getDataRequestDto);
-        var result = await _dataOrchestrator.GetDataById(request);
+        var result = await _dataOrchestrator.GetData(request);
         return _mapper.Map<GetDataResponseDTO>(result);
     }
 
     [Authorize]
     [HttpPost]
-    [Route("UpdateDataById")]
-    public async Task<UpdateDataResponseDTO> UpdateDataById(UpdateDataRequestDTO updateDataRequestDto)
+    [Route("UpdateData")]
+    public async Task<UpdateDataResponseDTO> UpdateData(UpdateDataRequestDTO updateDataRequestDto)
     {
         var request = _mapper.Map<UpdateDataRequestModel>(updateDataRequestDto);
-        var result = await _dataOrchestrator.UpdateDataById(request);
+        var username = HttpContext?.User?.Claims?.First(c => c.Type == "UserName")?.Value;
+        request.Username = username;
+        var result = await _dataOrchestrator.UpdateData(request);
         return _mapper.Map<UpdateDataResponseDTO>(result);
     }
 }

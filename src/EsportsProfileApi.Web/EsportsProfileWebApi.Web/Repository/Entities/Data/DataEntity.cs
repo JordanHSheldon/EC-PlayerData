@@ -12,6 +12,9 @@ public class DataEntity
     [BsonElement("UserId")]
     public string? UserId { get; set; }
 
+    [BsonElement("UserName")]
+    public string? UserName { get; set; }
+
     [BsonElement("sensitivity")]
     public double Sensitivity { get; set; }
 

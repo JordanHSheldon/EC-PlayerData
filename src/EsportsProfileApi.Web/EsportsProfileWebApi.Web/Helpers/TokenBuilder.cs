@@ -13,6 +13,9 @@ public class TokenBuilder(IConfiguration config)
 
     public async Task<string> BuildToken(IEnumerable<Claim> claims)
     {
+        if (claims == null || !claims.Any())
+            throw new ArgumentNullException(nameof(claims));
+
         var key = _config.GetValue<string>("Authentication:Key") ?? throw new NotImplementedException();
         var tokenHandler = new JwtSecurityTokenHandler();
         var encodedKey = Encoding.UTF8.GetBytes(key) ?? throw new NotImplementedException();

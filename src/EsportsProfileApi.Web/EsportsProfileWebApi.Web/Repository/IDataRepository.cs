@@ -6,9 +6,9 @@ using System.Collections.Generic;
 
 public interface IDataRepository
 {
-    Task<DataEntity> GetUserDataById(GetDataRequestModel dataRequest);
+    Task<DataEntity> GetUserData(GetDataRequestModel dataRequest);
 
-    Task<bool> UpdateDataById(UpdateDataRequestModel request);
+    Task<UpdateDataResponseModel> UpdateData(UpdateDataRequestModel request);
 
     Task<List<DataEntity>> GetAllDataAsync();
 

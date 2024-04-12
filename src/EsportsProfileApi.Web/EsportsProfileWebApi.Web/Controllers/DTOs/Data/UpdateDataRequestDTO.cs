@@ -5,9 +5,6 @@ namespace EsportsProfileWebApi.Web.Controllers.DTOs.Data;
 public class UpdateDataRequestDTO
 {
     [Required]
-    public string? Username { get; set; }
-
-    [Required]
     public double Sensitivity { get; set; }
 
     [Required]

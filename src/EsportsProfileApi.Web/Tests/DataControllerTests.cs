@@ -38,18 +38,18 @@ public class DataControllerTests
     }
 
     [Test]
-    public void GetDataById_ReturnsGetDataResponse()
+    public void GetData_ReturnsGetDataResponse()
     {
         // Arrange
         var request = new GetDataRequestDTO();
-        mockDataOrchestrator.Setup(test => test.GetDataById(It.IsAny<GetDataRequestModel>())).ReturnsAsync(new GetDataResponseModel());
+        mockDataOrchestrator.Setup(test => test.GetData(It.IsAny<GetDataRequestModel>())).ReturnsAsync(new GetDataResponseModel());
 
         // Act
-        var result = _dataController.GetDataById(request);
+        var result = _dataController.GetData(request);
 
         // Assert
         Assert.IsNotNull(result);
-        mockDataOrchestrator.Verify(verify => verify.GetDataById(It.IsAny<GetDataRequestModel>()), Times.Once);
+        mockDataOrchestrator.Verify(verify => verify.GetData(It.IsAny<GetDataRequestModel>()), Times.Once);
     }
 
 }
