@@ -17,21 +17,21 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v2
+      uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '8.0.x'
 
     - name: Restore Dependencies
-      run: dotnet restore src/EsportsProfileApi.Web/EsportsProfileWebApi.Web
+      run: dotnet restore src/EsportsProfileWebApi.Web
 
     - name: Build
-      run: dotnet build src/EsportsProfileApi.Web/EsportsProfileWebApi.Web --configuration Release
+      run: dotnet build src/EsportsProfileWebApi.Web --configuration Release
 
     - name: Run Tests
-      run: dotnet test src/EsportsProfileApi.Web/EsportsProfileWebApi.Web --configuration Release --no-build
+      run: dotnet test src/EsportsProfileWebApi.Web --configuration Release --no-build
 
     - name: Check Test Results
-      run: dotnet test src/EsportsProfileApi.Web/EsportsProfileWebApi.Web /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura --list-tests --configuration Release > testResults.txt 
+      run: dotnet test src/EsportsProfileWebApi.Web /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura --list-tests --configuration Release > testResults.txt 
           
     - name: Display Test Results
       run: cat testResults.txt
