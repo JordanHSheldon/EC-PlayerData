@@ -9,12 +9,8 @@ public class PasswordHashing
     {
         if (string.IsNullOrEmpty(password))
             return string.Empty;
-
-        using (var sha = SHA256.Create())
-        {
-            byte[] textData = Encoding.UTF8.GetBytes(password);
-            byte[] hash = sha.ComputeHash(textData);
-            return BitConverter.ToString(hash).Replace("-", string.Empty);
-        }
+        byte[] textData = Encoding.UTF8.GetBytes(password);
+        byte[] hash = SHA256.HashData(textData);
+        return BitConverter.ToString(hash).Replace("-", string.Empty);
     }
 }
