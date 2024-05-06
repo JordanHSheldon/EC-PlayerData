@@ -18,38 +18,38 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Set up .NET Core
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
       
       - name: Replace Key
         run: |
-          sed -i 's#{{ KEY }}#${{ secrets.ESPORTSCOMPAREKEY }}/#' src/EsportsProfileApi.Web/EsportsProfileWebApi.Web/appsettings.json
+          sed -i 's#{{ KEY }}#${{ secrets.ESPORTSCOMPAREKEY }}/#' src/EsportsProfileWebApi.Web/appsettings.json
 
       - name: Replace DB Connection String
         run: |
-          sed -i 's#{{ DefaultConnection }}#${{ secrets.ESPORTSCOMPAREDB }}#' src/EsportsProfileApi.Web/EsportsProfileWebApi.Web/appsettings.json
+          sed -i 's#{{ DefaultConnection }}#${{ secrets.ESPORTSCOMPAREDB }}#' src/EsportsProfileWebApi.Web/appsettings.json
 
       - name: Replace Audience
         run: |
-          sed -i 's#{{ ESPORTSCOMPARE_AUDIENCE }}#${{ secrets.ESPORTSCOMPARE_AUDIENCE }}#' src/EsportsProfileApi.Web/EsportsProfileWebApi.Web/appsettings.json
+          sed -i 's#{{ ESPORTSCOMPARE_AUDIENCE }}#${{ secrets.ESPORTSCOMPARE_AUDIENCE }}#' src/EsportsProfileWebApi.Web/appsettings.json
 
       - name: Replace URL
         run: |
-          sed -i 's#{{ ESPORTSCOMPARE_FRONTEND_URL }}#${{ secrets.ESPORTSCOMPARE_FRONTEND_URL }}#' src/EsportsProfileApi.Web/EsportsProfileWebApi.Web/appsettings.json
+          sed -i 's#{{ ESPORTSCOMPARE_FRONTEND_URL }}#${{ secrets.ESPORTSCOMPARE_FRONTEND_URL }}#' src/EsportsProfileWebApi.Web/appsettings.json
 
       - name: Replace Issuer
         run: |
-          sed -i 's#{{ ESPORTSCOMPARE_ISSUER }}#${{ secrets.ESPORTSCOMPARE_ISSUER }}#' src/EsportsProfileApi.Web/EsportsProfileWebApi.Web/appsettings.json
+          sed -i 's#{{ ESPORTSCOMPARE_ISSUER }}#${{ secrets.ESPORTSCOMPARE_ISSUER }}#' src/EsportsProfileWebApi.Web/appsettings.json
 
       - name: Restore
-        run: dotnet restore src/EsportsProfileApi.Web/EsportsProfileWebApi.Web.sln
+        run: dotnet restore src/EsportsProfileWebApi.Web.sln
       
       - name: Build with dotnet
-        run: dotnet build src/EsportsProfileApi.Web/EsportsProfileWebApi.Web.sln --configuration Release --no-restore
+        run: dotnet build src/EsportsProfileWebApi.Web.sln --configuration Release --no-restore
 
       - name: dotnet publish
-        run: dotnet publish src/EsportsProfileApi.Web/EsportsProfileWebApi.Web.sln --configuration Release --no-build --output ${{ env.DOTNET_ROOT }}/EsportsCompare
+        run: dotnet publish src/EsportsProfileWebApi.Web.sln --configuration Release --no-build --output ${{ env.DOTNET_ROOT }}/EsportsCompare
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
