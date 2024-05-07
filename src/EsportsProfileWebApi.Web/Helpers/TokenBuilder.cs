@@ -8,7 +8,7 @@ namespace EsportsProfileWebApi.Web.Helpers;
 
 public class TokenBuilder(IConfiguration config)
 {
-    private readonly int _expiryInMinutes = 30;
+    private readonly int _expiryInMinutes = 43800;
     private readonly IConfiguration _config = config ?? throw new NotImplementedException();
 
     public async Task<string> BuildToken(IEnumerable<Claim> claims)
