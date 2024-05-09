@@ -14,7 +14,6 @@ public class DataController(IDataOrchestrator dataOrchestrator, IMapper mapper) 
     private readonly IDataOrchestrator _dataOrchestrator = dataOrchestrator ?? throw new NotImplementedException();
     private readonly IMapper _mapper = mapper ?? throw new NotImplementedException();
 
-    [Authorize]
     [HttpPost]
     [Route("GetAllData")]
     public async Task<List<GetDataResponseDTO>> GetAllDataAsync()
