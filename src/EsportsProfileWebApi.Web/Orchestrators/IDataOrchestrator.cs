@@ -9,6 +9,4 @@ public interface IDataOrchestrator
     Task<UpdateDataResponseModel> UpdateData(UpdateDataRequestModel request);
 
     Task<List<GetDataResponseModel>> GetAllDataAsync();
-
-    Task<string> CreateCSData(string username);
 }

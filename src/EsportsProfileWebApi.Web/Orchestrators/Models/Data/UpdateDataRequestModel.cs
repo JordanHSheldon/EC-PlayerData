@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿namespace EsportsProfileWebApi.Web.Orchestrators.Models;
 
-namespace EsportsProfileWebApi.Web.Orchestrators.Models;
+using System.ComponentModel.DataAnnotations;
 
 public class UpdateDataRequestModel
 {

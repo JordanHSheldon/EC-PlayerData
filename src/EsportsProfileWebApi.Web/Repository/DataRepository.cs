@@ -36,12 +36,6 @@ public class DataRepository : IDataRepository
         return new UpdateDataResponseModel { IsSuccessful = true };
     }
 
-    public async Task<string> CreateCSData(string userName)
-    {
-        await _userCollection.InsertOneAsync(new DataEntity() { UserName = userName });
-        return userName;
-    }
-
     public async Task<DataEntity> GetUserData(GetDataRequestModel dataRequest)
     {
         return await _userCollection.Find(data => data.UserName == dataRequest.UserName).FirstOrDefaultAsync();

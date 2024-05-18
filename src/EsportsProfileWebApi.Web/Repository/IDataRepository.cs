@@ -11,6 +11,4 @@ public interface IDataRepository
     Task<UpdateDataResponseModel> UpdateData(UpdateDataRequestModel request);
 
     Task<List<DataEntity>> GetAllDataAsync();
-
-    Task<string> CreateCSData(string username);
 }
