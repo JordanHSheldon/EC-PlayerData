@@ -15,6 +15,12 @@ public class DataOrchestrator(IDataRepository dataRepository, IMapper mapper) : 
         return _mapper.Map<GetDataResponseModel>(result);
     }
 
+    public async Task<GetDataResponseModel> GetProfileData(GetProfileRequestModel dataRequest)
+    {
+        var result = await _dataRepository.GetProfileData(dataRequest);
+        return _mapper.Map<GetDataResponseModel>(result);
+    }
+
     public async Task<UpdateDataResponseModel> UpdateData(UpdateDataRequestModel request)
     {
         var result = await _dataRepository.UpdateData(request);

@@ -1,44 +1,24 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
-
-namespace EsportsProfileWebApi.Web.Controllers.DTOs.Data;
+﻿namespace EsportsProfileWebApi.Web.Controllers.DTOs.Data;
 
 public class GetDataResponseDTO
 {
-    [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
-    public string Id { get; set; } = string.Empty;
+    public string? Id { get; set; }
 
-    [BsonElement("username")]
-    public string Username { get; set; } = string.Empty;
+    public string? FirstName { get; set; }
 
-    [BsonElement("sensitivity")]
-    public double Sensitivity { get; set; } = 2.5;
+    public string? LastName { get; set; }
 
-    [BsonElement("dpi")]
-    public int Dpi { get; set; } = 400;
+    public string? Email { get;set; }
 
-    [BsonElement("resolutionx")]
-    public int ResolutionX { get; set; } = 1920;
+    public string? UserName { get; set; }
 
-    [BsonElement("resolutiony")]
-    public int ResolutionY { get; set; } = 1080;
+    public string? Mouse { get; set; }
 
-    [BsonElement("resolutiontype")]
-    public string ResolutionType { get; set; } = "Native";
+    public string? MousePad { get; set; }
 
-    [BsonElement("mouse")]
-    public string? Mouse { get; set; } = string.Empty;
+    public string? KeyBoard { get; set; }
 
-    [BsonElement("mousepad")]
-    public string? MousePad { get; set; } = string.Empty;
+    public string? HeadSet { get; set; }
 
-    [BsonElement("keyboard")]
-    public string? KeyBoard { get; set; } = string.Empty;
-
-    [BsonElement("headset")]
-    public string? HeadSet { get; set; } = string.Empty;
-
-    [BsonElement("monitor")]
-    public string? Monitor { get; set; } = string.Empty;
+    public string? Monitor { get; set; }
 }

@@ -1,7 +1,6 @@
 ﻿namespace EsportsProfileWebApi.Web.Orchestrators;
 
 using System.Security.Claims;
-using EsportsProfileWebApi.INFRASTRUCTURE;
 using EsportsProfileWebApi.Web.Helpers;
 using EsportsProfileWebApi.Web.Orchestrators.Models;
 using EsportsProfileWebApi.Web.Repository;

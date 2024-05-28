@@ -6,6 +6,8 @@ public interface IDataOrchestrator
 {
     Task<GetDataResponseModel> GetData(GetDataRequestModel dataRequest);
 
+    Task<GetDataResponseModel> GetProfileData(GetProfileRequestModel dataRequest);
+
     Task<UpdateDataResponseModel> UpdateData(UpdateDataRequestModel request);
 
     Task<List<GetDataResponseModel>> GetAllDataAsync();

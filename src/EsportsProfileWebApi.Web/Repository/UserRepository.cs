@@ -9,11 +9,11 @@ using System.Data;
 
 public class UserRepository(IConfiguration configuration) : IUserRepository
 {
-    private readonly string _connectionString = configuration.GetConnectionString("SqlConnection") ?? throw new NotImplementedException();
+    private readonly string _connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new NotImplementedException();
 
-    public async Task<UserEntity> RegisterUser(UserRegisterRequestModel request)
+    public async Task<UserEntity?> RegisterUser(UserRegisterRequestModel request)
     {
-        Guid user_id = new();
+        Guid user_id = Guid.NewGuid();
         using var connection = new NpgsqlConnection(_connectionString);
         await connection.OpenAsync();
 
