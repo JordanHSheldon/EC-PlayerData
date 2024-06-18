@@ -1,56 +1,63 @@
 ﻿namespace EsportsProfileWebApi.Web.Repository;
 
+using Dapper;
 using EsportsProfileWebApi.Web.Orchestrators.Models;
 using EsportsProfileWebApi.Web.Repository.Entities.User;
 using Microsoft.Extensions.Configuration;
-using MongoDB.Driver;
-using System.Security.Claims;
+using Npgsql;
+using System.Data;
 
-public class UserRepository : IUserRepository
+public class UserRepository(IConfiguration configuration) : IUserRepository
 {
-    private readonly IMongoCollection<UserEntity> _userCollection;
-    private readonly MongoClient _mongoClient;
+    private readonly string _connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new NotImplementedException();
 
-    public UserRepository(IConfiguration configuration)
+    public async Task<UserEntity?> RegisterUser(UserRegisterRequestModel request)
     {
-        _mongoClient = new MongoClient(configuration.GetConnectionString("DefaultConnection") ?? throw new NotImplementedException());
+        Guid user_id = Guid.NewGuid();
+        using var connection = new NpgsqlConnection(_connectionString);
+        await connection.OpenAsync();
 
-        var mongoDatabase = _mongoClient.GetDatabase("EsportsCompare");
+        DynamicParameters parameters = new();
+        parameters.Add("p_username", request.Username, DbType.String);
+        parameters.Add("p_password", Helpers.PasswordHashing.HashPassword(request.Password), DbType.String);
+        parameters.Add("p_email", request.Email, DbType.String);
+        parameters.Add("p_user_id",user_id.ToString(), dbType: DbType.String);
 
-        _userCollection = mongoDatabase.GetCollection<UserEntity>("Users");
-    }
+        await connection.ExecuteAsync("register", parameters, commandType: CommandType.StoredProcedure);
 
-    public async Task<bool> UserExists(string userName)
-    {
-        if (await _userCollection.Find(user => user.UserName == userName).FirstOrDefaultAsync() == null)
-            return false;
-        return true;
-    }
-
-    public async Task<UserEntity> RegisterUser(UserRegisterRequestModel request)
-    {
-        var userId = Guid.NewGuid().ToString();
-        var claims = new List<Claim>()
-        {
-            new("UserName", request.Username),
-            new("Role", "User")
-        };
+        var user_Id = parameters.Get<string>("p_user_id");
 
         var user = new UserEntity()
         {
-            UserId = userId,
-            UserName = request.Username,
-            Email = request.Email,
-            Password = Helpers.PasswordHashing.HashPassword(request.Password),
-            Claims = claims
+            Id = user_Id,
+            Role = "User"
         };
 
-        await _userCollection.InsertOneAsync(user);
         return user;
     }
 
-    public async Task<UserEntity> LoginUser(UserLoginRequestModel request)
+    public async Task<UserEntity?> LoginUser(UserLoginRequestModel request)
     {
-        return await _userCollection.Find(user => user.Password == Helpers.PasswordHashing.HashPassword(request.Password)).FirstOrDefaultAsync();
+        using var connection = new NpgsqlConnection(_connectionString);
+        await connection.OpenAsync();
+
+        DynamicParameters parameters = new ();
+        parameters.Add("p_username", request.Username, DbType.String);
+        parameters.Add("p_password", Helpers.PasswordHashing.HashPassword(request.Password), DbType.String);
+        parameters.Add("p_user_id", dbType: DbType.String, direction: ParameterDirection.Output);
+        parameters.Add("p_user_role", dbType: DbType.String, direction: ParameterDirection.Output);
+
+        await connection.ExecuteAsync("login", parameters, commandType: CommandType.StoredProcedure);
+
+        string user_Id = parameters.Get<string>("p_user_id");
+        string user_role = parameters.Get<string>("p_user_role");
+        
+        if (user_Id == null || user_role == null)
+            return null;
+
+        return new UserEntity{
+            Id = user_Id,
+            Role = user_role
+        };
     }
 }

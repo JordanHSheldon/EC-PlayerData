@@ -8,9 +8,9 @@ public interface IDataRepository
 {
     Task<DataEntity> GetUserData(GetDataRequestModel dataRequest);
 
+    Task<DataEntity> GetProfileData(GetProfileRequestModel request);
+
     Task<UpdateDataResponseModel> UpdateData(UpdateDataRequestModel request);
 
     Task<List<DataEntity>> GetAllDataAsync();
-
-    Task<string> CreateCSData(string username);
 }

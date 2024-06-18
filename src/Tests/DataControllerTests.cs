@@ -38,18 +38,17 @@ public class DataControllerTests
     }
 
     [Test]
-    public void GetData_ReturnsGetDataResponse()
+    public void GetDataByUserName_ReturnsGetDataResponse()
     {
         // Arrange
         var request = new GetDataRequestDTO();
         mockDataOrchestrator.Setup(test => test.GetData(It.IsAny<GetDataRequestModel>())).ReturnsAsync(new GetDataResponseModel());
 
         // Act
-        var result = _dataController.GetData(request);
+        var result = _dataController.GetDataByUserName(request);
 
         // Assert
         Assert.IsNotNull(result);
         mockDataOrchestrator.Verify(verify => verify.GetData(It.IsAny<GetDataRequestModel>()), Times.Once);
     }
-
 }

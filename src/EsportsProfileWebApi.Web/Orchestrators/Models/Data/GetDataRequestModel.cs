@@ -1,6 +1,8 @@
-﻿namespace EsportsProfileWebApi.Web.Orchestrators.Models;
+﻿using ZstdSharp;
+
+namespace EsportsProfileWebApi.Web.Orchestrators.Models;
 
 public class GetDataRequestModel
 {
-    public string UserName { get; set; } = string.Empty;
+    public string? Username { get; set; }
 }

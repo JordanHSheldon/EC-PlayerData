@@ -1,36 +1,35 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿namespace EsportsProfileWebApi.Web.Controllers.DTOs.Data;
 
-namespace EsportsProfileWebApi.Web.Controllers.DTOs.Data;
+using System.ComponentModel.DataAnnotations;
 
 public class UpdateDataRequestDTO
 {
-    [Required]
-    public double Sensitivity { get; set; }
+    public string? Id { get; set; } = string.Empty;
 
     [Required]
-    public int Dpi { get; set; }
-
+    public string? FirstName { get; set; }
+    
     [Required]
-    public int ResolutionX { get; set; }
-
+    public string? LastName { get; set; }
+    
     [Required]
-    public int ResolutionY { get; set; }
-
+    public string? Email { get;set; }
+    
     [Required]
-    public string? ResolutionType { get; set; }
-
+    public string? UserName { get; set; }
+    
     [Required]
     public string? Mouse { get; set; }
-
+    
     [Required]
     public string? MousePad { get; set; }
-
+    
     [Required]
     public string? KeyBoard { get; set; }
-
+    
     [Required]
     public string? HeadSet { get; set; }
-
+    
     [Required]
     public string? Monitor { get; set; }
 }

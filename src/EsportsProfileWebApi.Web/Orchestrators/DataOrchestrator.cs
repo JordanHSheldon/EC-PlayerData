@@ -9,14 +9,15 @@ public class DataOrchestrator(IDataRepository dataRepository, IMapper mapper) : 
     private readonly IDataRepository _dataRepository = dataRepository ?? throw new NotImplementedException();
     private readonly IMapper _mapper = mapper ?? throw new NotImplementedException();
 
-    public async Task<string> CreateCSData(string username)
-    {
-        return await _dataRepository.CreateCSData(username);
-    }
-
     public async Task<GetDataResponseModel> GetData(GetDataRequestModel dataRequest)
     {
         var result = await _dataRepository.GetUserData(dataRequest);
+        return _mapper.Map<GetDataResponseModel>(result);
+    }
+
+    public async Task<GetDataResponseModel> GetProfileData(GetProfileRequestModel dataRequest)
+    {
+        var result = await _dataRepository.GetProfileData(dataRequest);
         return _mapper.Map<GetDataResponseModel>(result);
     }
 

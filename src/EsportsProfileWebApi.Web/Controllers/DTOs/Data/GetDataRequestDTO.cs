@@ -2,5 +2,5 @@
 
 public class GetDataRequestDTO
 {
-    public string UserName { get; set; } = string.Empty;
+    public string? Username { get; set; }
 }
