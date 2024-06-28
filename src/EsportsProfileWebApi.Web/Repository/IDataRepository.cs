@@ -1,6 +1,7 @@
 ﻿namespace EsportsProfileWebApi.Web.Repository;
 
 using EsportsProfileWebApi.Web.Orchestrators.Models;
+using EsportsProfileWebApi.Web.Orchestrators.Models.Data;
 using EsportsProfileWebApi.Web.Repository.Entities.Data;
 using System.Collections.Generic;
 

@@ -1,6 +1,7 @@
 ﻿namespace EsportsProfileWebApi.Web.Orchestrators;
 
 using EsportsProfileWebApi.Web.Orchestrators.Models;
+using EsportsProfileWebApi.Web.Orchestrators.Models.Data;
 
 public interface IDataOrchestrator
 {

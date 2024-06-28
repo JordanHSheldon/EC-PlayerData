@@ -3,6 +3,7 @@
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using EsportsProfileWebApi.Web.Orchestrators.Models;
+using EsportsProfileWebApi.Web.Orchestrators.Models.Data;
 using EsportsProfileWebApi.Web.Repository.Entities.Data;
 using Dapper;
 using System.Data;
@@ -129,8 +130,6 @@ public class DataRepository(IConfiguration configuration) : IDataRepository
 
         var sql = "SELECT * FROM public.paginateUsers(@p_offset, @p_limit)";
         var users = await connection.QueryAsync<DataEntity>(sql, parameters);
-        // var users = await connection.QueryAsync<DataEntity>("public.paginateusers", 
-        //     parameters, commandType: CommandType.StoredProcedure);
 
         return users.ToList();
     }

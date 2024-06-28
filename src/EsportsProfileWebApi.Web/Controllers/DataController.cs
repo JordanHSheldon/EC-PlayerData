@@ -4,6 +4,7 @@ using AutoMapper;
 using EsportsProfileWebApi.Web.Controllers.DTOs.Data;
 using EsportsProfileWebApi.Web.Orchestrators;
 using EsportsProfileWebApi.Web.Orchestrators.Models;
+using EsportsProfileWebApi.Web.Orchestrators.Models.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,11 +17,11 @@ public class DataController(IDataOrchestrator dataOrchestrator, IMapper mapper) 
 
     [HttpPost]
     [Route("GetPaginatedUserData")]
-    public async Task<List<GetDataResponseDTO>> GetPaginatedUsersAsync(GetPaginatedUsersRequestDTO req)
+    public async Task<List<GetPaginatedUsersResponseDTO>> GetPaginatedUsersAsync(GetPaginatedUsersRequestDTO req)
     {
         var request = _mapper.Map<GetPaginatedUsersRequestModel>(req);
         var result = await _dataOrchestrator.GetPaginatedUsersAsync(request);
-        return _mapper.Map<List<GetDataResponseDTO>>(result);
+        return _mapper.Map<List<GetPaginatedUsersResponseDTO>>(result);
     }
 
     [Authorize]

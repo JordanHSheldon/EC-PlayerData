@@ -3,6 +3,7 @@
 using AutoMapper;
 using EsportsProfileWebApi.Web.Repository;
 using EsportsProfileWebApi.Web.Orchestrators.Models;
+using EsportsProfileWebApi.Web.Orchestrators.Models.Data;
 
 public class DataOrchestrator(IDataRepository dataRepository, IMapper mapper) : IDataOrchestrator
 {
