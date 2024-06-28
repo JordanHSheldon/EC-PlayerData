@@ -24,5 +24,7 @@ public class MappingProfile : Profile
         CreateMap<UserLoginResponseDTO, UserLoginResponseModel>().ReverseMap();
 
         CreateMap<GetDataResponseModel, DataEntity>().ReverseMap();
+
+        CreateMap<GetPaginatedUsersRequestDTO,GetPaginatedUsersRequestModel>().ReverseMap();
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace EsportsProfileWebApi.INFRASTRUCTURE;
+﻿namespace EsportsProfileWebApi.Web.Repository;
 
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
@@ -118,8 +118,20 @@ public class DataRepository(IConfiguration configuration) : IDataRepository
         };
     }
 
-    public async Task<List<DataEntity>> GetAllDataAsync()
+    public async Task<List<DataEntity>> GetPaginatedUsersAsync(GetPaginatedUsersRequestModel req)
     {
-        return [];
+        using var connection = new Npgsql.NpgsqlConnection(_connectionString);
+        await connection.OpenAsync();
+
+        DynamicParameters parameters = new ();
+        parameters.Add("p_offset",req.Offset);
+        parameters.Add("p_limit",req.Limit);
+
+        var sql = "SELECT * FROM public.paginateUsers(@p_offset, @p_limit)";
+        var users = await connection.QueryAsync<DataEntity>(sql, parameters);
+        // var users = await connection.QueryAsync<DataEntity>("public.paginateusers", 
+        //     parameters, commandType: CommandType.StoredProcedure);
+
+        return users.ToList();
     }
 }

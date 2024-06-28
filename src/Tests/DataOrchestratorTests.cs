@@ -1,7 +1,7 @@
 ﻿namespace Tests;
 
 using AutoMapper;
-using EsportsProfileWebApi.INFRASTRUCTURE;
+using EsportsProfileWebApi.Web.Repository;
 using EsportsProfileWebApi.Web.Orchestrators;
 using Moq;
 using NUnit.Framework;

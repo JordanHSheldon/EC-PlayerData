@@ -15,10 +15,11 @@ public class DataController(IDataOrchestrator dataOrchestrator, IMapper mapper) 
     private readonly IMapper _mapper = mapper ?? throw new NotImplementedException();
 
     [HttpPost]
-    [Route("GetAllData")]
-    public async Task<List<GetDataResponseDTO>> GetAllDataAsync()
+    [Route("GetPaginatedUserData")]
+    public async Task<List<GetDataResponseDTO>> GetPaginatedUsersAsync(GetPaginatedUsersRequestDTO req)
     {
-        var result = await _dataOrchestrator.GetAllDataAsync();
+        var request = _mapper.Map<GetPaginatedUsersRequestModel>(req);
+        var result = await _dataOrchestrator.GetPaginatedUsersAsync(request);
         return _mapper.Map<List<GetDataResponseDTO>>(result);
     }
 
