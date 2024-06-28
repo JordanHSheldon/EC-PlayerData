@@ -4,7 +4,7 @@ using AutoMapper;
 using EsportsProfileWebApi.Web.Controllers;
 using EsportsProfileWebApi.Web.Controllers.DTOs.Data;
 using EsportsProfileWebApi.Web.Orchestrators;
-using EsportsProfileWebApi.Web.Orchestrators.Models;
+using EsportsProfileWebApi.Web.Orchestrators.Models.Data;
 using Moq;
 using NUnit.Framework;
 
@@ -23,18 +23,18 @@ public class DataControllerTests
     }
 
     [Test]
-    public void GetAllDataAsync_ValidRequest_ReturnsGetDataResponse()
+    public void GetPaginatedUsersAsync_ValidRequest_ReturnsGetDataResponse()
     {
         // Arrange
-        var response = new List<GetDataResponseModel>();
-        mockDataOrchestrator.Setup(test => test.GetAllDataAsync()).ReturnsAsync(response);
+        var response = new List<GetPaginatedUsersResponseModel>();
+        mockDataOrchestrator.Setup(test => test.GetPaginatedUsersAsync(It.IsAny<GetPaginatedUsersRequestModel>())).ReturnsAsync(response);
 
         // Act
-        var result = _dataController.GetAllDataAsync();
+        var result = _dataController.GetPaginatedUsersAsync(new GetPaginatedUsersRequestDTO());
 
         // Assert
         Assert.IsNotNull(result);
-        mockDataOrchestrator.Verify(verify => verify.GetAllDataAsync(), Times.Once);
+        mockDataOrchestrator.Verify(verify => verify.GetPaginatedUsersAsync(It.IsAny<GetPaginatedUsersRequestModel>()), Times.Once);
     }
 
     [Test]

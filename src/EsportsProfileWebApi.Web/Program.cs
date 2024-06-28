@@ -1,8 +1,7 @@
-using EsportsProfileWebApi.INFRASTRUCTURE;
+using EsportsProfileWebApi.Web.Repository;
 using EsportsProfileWebApi.Web.Extensions;
 using EsportsProfileWebApi.Web.Mapping;
 using EsportsProfileWebApi.Web.Orchestrators;
-using EsportsProfileWebApi.Web.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,8 +1,9 @@
 ﻿namespace EsportsProfileWebApi.Web.Orchestrators;
 
 using AutoMapper;
-using EsportsProfileWebApi.INFRASTRUCTURE;
+using EsportsProfileWebApi.Web.Repository;
 using EsportsProfileWebApi.Web.Orchestrators.Models;
+using EsportsProfileWebApi.Web.Orchestrators.Models.Data;
 
 public class DataOrchestrator(IDataRepository dataRepository, IMapper mapper) : IDataOrchestrator
 {
@@ -27,9 +28,9 @@ public class DataOrchestrator(IDataRepository dataRepository, IMapper mapper) : 
         return _mapper.Map<UpdateDataResponseModel>(result);
     }
 
-    public async Task<List<GetDataResponseModel>> GetAllDataAsync()
+    public async Task<List<GetPaginatedUsersResponseModel>> GetPaginatedUsersAsync(GetPaginatedUsersRequestModel req)
     {
-        var result = await _dataRepository.GetAllDataAsync();
-        return _mapper.Map<List<GetDataResponseModel>>(result);
+        var result = await _dataRepository.GetPaginatedUsersAsync(req);
+        return _mapper.Map<List<GetPaginatedUsersResponseModel>>(result);
     }
 }
