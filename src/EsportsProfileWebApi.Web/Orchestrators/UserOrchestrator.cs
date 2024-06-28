@@ -22,8 +22,8 @@ public class UserOrchestrator(IUserRepository userRepository, IConfiguration con
         }
 
         var claims = new List<Claim> {
-            new ("Id",user.Id),
-            new ("Role",user.Role)
+            new ("Id",user.Id!),
+            new ("Role",user.Role!)
         };
 
         return new UserRegisterResponseModel()
@@ -45,8 +45,8 @@ public class UserOrchestrator(IUserRepository userRepository, IConfiguration con
 
         var claims = new List<Claim> 
         {
-            new ("Id",user?.Id),
-            new ("Role",user?.Role)
+            new ("Id",user?.Id!),
+            new ("Role",user?.Role!)
         };
 
         return new UserLoginResponseModel()

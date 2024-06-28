@@ -4,7 +4,7 @@ using AutoMapper;
 using EsportsProfileWebApi.Web.Controllers;
 using EsportsProfileWebApi.Web.Controllers.DTOs.Data;
 using EsportsProfileWebApi.Web.Orchestrators;
-using EsportsProfileWebApi.Web.Orchestrators.Models;
+using EsportsProfileWebApi.Web.Orchestrators.Models.Data;
 using Moq;
 using NUnit.Framework;
 
