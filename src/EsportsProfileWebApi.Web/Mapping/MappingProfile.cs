@@ -29,7 +29,8 @@ public class MappingProfile : Profile
         CreateMap<DataEntity, GetPaginatedUsersResponseModel>()
             .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.FirstName))
             .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.LastName))
-            .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName));
+            .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
 
         CreateMap<GetPaginatedUsersRequestDTO,GetPaginatedUsersRequestModel>().ReverseMap();
         CreateMap<GetPaginatedUsersResponseDTO,GetPaginatedUsersResponseModel>().ReverseMap();
