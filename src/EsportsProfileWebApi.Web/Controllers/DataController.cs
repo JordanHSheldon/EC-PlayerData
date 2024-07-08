@@ -35,7 +35,6 @@ public class DataController(IDataOrchestrator dataOrchestrator, IMapper mapper) 
         return _mapper.Map<GetDataResponseDTO>(result);
     }
 
-    [Authorize]
     [HttpPost]
     [Route("GetDataByUserName")]
     public async Task<GetDataResponseDTO> GetDataByUserName(GetDataRequestDTO getDataRequestDto)
