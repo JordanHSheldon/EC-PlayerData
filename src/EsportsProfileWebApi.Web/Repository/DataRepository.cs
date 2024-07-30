@@ -2,8 +2,8 @@
 
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
-using EsportsProfileWebApi.Web.Orchestrators.Models.Data;
-using EsportsProfileWebApi.Web.Repository.Entities.Data;
+using Orchestrators.Models.Data;
+using Entities.Data;
 using Dapper;
 using System.Data;
 
@@ -13,10 +13,7 @@ public class DataRepository(IConfiguration configuration) : IDataRepository
 
     public async Task<UpdateDataResponseModel> UpdateData(UpdateDataRequestModel request)
     {
-        if (request == null)
-            return new UpdateDataResponseModel{ IsSuccessful = false};
-
-        using var connection = new Npgsql.NpgsqlConnection(_connectionString);
+        await using var connection = new Npgsql.NpgsqlConnection(_connectionString);
         await connection.OpenAsync();
 
         DynamicParameters parameters = new ();
@@ -36,7 +33,7 @@ public class DataRepository(IConfiguration configuration) : IDataRepository
 
     public async Task<DataEntity> GetUserData(GetDataRequestModel request)
     {
-        using var connection = new Npgsql.NpgsqlConnection(_connectionString);
+        await using var connection = new Npgsql.NpgsqlConnection(_connectionString);
         await connection.OpenAsync();
 
         DynamicParameters parameters = new ();
@@ -64,7 +61,7 @@ public class DataRepository(IConfiguration configuration) : IDataRepository
         string key_board = parameters.Get<string>("key_board");
 
         return new DataEntity{
-            Email = email ?? request.Username,
+            Email = email,
             UserName = user_name,
             FirstName = first_name,
             LastName = last_name,
@@ -78,7 +75,7 @@ public class DataRepository(IConfiguration configuration) : IDataRepository
 
     public async Task<DataEntity> GetProfileData(GetProfileRequestModel request)
     {
-        using var connection = new Npgsql.NpgsqlConnection(_connectionString);
+        await using var connection = new Npgsql.NpgsqlConnection(_connectionString);
         await connection.OpenAsync();
 
         DynamicParameters parameters = new ();
@@ -120,7 +117,7 @@ public class DataRepository(IConfiguration configuration) : IDataRepository
 
     public async Task<List<DataEntity>> GetPaginatedUsersAsync(GetPaginatedUsersRequestModel req)
     {
-        using var connection = new Npgsql.NpgsqlConnection(_connectionString);
+        await using var connection = new Npgsql.NpgsqlConnection(_connectionString);
         await connection.OpenAsync();
 
         DynamicParameters parameters = new ();

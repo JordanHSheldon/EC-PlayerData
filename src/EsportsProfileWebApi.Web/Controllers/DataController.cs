@@ -1,9 +1,9 @@
 ﻿namespace EsportsProfileWebApi.Web.Controllers;
 
 using AutoMapper;
-using EsportsProfileWebApi.Web.Controllers.DTOs.Data;
-using EsportsProfileWebApi.Web.Orchestrators;
-using EsportsProfileWebApi.Web.Orchestrators.Models.Data;
+using DTOs.Data;
+using Orchestrators;
+using Orchestrators.Models.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
