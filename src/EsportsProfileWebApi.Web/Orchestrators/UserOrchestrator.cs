@@ -12,6 +12,7 @@ public class UserOrchestrator(IUserRepository userRepository, IConfiguration con
 
     public async Task<UserRegisterResponseModel> RegisterUser(UserRegisterRequestModel request)
     {
+        request.Username = request.Username.Replace(" ","");
         var user = await _userRepository.RegisterUser(request);
         if (user == null)
         {
