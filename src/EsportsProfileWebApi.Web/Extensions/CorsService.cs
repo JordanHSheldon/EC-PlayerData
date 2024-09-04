@@ -13,7 +13,6 @@ public static class CorsService
                 builder =>
                 {
                     builder.AllowAnyOrigin()
-                           //.WithOrigins(config.GetValue<string>("front-end-url") ?? throw new NotImplementedException())
                            .AllowAnyHeader()
                            .WithMethods("POST");
                 });

@@ -34,5 +34,8 @@ public class MappingProfile : Profile
 
         CreateMap<GetPaginatedUsersRequestDTO,GetPaginatedUsersRequestModel>().ReverseMap();
         CreateMap<GetPaginatedUsersResponseDTO,GetPaginatedUsersResponseModel>().ReverseMap();
+
+        CreateMap<PeripheralDTO,PeripheralModel>().ReverseMap();
+        CreateMap<PeripheralModel,PeripheralEntity>().ReverseMap();
     }
 }

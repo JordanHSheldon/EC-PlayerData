@@ -32,4 +32,10 @@ public class DataOrchestrator(IDataRepository dataRepository, IMapper mapper) : 
         var result = await _dataRepository.GetPaginatedUsersAsync(req);
         return _mapper.Map<List<GetPaginatedUsersResponseModel>>(result);
     }
+
+    public async Task<List<PeripheralModel>> GetPeripheralsAsync()
+    {
+        var result = await _dataRepository.GetPeripheralsAsync();
+        return _mapper.Map<List<PeripheralModel>>(result);
+    }
 }

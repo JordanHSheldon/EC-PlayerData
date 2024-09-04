@@ -12,4 +12,6 @@ public interface IDataOrchestrator
     Task<UpdateDataResponseModel> UpdateData(UpdateDataRequestModel request);
 
     Task<List<GetPaginatedUsersResponseModel>> GetPaginatedUsersAsync(GetPaginatedUsersRequestModel req);
+
+    Task<List<PeripheralModel>> GetPeripheralsAsync();
 }

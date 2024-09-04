@@ -130,4 +130,15 @@ public class DataRepository(IConfiguration configuration) : IDataRepository
 
         return users.ToList();
     }
+
+    public async Task<List<PeripheralEntity>> GetPeripheralsAsync()
+    {
+        await using var connection = new Npgsql.NpgsqlConnection(_connectionString);
+        await connection.OpenAsync();
+
+        var sql = "SELECT * FROM public.peripherals()";
+        var users = await connection.QueryAsync<PeripheralEntity>(sql);
+
+        return users.ToList();
+    }
 }
