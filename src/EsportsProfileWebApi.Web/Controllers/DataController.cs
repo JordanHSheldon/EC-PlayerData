@@ -55,4 +55,12 @@ public class DataController(IDataOrchestrator dataOrchestrator, IMapper mapper) 
         var result = await _dataOrchestrator.UpdateData(request);
         return _mapper.Map<UpdateDataResponseDTO>(result);
     }
+
+    [HttpGet]
+    [Route("GetPerihperals")]
+    public async Task<List<PeripheralDTO>> GetPerihperalsAsync()
+    {
+        var result = await _dataOrchestrator.GetPeripheralsAsync();
+        return _mapper.Map<List<PeripheralDTO>>(result);
+    }
 }

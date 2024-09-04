@@ -62,7 +62,8 @@ public static class OAuthService
                 ValidIssuer = config["Authentication:Issuer"],
                 ValidAudience = config["Authentication:Audience"],
                 IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = true, ValidateAudience = true, ValidateLifetime = true, ValidateIssuerSigningKey = true
+                ValidateIssuer = true, ValidateAudience = true, ValidateLifetime = true
+                //, ValidateIssuerSigningKey = true
             };
         });
 
