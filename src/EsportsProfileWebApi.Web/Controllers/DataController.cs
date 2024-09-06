@@ -57,7 +57,7 @@ public class DataController(IDataOrchestrator dataOrchestrator, IMapper mapper) 
     }
 
     [HttpPost]
-    [Route("GetPerihperals")]
+    [Route("GetPeripherals")]
     public async Task<List<PeripheralDTO>> GetPerihperalsAsync()
     {
         var result = await _dataOrchestrator.GetPeripheralsAsync();
