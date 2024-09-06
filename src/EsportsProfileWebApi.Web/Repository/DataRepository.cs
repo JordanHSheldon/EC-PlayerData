@@ -136,7 +136,7 @@ public class DataRepository(IConfiguration configuration) : IDataRepository
         await using var connection = new Npgsql.NpgsqlConnection(_connectionString);
         await connection.OpenAsync();
 
-        var sql = "SELECT * FROM public.peripherals()";
+        var sql = "select * from public.picklist_peripherals";
         var users = await connection.QueryAsync<PeripheralEntity>(sql);
 
         return users.ToList();

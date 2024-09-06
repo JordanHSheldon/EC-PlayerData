@@ -56,7 +56,7 @@ public class DataController(IDataOrchestrator dataOrchestrator, IMapper mapper) 
         return _mapper.Map<UpdateDataResponseDTO>(result);
     }
 
-    [HttpGet]
+    [HttpPost]
     [Route("GetPerihperals")]
     public async Task<List<PeripheralDTO>> GetPerihperalsAsync()
     {
