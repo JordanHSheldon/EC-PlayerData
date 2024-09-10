@@ -27,7 +27,8 @@ public class DataRepository(IConfiguration configuration) : IDataRepository
         parameters.Add("p_key_board", request.KeyBoard ,dbType: DbType.String);
 
         await connection.ExecuteAsync("UpdateUserDataById", parameters, commandType: CommandType.StoredProcedure);
-
+        
+        await connection.CloseAsync();
         return new UpdateDataResponseModel { IsSuccessful = true };
     }
 
@@ -49,6 +50,8 @@ public class DataRepository(IConfiguration configuration) : IDataRepository
         parameters.Add("key_board", dbType: DbType.String, direction: ParameterDirection.Output);
 
         await connection.ExecuteAsync("getuserdatabyusername", parameters, commandType: CommandType.StoredProcedure);
+
+        await connection.CloseAsync();
 
         string email = parameters.Get<string>("email");
         string user_name = parameters.Get<string>("user_name");
@@ -102,6 +105,8 @@ public class DataRepository(IConfiguration configuration) : IDataRepository
         string monitor = parameters.Get<string>("monitor");
         string key_board = parameters.Get<string>("key_board");
 
+        await connection.CloseAsync();
+
         return new DataEntity{
             Email = email,
             UserName = user_name,
@@ -128,6 +133,7 @@ public class DataRepository(IConfiguration configuration) : IDataRepository
         var sql = "SELECT * FROM public.paginateUsers(@p_offset, @p_limit,@p_search)";
         var users = await connection.QueryAsync<DataEntity>(sql, parameters);
 
+        await connection.CloseAsync();
         return users.ToList();
     }
 
@@ -139,6 +145,7 @@ public class DataRepository(IConfiguration configuration) : IDataRepository
         var sql = "select * from public.picklist_peripherals";
         var users = await connection.QueryAsync<PeripheralEntity>(sql);
 
+        await connection.CloseAsync();
         return users.ToList();
     }
 }

@@ -27,6 +27,8 @@ public class UserRepository(IConfiguration configuration) : IUserRepository
 
         var user_Id = parameters.Get<string>("p_user_id");
 
+        await connection.CloseAsync();
+
         var user = new UserEntity()
         {
             Id = user_Id,
@@ -52,6 +54,8 @@ public class UserRepository(IConfiguration configuration) : IUserRepository
         string user_Id = parameters.Get<string>("p_user_id");
         string user_role = parameters.Get<string>("p_user_role");
         
+        await connection.CloseAsync();
+
         if (user_Id == null || user_role == null)
             return null;
 
