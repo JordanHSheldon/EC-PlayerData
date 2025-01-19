@@ -1,4 +1,4 @@
-﻿using EsportsProfileWebApi.Web.Orchestrators.Models;
+﻿using EsportsProfileWebApi.Web.Orchestrators.Models.User;
 
 namespace EsportsProfileWebApi.Web.Orchestrators;
 

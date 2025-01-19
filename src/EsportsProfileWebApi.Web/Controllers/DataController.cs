@@ -16,11 +16,11 @@ public class DataController(IDataOrchestrator dataOrchestrator, IMapper mapper) 
 
     [HttpPost]
     [Route("GetPaginatedUserData")]
-    public async Task<List<GetPaginatedUsersResponseDTO>> GetPaginatedUsersAsync(GetPaginatedUsersRequestDTO req)
+    public async Task<List<GetPaginatedUsersResponseDto>> GetPaginatedUsersAsync(GetPaginatedUsersRequestDTO req)
     {
         var request = _mapper.Map<GetPaginatedUsersRequestModel>(req);
         var result = await _dataOrchestrator.GetPaginatedUsersAsync(request);
-        return _mapper.Map<List<GetPaginatedUsersResponseDTO>>(result);
+        return _mapper.Map<List<GetPaginatedUsersResponseDto>>(result);
     }
 
     [Authorize]
@@ -46,21 +46,22 @@ public class DataController(IDataOrchestrator dataOrchestrator, IMapper mapper) 
 
     [Authorize]
     [HttpPost]
-    [Route("UpdateDataById")]
-    public async Task<UpdateDataResponseDTO> UpdateData(UpdateDataRequestDTO updateDataRequestDTO)
+    [Route("UpdateUserPeripherals")]
+    public async Task<UpdateDataResponseDTO> UpdateData(UpdateUserPeripheralsRequestDto request)
     {
-        var request = mapper.Map<UpdateDataRequestModel>(updateDataRequestDTO);
+        var req = mapper.Map<UpdateUserPeripheralsRequest>(request);
         var id = HttpContext?.User?.Claims?.First(c => c.Type == "Id")?.Value;
-        request.Id = id;
-        var result = await _dataOrchestrator.UpdateData(request);
+        int userId = int.Parse(id);
+        req.UserId = userId;
+        var result = await _dataOrchestrator.UpdateUserPeripherals(req);
         return _mapper.Map<UpdateDataResponseDTO>(result);
     }
 
     [HttpPost]
     [Route("GetPeripherals")]
-    public async Task<List<PeripheralDTO>> GetPerihperalsAsync()
+    public async Task<List<PeripheralDto>> GetPeripherals()
     {
         var result = await _dataOrchestrator.GetPeripheralsAsync();
-        return _mapper.Map<List<PeripheralDTO>>(result);
+        return _mapper.Map<List<PeripheralDto>>(result);
     }
 }

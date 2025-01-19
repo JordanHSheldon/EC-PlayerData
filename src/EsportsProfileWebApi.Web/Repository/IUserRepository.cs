@@ -1,7 +1,7 @@
 ﻿namespace EsportsProfileWebApi.Web.Repository;
 
-using EsportsProfileWebApi.Web.Orchestrators.Models;
-using EsportsProfileWebApi.Web.Repository.Entities.User;
+using Orchestrators.Models.User;
+using Entities.User;
 
 public interface IUserRepository
 {

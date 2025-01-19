@@ -14,4 +14,7 @@ public interface IDataOrchestrator
     Task<List<GetPaginatedUsersResponseModel>> GetPaginatedUsersAsync(GetPaginatedUsersRequestModel req);
 
     Task<List<PeripheralModel>> GetPeripheralsAsync();
+    
+    Task<UpdateDataResponseModel> UpdateUserPeripherals(UpdateUserPeripheralsRequest request);
+    
 }

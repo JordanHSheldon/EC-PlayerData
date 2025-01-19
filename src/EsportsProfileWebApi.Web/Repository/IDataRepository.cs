@@ -15,4 +15,6 @@ public interface IDataRepository
     Task<List<DataEntity>> GetPaginatedUsersAsync(GetPaginatedUsersRequestModel req);
 
     Task<List<PeripheralEntity>> GetPeripheralsAsync();
+
+    Task<UpdateDataResponseModel> UpdateUserPeripherals(UpdateUserPeripheralsRequest request);
 }
