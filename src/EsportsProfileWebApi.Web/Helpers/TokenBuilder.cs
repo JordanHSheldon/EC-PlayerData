@@ -1,10 +1,9 @@
-﻿using EsportsProfileWebApi.Web.Responses.User;
+﻿namespace EsportsProfileWebApi.Web.Helpers;
+
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-
-namespace EsportsProfileWebApi.Web.Helpers;
 
 public class TokenBuilder(IConfiguration config)
 {
