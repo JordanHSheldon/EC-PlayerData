@@ -27,7 +27,7 @@ public static class OAuthService
             options.SaveTokens = true;
             options.UserInformationEndpoint = "https://api.github.com/user";
 
-            options.ClaimActions.MapJsonKey("sub","id");
+            options.ClaimActions.MapJsonKey("sub", "id");
             options.ClaimActions.MapJsonKey(ClaimTypes.Name, "login");
             options.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
 
@@ -48,8 +48,8 @@ public static class OAuthService
     public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, WebApplicationBuilder builder)
     {
         var config = builder.Configuration;
-        var key = Encoding.UTF8.GetBytes(config["Authentication:Key"] ?? throw new ArgumentNullException());
-        services.AddAuthentication(x => 
+        var key = Encoding.UTF8.GetBytes(config["Authentication:Key"] ?? throw new());
+        services.AddAuthentication(x =>
         {
             x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -62,8 +62,9 @@ public static class OAuthService
                 ValidIssuer = config["Authentication:Issuer"],
                 ValidAudience = config["Authentication:Audience"],
                 IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = true, ValidateAudience = true, ValidateLifetime = true
-                //, ValidateIssuerSigningKey = true
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true
             };
         });
 

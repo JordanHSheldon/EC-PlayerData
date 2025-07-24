@@ -10,7 +10,7 @@ public static class SwaggerService
         {
             c.SwaggerDoc("v1", new OpenApiInfo
             {
-                Title = "You api title",
+                Title = "Esports Profile API",
                 Version = "v1"
             });
 
@@ -43,6 +43,7 @@ public static class SwaggerService
                  }
             });
         });
+
         return services;
     }
 }

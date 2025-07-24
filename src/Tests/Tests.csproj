@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <StartupObject></StartupObject>
     <PlatformTarget>x64</PlatformTarget>
+    <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
   </PropertyGroup>
 
   <ItemGroup>

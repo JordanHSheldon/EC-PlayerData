@@ -10,10 +10,9 @@ using System.Data;
 
 public class DataRepository(IConfiguration configuration) : IDataRepository
 {
-    private readonly string _connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new NotImplementedException();
+    private readonly string _connectionString = configuration.GetConnectionString("DefaultConnection")
+        ?? throw new NotImplementedException();
 
-    private const string PeripheralsSQL = $"SELECT [picklist_peripheral_id], [picklist_peripheral_type],[picklist_peripheral_name] ,[picklist_peripheral_url] FROM [dbo].[picklist_peripherals]";
-    
     public async Task<UpdateDataResponseModel> UpdateData(UpdateDataRequestModel request)
     {
         await using var connection = new SqlConnection(_connectionString);
@@ -39,27 +38,13 @@ public class DataRepository(IConfiguration configuration) : IDataRepository
         await connection.OpenAsync();
 
         DynamicParameters parameters = new ();
-        parameters.Add("p_id", request.Id, dbType: DbType.Int16);
+        parameters.Add("@username", request.Username, dbType: DbType.String);
 
-        var userProfil = await connection.ExecuteAsync("get_user_profile", parameters, commandType: CommandType.StoredProcedure);
+        var userProfile = await connection.QueryAsync<DataEntity>("getProfileByUsername", parameters, commandType: CommandType.StoredProcedure);
 
         await connection.CloseAsync();
 
-        var userName = parameters.Get<string>("user_name");
-        var mouse = parameters.Get<string>("mouse");
-        var mousePad = parameters.Get<string>("mouse_pad");
-        var headSet = parameters.Get<string>("head_set");
-        var monitor = parameters.Get<string>("monitor");
-        var keyboard = parameters.Get<string>("key_board");
-
-        return new DataEntity{
-            UserName = userName,
-            Mouse = mouse,
-            MousePad = mousePad,
-            HeadSet = headSet,
-            Monitor = monitor,
-            KeyBoard = keyboard
-        };
+        return userProfile.FirstOrDefault() ?? new DataEntity();
     }
     
     public async Task<DataEntity> GetProfileData(GetProfileRequestModel request)
@@ -71,7 +56,7 @@ public class DataRepository(IConfiguration configuration) : IDataRepository
         
         await connection.OpenAsync();
 
-        var userProfile = await connection.QueryAsync<DataEntity>("get_user_peripherals", parameters, commandType: CommandType.StoredProcedure);
+        var userProfile = await connection.QueryAsync<DataEntity>("getProfile", parameters, commandType: CommandType.StoredProcedure);
 
         await connection.CloseAsync();
 
@@ -90,7 +75,7 @@ public class DataRepository(IConfiguration configuration) : IDataRepository
 
         await connection.CloseAsync();
         
-        return users.ToList();
+        return [..users];
     }
 
     public async Task<List<PeripheralEntity>> GetPeripheralsAsync()
@@ -98,10 +83,11 @@ public class DataRepository(IConfiguration configuration) : IDataRepository
         await using var connection = new SqlConnection(_connectionString);
         await connection.OpenAsync();
         
-        var users = await connection.QueryAsync<PeripheralEntity>("get_peripherals", commandType: CommandType.StoredProcedure);
+        var peripherals = await connection.QueryAsync<PeripheralEntity>("get_peripherals", commandType: CommandType.StoredProcedure);
 
         await connection.CloseAsync();
-        return users.ToList();
+
+        return [..peripherals];
     }
 
     public async Task<UpdateDataResponseModel> UpdateUserPeripherals(UpdateUserPeripheralsRequest request)
@@ -117,14 +103,13 @@ public class DataRepository(IConfiguration configuration) : IDataRepository
         {
             table.Rows.Add(request.UserId, peripheralId);
         }
-        await connection.ExecuteAsync("update_user_peripherals", 
-            new { newPeripherals = table.AsTableValuedParameter("dbo.InsertPeripheralsType") }, 
+        
+        await connection.ExecuteAsync("update_user_peripherals",
+            new { newPeripherals = table.AsTableValuedParameter("dbo.InsertPeripheralsType") },
             commandType: CommandType.StoredProcedure);
         
         await connection.CloseAsync();
+
         return new UpdateDataResponseModel { IsSuccessful = true };
     }
-
-    
-    
 }
